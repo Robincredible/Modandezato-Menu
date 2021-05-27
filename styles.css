@@ -46,7 +46,7 @@ html,
 body{
 	box-sizing: border-box;
 	position: relative;
-	font-family: "Cocomat Light";
+	font-family: "Cocomat Light", sans-serif;
 	color: #202020;
 	margin: 0;
 	padding: 0;
