@@ -496,8 +496,8 @@ img{
 }
 
 .order-form-container p{
-	font-weight: bold;
-	font-family: "Cocomat Light";
+	font-weight: 600;
+	font-family: "Cocomat Light", Roboto, sans-serif;
 	width: 100%;
 	max-width: 100%;
 	word-break: all;
