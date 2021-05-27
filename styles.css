@@ -50,6 +50,11 @@ body{
 	color: #202020;
 	margin: 0;
 	padding: 0;
+	overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, p{
+	word-break: word-break;
 }
 
 h1,h2,h3,h4{
@@ -81,6 +86,7 @@ img{
 	margin:  0 auto;
 	width: 100%;
 	position: relative;
+	box-sizing: border-box;
 }
 
 /* header circles */
@@ -483,9 +489,18 @@ img{
 
 /* order form */
 
+.order-form-container{
+	width: 100%;
+	max-width: 100%;
+	word-break: all;
+}
+
 .order-form-container p{
 	font-weight: bold;
 	font-family: "Cocomat Light";
+	width: 100%;
+	max-width: 100%;
+	word-break: all;
 }
 
 .order-form-container p.light{
@@ -537,4 +552,148 @@ img{
 	transform: scaleX(1) scaleY(-1) ;
 	max-height: 500px;
 	opacity: 0.5;
+}
+
+@media screen and (max-width: 1350px){
+
+	.container{
+		padding: 0px 20px;
+	}
+
+}
+
+@media screen and (max-width: 1024px){
+
+	.circles-container:before{
+		right: -10%;
+		top:  -110%;
+	}
+
+	.item-container{
+		flex-basis: 40%;
+	}
+
+}
+
+@media screen and (max-width: 992px){
+	.circles-container .circle.pink{
+		top: 75%;
+    	right: 75%;
+	}
+
+	.circles-container .circle.yellow{
+		top: 65%;
+    	right: 65%;
+	}
+}
+
+@media screen and (max-width: 800px){
+	.item-container:nth-child(odd) .image-container:after,
+	.item-container:nth-child(even) .image-container:after,
+	.item-container .image{
+		max-width: 250px;
+		max-height: 250px;
+	}
+}
+
+@media screen and (max-width: 768px){
+	.item-container:nth-child(odd) .image-container:after,
+	.item-container:nth-child(even) .image-container:after,
+	.item-container .image{
+		max-width: 200px;
+		max-height: 200px;
+	}
+
+	.our-products-header{
+		flex-wrap: wrap;
+	}
+}
+
+@media screen and (max-width: 600px){
+
+	.item-container:nth-child(odd) .image-container:after,
+	.item-container:nth-child(even) .image-container:after,
+	.item-container .image{
+		max-width: 320px;
+		max-height: 320px;
+	}
+
+	.item-container{
+		flex-basis: 100%;
+		justify-content: center;
+	}
+
+	.item-container .image,
+	.items-container .info{
+		margin: 0 auto;
+	}
+
+	.item-container:nth-child(1) .image-container:after,
+	.item-container:nth-child(3) .image-container:after,
+	.item-container:nth-child(4) .image-container:after,
+	.item-container:nth-child(5) .image-container:after,
+	.item-container .item .image-container:hover:after{
+		left: 50%;
+		transform: translateX(-50%);
+	}
+
+	.item-container:nth-child(2) .image-container:after{
+		left: 52%;
+		transform: translateX(-52%);
+	}
+
+}
+
+@media screen and (max-width: 550px){
+	.circles-container:before{
+		right: -40%;
+    	top: -90%;
+	}
+}
+
+@media screen and (max-width: 460px){
+	.circles-container .circle.pink{
+		top: 85%;
+    	right: 85%;
+	}
+
+	.circles-container .circle.yellow{
+		top: 75%;
+    	right: 75%;
+	}
+}
+
+@media screen and (max-width: 420px){
+	.circles-container .circle.pink{
+		top: 95%;
+    	right: 95%;
+	}
+
+	.circles-container .circle.yellow{
+		top: 85%;
+    	right: 85%;
+	}
+
+	.dropdown select{
+		font-size: 12pt;
+	}
+}
+
+@media screen and (max-width: 360px){
+
+	.item-container:nth-child(odd) .image-container:after,
+	.item-container:nth-child(even) .image-container:after,
+	.item-container .image{
+		max-width: 250px;
+		max-height: 250px;
+	}
+
+	.circles-container:before{
+		right: -60%;
+    	top: -100%;
+	}
+
+	.dropdown select{
+		font-size: 10pt;
+	}
 }
