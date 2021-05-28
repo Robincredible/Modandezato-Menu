@@ -26,15 +26,18 @@ function copy_order_form(){
     let input = document.createElement("textarea");
 
     if(copyText){
-    	input.value = copyText.textContent;
+    	input.value = strip_whitespaces(copyText.textContent);
 	    document.body.appendChild(input);
-	    input.value.trim();
 	    input.select();
 	    document.execCommand("Copy");
 	    input.remove();
 
 	    alert("Order Form Copied!")
     }
+}
+
+function strip_whitespaces(string){
+	return string.replace(/\t+/g, "");
 }
 
 function float_circles(){
