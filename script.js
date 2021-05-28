@@ -1,50 +1,28 @@
-// Multiple event listener
-function addListenerMulti(element, eventNames, listener) {
+function startup(){
+	add_event_listeners();
+}
 
-  var events = eventNames.split(' ');
-  for (var i=0, iLen=events.length; i<iLen; i++) {
-    element.addEventListener(events[i], listener, false);
-  }
+document.addEventListener("DOMContentLoaded", startup);
+
+function add_event_listeners(){
+
+	console.log("woah");
+
+	const circlesCount = document.querySelectorAll('.circle').length;
+	let circle;
+
+	for (let i = 0; i <= circlesCount; i++){
+
+		console.log("yo " + circle);
+
+		circle = document.querySelectorAll('.circle')[i];
+		circle.addEventListener("click", float_circles);
+
+
+	}
 
 }
 
-addListenerMulti(window, 'click keydown touchstart touchmove', lazyLoad);
-
-// Run after the HTML document has finished loading
-function lazyLoad(){
-  // Get our lazy-loaded images
-  var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
-
-  // Do this only if IntersectionObserver is supported
-  if ("IntersectionObserver" in window) {
-
-  // Create new observer object
-	  let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
-	      // Loop through IntersectionObserverEntry objects
-	      entries.forEach(function(entry) {
-
-	        // Do these if the target intersects with the root
-	        if (entry.isIntersecting) {
-
-	          let lazyImage = entry.target;
-	          lazyImage.src = lazyImage.dataset.src;
-	          lazyImage.classList.remove("lazy");
-	          lazyImageObserver.unobserve(lazyImage);
-	        }
-
-	        else{
-	        	
-	        	 let lazyImage = entry.target;
-	          lazyImage.src = lazyImage.dataset.src;
-	          lazyImage.classList.remove("lazy");
-	          lazyImageObserver.unobserve(lazyImage);
-	        }
-	      });
-	  });
-
-      // Loop through and observe each image
-	  lazyImages.forEach(function(lazyImage) {
-	    lazyImageObserver.observe(lazyImage);
-	  });
-	}
+function float_circles(){
+	this.classList.add("float");
 }
