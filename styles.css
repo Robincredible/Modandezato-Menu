@@ -977,6 +977,15 @@ img{
 	.dropdown select{
 		font-size: 12pt;
 	}
+
+	.content-footer-gap .right-circles .circles-container .circle.pink{
+		top: -300%;
+	}
+
+	.content-footer-gap .right-circles .circles-container .circle.yellow{
+		top: -250%;
+	}
+
 }
 
 @media screen and (max-width: 360px){
@@ -996,4 +1005,13 @@ img{
 	.dropdown select{
 		font-size: 10pt;
 	}
+
+	.content-footer-gap .right-circles .circles-container .circle.pink{
+		top: -325%;
+	}
+
+	.content-footer-gap .right-circles .circles-container .circle.yellow{
+		top: -280%;
+	}
+
 }
