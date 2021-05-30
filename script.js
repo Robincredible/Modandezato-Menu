@@ -82,10 +82,11 @@ function modal(){
 		const thisItem = this;
 
 		let currentSelect = thisItem.parentElement.parentElement.querySelector('.product-name').textContent;
+		let currentSelectDesc = thisItem.parentElement.parentElement.querySelector('.product-desc').textContent;
 		let currentSelectImage = thisItem.parentElement.parentElement.querySelector('.image img').src;
 		console.log(currentSelectImage);
 
-		modal_open(currentSelect, currentSelectImage);
+		modal_open(currentSelect, currentSelectImage, currentSelectDesc);
 
 		});
 	} 
@@ -99,8 +100,10 @@ function modal_open(name, image, info){
 	const modal = document.querySelector('.modal-container');
 	const imageModal = document.querySelector('.modal-image-container img');
 	const modalHeading = document.querySelector('.modal-heading');
+	const modalDesc = document.querySelector('.modal-description');
 	imageModal.src =  image;
 	modalHeading.textContent = name;
+	modalDesc.textContent = info;
 	modal.classList.add('active');
 
 }

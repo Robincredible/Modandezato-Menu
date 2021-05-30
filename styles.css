@@ -530,6 +530,10 @@ img{
 	margin: 30px auto 10px;
 }
 
+.items-container .product-desc{
+	display: none;
+}
+
 .items-container .box-price{
 	color: #e3ad86;
 }
