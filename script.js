@@ -1,5 +1,6 @@
 function startup(){
 	add_event_listeners();
+	modal();
 }
 
 document.addEventListener("DOMContentLoaded", startup);
@@ -69,6 +70,46 @@ function collections_change(text){
 	
 }
 
+function modal(){
+	const closeModal = document.querySelector('.close-modal');
+	const imageCount = document.querySelectorAll('.image').length;
+	let openModal;
+	
+	for (let j = 0; j < imageCount; j++){
+		openModal = document.querySelectorAll('.image')[j];
+		openModal.addEventListener('click', function(){
+
+		const thisItem = this;
+
+		let currentSelect = thisItem.parentElement.parentElement.querySelector('.product-name').textContent;
+		let currentSelectImage = thisItem.parentElement.parentElement.querySelector('.image img').src;
+		console.log(currentSelectImage);
+
+		modal_open(currentSelect, currentSelectImage);
+
+		});
+	} 
+
+	closeModal.addEventListener("click", modal_close);
+
+}
+
+function modal_open(name, image, info){
+
+	const modal = document.querySelector('.modal-container');
+	const imageModal = document.querySelector('.modal-image-container img');
+	const modalHeading = document.querySelector('.modal-heading');
+	imageModal.src =  image;
+	modalHeading.textContent = name;
+	modal.classList.add('active');
+
+}
+
+function modal_close(){
+	const modal = document.querySelector('.modal-container');
+	modal.classList.remove('active');
+}
+
 //copy order form button
 function copy_order_form(){
     const copyText = document.querySelector("#order-form");
@@ -126,19 +167,16 @@ function dice_roll(){
 
 	if (this.classList.contains('circulate')){
 		this.classList.remove("circulate");
-		this.attr('style');
+		//this.attr('style').remove();
 	}
 
 	else{
 		this.classList.add("circulate");
-		this.style.transition = '0.3s';
-		this.style.transform = 'rotate('+ (getCurrentRotation(this) * 3) +'deg)';
+		// this.style.transition = '0.3s';
+		//this.style.transform = 'rotate('+ (getCurrentRotation(this)) +'deg)';
 	}
 
-	this.addEventListener("transitionend", dice_roll);
-
-	console.log(getCurrentRotation(this));
-
+	this.addEventListener("animationend", dice_roll);
 }
 
 //get current rotation
