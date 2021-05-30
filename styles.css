@@ -624,6 +624,23 @@ img{
     border-radius: 100%;
 }
 
+/* collections */
+
+.signature-collection,
+.deluxe-collection{
+	opacity: 0;
+	pointer-events: none;
+	transition: 0.3s;
+	height: 0;
+}
+
+.signature-collection.active,
+.deluxe-collection.active{
+	opacity: 1;
+	pointer-events: all;
+	height: 100%;
+}
+
 /* separator */
 
 .separator{

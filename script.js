@@ -26,14 +26,52 @@ function add_event_listeners(){
 	} 
 
 	/* copy */
-	const copyButton = document.querySelector('.copy-button');
+	const copyButton = document.querySelector('.copy-button p');
 	copyButton.addEventListener("click", copy_order_form);
 
+	/* dropdown */
+	let dropdown = document.querySelector('#product-categories');
+
+	dropdown.addEventListener("change", function(){
+		let selectedOption = this[this.selectedIndex];
+		let text = selectedOption.text;
+
+		collections_change( filter_text_from_string("Categories:", text) );
+
+	});
+
+}
+
+function filter_text_from_string(text,string){
+	let filtered = string.replace(text, "");
+	return filtered;
+}
+
+//dropdown change
+function collections_change(text){
+	let collectionID = text.replace(/\s/g, "").replace("Collection", "-Collection").toLowerCase();
+	let collectionsContainer = document.querySelector(".collections ." + collectionID );
+
+	if (collectionsContainer.previousElementSibling.classList.contains("active") ){
+		collectionsContainer.previousElementSibling.classList.remove("active");
+		collectionsContainer.classList.add("active");
+	}
+
+	else if (collectionsContainer.nextElementSibling.classList.contains("active") ){
+		collectionsContainer.classList.add("active");
+		collectionsContainer.nextElementSibling.classList.remove("active");
+	}
+
+	else{
+		collectionsContainer.previousElementSibling.classList.remove("active");
+		collectionsContainer.classList.add("active");	
+	}
+	
 }
 
 //copy order form button
 function copy_order_form(){
-    const copyText = document.querySelector("#order-form");  
+    const copyText = document.querySelector("#order-form");
     let input = document.createElement("textarea");
 
     if(copyText){
@@ -44,7 +82,6 @@ function copy_order_form(){
 	    input.remove();
 
 	    confirm_copy();
-	    //alert("Order Form Copied!");
     }
 }
 
