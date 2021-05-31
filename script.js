@@ -104,6 +104,7 @@ function modal_open(name, image, info, price){
 	const modalPrice = document.querySelector('.modal-price');
 
 	imageModal.src =  image;
+	imageModal.alt =  name;
 	modalHeading.textContent = name;
 	modalDesc.textContent = info;
 	modalPrice.textContent = price;
