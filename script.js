@@ -127,7 +127,7 @@ function copy_order_form(){
     const products = orderForm.querySelector("input[name='order-product-flavor']");
     const quantity = orderForm.querySelector("input[name='order-quantity']");
     const schedule = orderForm.querySelector("input[name='order-schedule']");
-    const modeOfPayment = orderForm.querySelector("input[name='order-mode-of-payment']");
+    const modeOfPayment = orderForm.querySelector("input[type='radio'][name='order-mode-of-payment']:checked");
 
     //form labels
     const label_name = name.previousElementSibling.textContent;
@@ -136,7 +136,7 @@ function copy_order_form(){
     const label_products = products.previousElementSibling.textContent;
     const label_quantity = quantity.previousElementSibling.textContent;
     const label_schedule = schedule.previousElementSibling.textContent;
-    const label_modeOfPayment = modeOfPayment.previousElementSibling.textContent;
+    const label_modeOfPayment = modeOfPayment.parentElement.previousElementSibling.textContent;
 
     //form labels + values
     let order = label_name + " " + name.value + '\n';

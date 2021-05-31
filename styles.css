@@ -1034,6 +1034,10 @@ img{
 	margin-bottom: 40px;
 }
 
+.address b{
+	color: #606060;
+}
+
 .order-form > div{
 	display: flex;
 	flex-wrap: wrap;
@@ -1048,6 +1052,7 @@ img{
 .order-form > div > p,
 .order-form > div > input{
 	flex-basis: 100%;
+	background: transparent;
 }
 
 .order-form > div > input,

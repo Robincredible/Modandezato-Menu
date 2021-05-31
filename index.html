@@ -257,10 +257,10 @@
 						</div>
 						<div class="contact-number">
 							<p>Contact Number:</p>
-							<input id="order-number" name="order-number" type="text" />
+							<input id="order-number" name="order-number" type="tel" />
 						</div>
 						<div class="address">
-							<p>Address (Please attach a <a href="https://www.google.com/maps" target="_blank">google map</a>—just find your address, click the share button and then copy link!):</p>
+							<p>Address (Please attach a <a href="https://www.google.com/maps" target="_blank">google map</a><i>—just find your address, click the <b>share button</b> and then <b>copy link</b>!):</i></p>
 							<input id="order-address" name="order-address" type="text" />
 						</div>
 						<div class="product-flavor">
@@ -273,11 +273,18 @@
 						</div>
 						<div class="schedule-of-delivery">
 							<p>Schedule of Delivery:</p>
-							<input id="order-schedule" name="order-schedule" type="text" />
+							<input id="order-schedule" name="order-schedule" type="date" />
 						</div>
 						<div class="mode-of-payment">
-							<p>Mode of Payment (BPI/BDO/Gcash):</p>
-							<input id="order-mode-of-payment" name="order-mode-of-payment" type="text" />
+							<p>Mode of Payment (BPI/BDO/GCash):</p>
+							<div class="mode-of-payment-selection">
+								<input id="order-bpi" name="order-mode-of-payment" type="radio" value="BPI" />
+								<label for="BPI">BPI</label>
+								<input id="order-bdo" name="order-mode-of-payment" type="radio" value="BDO"/>
+								<label for="BDO">BDO</label>
+								<input id="order-gcash " name="order-mode-of-payment" type="radio" value="GCash"/>
+								<label for="GCash">GCash</label>
+							</div>
 						</div>
 					</div>
 				</form>
