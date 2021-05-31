@@ -1034,6 +1034,11 @@ img{
 	margin-bottom: 40px;
 }
 
+.order-form label{
+	font-size: 16pt;
+	font-weight: bold;
+}
+
 .address b{
 	color: #606060;
 }
