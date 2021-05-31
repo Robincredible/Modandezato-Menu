@@ -1368,6 +1368,10 @@ img{
 		justify-content: center;
 	}
 
+	.modal-content-container{
+		max-height: 90%;
+	}
+
 	.modal-image-container{
 		max-height: 300px;
 	}
