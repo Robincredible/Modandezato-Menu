@@ -575,7 +575,7 @@ img{
 	position: relative;
 	transition: 1s;
 	cursor: grab;
-	z-index: 0;
+	z-index: 1;
 	/*animation:  10s swell forwards, 20s wiggle forwards;*/
 }
 
@@ -1104,12 +1104,12 @@ img{
 	padding: 14px 24px;
 	font-size: 12pt;
 	font-weight: 600;
-	top:  -100px;
+	top: -100px;
 	transition: 0.6s;
 	pointer-events: none;
 	opacity: 0;
 	max-width: max-content;
-	color:  #ffffff;
+	color: #ffffff;
 }
 
 .confirm-bubble.confirming{
