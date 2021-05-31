@@ -84,9 +84,9 @@ function modal(){
 		let currentSelect = thisItem.parentElement.parentElement.querySelector('.product-name').textContent;
 		let currentSelectDesc = thisItem.parentElement.parentElement.querySelector('.product-desc').textContent;
 		let currentSelectImage = thisItem.parentElement.parentElement.querySelector('.image img').src;
-		console.log(currentSelectImage);
+		let currentSelectPrice = thisItem.parentElement.parentElement.querySelector('.box-price').textContent;
 
-		modal_open(currentSelect, currentSelectImage, currentSelectDesc);
+		modal_open(currentSelect, currentSelectImage, currentSelectDesc, currentSelectPrice);
 
 		});
 	} 
@@ -95,15 +95,18 @@ function modal(){
 
 }
 
-function modal_open(name, image, info){
+function modal_open(name, image, info, price){
 
 	const modal = document.querySelector('.modal-container');
 	const imageModal = document.querySelector('.modal-image-container img');
 	const modalHeading = document.querySelector('.modal-heading');
 	const modalDesc = document.querySelector('.modal-description');
+	const modalPrice = document.querySelector('.modal-price');
+
 	imageModal.src =  image;
 	modalHeading.textContent = name;
 	modalDesc.textContent = info;
+	modalPrice.textContent = price;
 	modal.classList.add('active');
 
 }
