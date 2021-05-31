@@ -35,7 +35,7 @@
 	    <div class="bubble x9"></div>
 	</div>
 
-	<div class="modal-container">
+	<div class="modal-container active">
 		<div class="modal-content-container">
 			<div class="close-modal"><div class="close-inner">+</div></div>
 			<div class="modal-content">
@@ -44,9 +44,14 @@
 				</div>
 				<div class="modal-info-container">
 					<div class="modal-info">
-						<h1 class="modal-heading">Name</h1>
-						<h3 class="modal-price">300PHP</h3>
+						<h1 class="modal-heading">Product Name</h1>
+						<h3 class="modal-price">300 PHP</h3>
 						<p class="modal-description">Roquefort feta bocconcini. Dolcelatte edam stinking bishop pepper jack smelly cheese camembert de normandie cheese on toast red leicester. Melted cheese paneer jarlsberg cheese strings melted cheese babybel cheese strings pepper jack. Swiss paneer monterey jack.</p>
+						<div class="addToCartContainer">
+							<div class="quantityCart"><input type="Number" value="1"/></div>
+							<div class="addToCart" id="addToCart"><p>Add to Order</p></div>
+						</div>
+						<div class="added"><p>Product added! Check the order form below! </p></div>
 					</div>
 				</div>
 			</div>
@@ -260,16 +265,12 @@
 							<input id="order-number" name="order-number" type="tel" />
 						</div>
 						<div class="address">
-							<p>Address (Please attach a <a href="https://www.google.com/maps" target="_blank">google map</a><i>—just find your address, click the <b>share button</b> and then <b>copy link</b>!):</i></p>
+							<p>Address <span>(Please attach a <a href="https://www.google.com/maps" target="_blank">google map</a> link)</i></span>:</p>
 							<input id="order-address" name="order-address" type="text" />
 						</div>
-						<div class="product-flavor">
-							<p>Product and Flavor:</p>
-							<input id="order-product-flavor" name="order-product-flavor" type="text" />
-						</div>
-						<div class="quantity">
-							<p>Quantity:</p>
-							<input id="order-quantity" name="order-quantity" type="text" />
+						<div class="product-quantity">
+							<p class="with-numbers">Product and Quantity (i.e. <span>1</span> - Assorted Box of <span>6</span>, etc...):</p>
+							<textarea resize="none" id="order-product-quantity" name="order-product-quantity" row="1"></textarea>
 						</div>
 						<div class="schedule-of-delivery">
 							<p>Schedule of Delivery:</p>

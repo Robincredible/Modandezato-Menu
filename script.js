@@ -41,6 +41,29 @@ function add_event_listeners(){
 
 	});
 
+	/* add to cart */
+	const addToCartButton = document.querySelector('#addToCart');
+	const textArea = document.querySelector('#order-product-quantity');
+	let addToCartClicks = 0;
+	
+	addToCartButton.addEventListener('click', function(){
+
+		const quantityField = document.querySelector('.quantityCart input');
+
+		let thisProduct = this.parentElement.parentElement.querySelector('.modal-heading').textContent;
+		let thisProductPrice = this.parentElement.parentElement.querySelector('.modal-price').textContent;
+		let thisProductQuantity = this.parentElement.parentElement.querySelector('.quantityCart input').value;
+
+		add_to_cart(thisProductQuantity, thisProduct, thisProductPrice);
+
+		addToCartClicks ++;
+
+		if (addToCartClicks > 2){
+			textArea.rows += 1;
+		}
+
+	});
+
 }
 
 function filter_text_from_string(text,string){
@@ -95,6 +118,20 @@ function modal(){
 
 }
 
+function add_to_cart(quantity, name, price){
+
+	const productQuantity = document.querySelector('.product-quantity textarea');
+	const added = document.querySelector('.added');
+
+	productQuantity.textContent += quantity + " - " + name + " " + price + '\n';
+	added.classList.add('shown');
+
+	setTimeout( function(){
+		added.classList.remove('shown');
+	}, 1500)
+
+}
+
 function modal_open(name, image, info, price){
 
 	const modal = document.querySelector('.modal-container');
@@ -114,6 +151,10 @@ function modal_open(name, image, info, price){
 
 function modal_close(){
 	const modal = document.querySelector('.modal-container');
+	const added = document.querySelector('.added');
+	const productQuantity = document.querySelector('.quantityCart input');
+	productQuantity.value = 1;
+	added.classList.remove('shown');
 	modal.classList.remove('active');
 }
 
@@ -124,8 +165,7 @@ function copy_order_form(){
     const name = orderForm.querySelector("input[name='order-name']");
     const number = orderForm.querySelector("input[name='order-number']");
     const address = orderForm.querySelector("input[name='order-address']");
-    const products = orderForm.querySelector("input[name='order-product-flavor']");
-    const quantity = orderForm.querySelector("input[name='order-quantity']");
+    const products = orderForm.querySelector("textarea[name='order-product-quantity']");
     const schedule = orderForm.querySelector("input[name='order-schedule']");
     const modeOfPayment = orderForm.querySelector("input[type='radio'][name='order-mode-of-payment']");
     const modeOfPaymentChecked = orderForm.querySelector("input[type='radio'][name='order-mode-of-payment']:checked") || 'Waley';
@@ -135,16 +175,14 @@ function copy_order_form(){
     const label_number = number.previousElementSibling.textContent;
     const label_address = address.previousElementSibling.textContent;
     const label_products = products.previousElementSibling.textContent;
-    const label_quantity = quantity.previousElementSibling.textContent;
     const label_schedule = schedule.previousElementSibling.textContent;
     const label_modeOfPayment = modeOfPayment.parentElement.previousElementSibling.textContent;
 
     //form labels + values
     let order = label_name + " " + name.value + '\n';
     		order += label_number + " " + number.value + '\n';
-    		order += label_address + " " + address.value + '\n';
-    		order += label_products + " " + products.value + '\n';
-    		order += label_quantity + " " + quantity.value + '\n';
+    		order += label_address + " \n" + address.value + '\n\n';
+    		order += label_products + " \n" + products.value + '\n';
     		order += label_schedule + " " + schedule.value + '\n';
     		order += label_modeOfPayment + " " + modeOfPaymentChecked.value;
 
