@@ -841,17 +841,17 @@ img{
 
 .item-container .image .quick-view{
 	position: absolute;
-    opacity: 0;
-    left: 50%;
-    top: 50%;
-    z-index: 2;
-    font-size: 30pt;
-    color: #ffffff;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+  opacity: 0;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  font-size: 30pt;
+  color: #ffffff;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  text-shadow: 2px -1px 10px rgb(0 0 0 / 20%);
 }
 
 .item-container .image:hover .quick-view{
@@ -863,7 +863,7 @@ img{
 .item-container .image:hover .img-hover{
 	content: "";
 	background: #fea88d;
-	opacity: 0.5;
+	opacity: 0.65;
 	position: absolute;
 	max-width: inherit;
 	max-height: inherit;
