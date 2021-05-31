@@ -119,11 +119,38 @@ function modal_close(){
 
 //copy order form button
 function copy_order_form(){
-    const copyText = document.querySelector("#order-form");
+		//form input elements
+    const orderForm = document.querySelector("#order-form");
+    const name = orderForm.querySelector("input[name='order-name']");
+    const number = orderForm.querySelector("input[name='order-number']");
+    const address = orderForm.querySelector("input[name='order-address']");
+    const products = orderForm.querySelector("input[name='order-product-flavor']");
+    const quantity = orderForm.querySelector("input[name='order-quantity']");
+    const schedule = orderForm.querySelector("input[name='order-schedule']");
+    const modeOfPayment = orderForm.querySelector("input[name='order-mode-of-payment']");
+
+    //form labels
+    const label_name = name.previousElementSibling.textContent;
+    const label_number = number.previousElementSibling.textContent;
+    const label_address = address.previousElementSibling.textContent;
+    const label_products = products.previousElementSibling.textContent;
+    const label_quantity = quantity.previousElementSibling.textContent;
+    const label_schedule = schedule.previousElementSibling.textContent;
+    const label_modeOfPayment = modeOfPayment.previousElementSibling.textContent;
+
+    //form labels + values
+    let order = label_name + " " + name.value + '\n';
+    		order += label_number + " " + number.value + '\n';
+    		order += label_address + " " + address.value + '\n';
+    		order += label_products + " " + products.value + '\n';
+    		order += label_quantity + " " + quantity.value + '\n';
+    		order += label_schedule + " " + schedule.value + '\n';
+    		order += label_modeOfPayment + " " + modeOfPayment.value;
+
     let input = document.createElement("textarea");
 
-    if(copyText){
-    	input.value = strip_whitespaces(copyText.textContent);
+    if(order){
+    	input.value = strip_whitespaces(order);
 	    document.body.appendChild(input);
 	    input.select();
 	    document.execCommand("Copy");

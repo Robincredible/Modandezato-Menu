@@ -248,16 +248,39 @@
 
 			<div class="order-form-container">
 				<h2>Fill up this order form and DM it to us!</h2>
-				<h2>Order Form</h2>
-				<div id="order-form" class="order-form">
-					<p>Full Name:</p>
-					<p>Contact Number:</p>
-					<p>Address (Please attach a google map link):</p>
-					<p>Product and Flavor:</p>
-					<p>Quantity:</p>
-					<p>Schedule of Delivery:</p>
-					<p>Mode of Payment (BPI/BDO/Gcash):</p>
-				</div>
+				<h2 class="form-heading">Order Form</h2>
+				<form class="form-proper" autocomplete="on">
+					<div id="order-form" class="order-form">
+						<div class="full-name">
+							<p>Full Name:</p>
+							<input id="order-name" name="order-name" type="text" />
+						</div>
+						<div class="contact-number">
+							<p>Contact Number:</p>
+							<input id="order-number" name="order-number" type="text" />
+						</div>
+						<div class="address">
+							<p>Address (Please attach a <a href="https://www.google.com/maps" target="_blank">google map</a>—just find your address, click the share button and then copy link!):</p>
+							<input id="order-address" name="order-address" type="text" />
+						</div>
+						<div class="product-flavor">
+							<p>Product and Flavor:</p>
+							<input id="order-product-flavor" name="order-product-flavor" type="text" />
+						</div>
+						<div class="quantity">
+							<p>Quantity:</p>
+							<input id="order-quantity" name="order-quantity" type="text" />
+						</div>
+						<div class="schedule-of-delivery">
+							<p>Schedule of Delivery:</p>
+							<input id="order-schedule" name="order-schedule" type="text" />
+						</div>
+						<div class="mode-of-payment">
+							<p>Mode of Payment (BPI/BDO/Gcash):</p>
+							<input id="order-mode-of-payment" name="order-mode-of-payment" type="text" />
+						</div>
+					</div>
+				</form>
 
 				<div class="copy-button">
 					<p>Copy Order Form</p>
@@ -267,9 +290,11 @@
 				</div>
 
 				<div class="order-extra-details">
-					<p class="light">Bank details will be sent once order confirmation has already been issued. All orders will only be processed upon receipt of proof of payment. Please send a copy of any proof of payment on Instagram or Facebook.</p>
+					<p class="light">Bank details will be sent once order confirmation has already been issued. All orders will only be processed upon receipt of proof of payment. Please send a copy of any proof of payment on <a href="https://www.instagram.com/modandezato">Instagram</a> or <a href="https://www.facebook.com/modandezato">Facebook.</a></p>
 
 					<p class="light">We deliver via Grab, Mr Speedy and Lalamove (Shipping fee c/o of the customer). All orders received will be delivered the following day.</p>
+
+					<p class="light">Thank you so much!</p>
 				</div>
 
 				<div class="socmed">
