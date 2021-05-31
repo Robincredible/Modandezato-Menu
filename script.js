@@ -126,9 +126,9 @@ function add_to_cart(quantity, name, price){
 	productQuantity.textContent += quantity + " - " + name + " " + price + '\n';
 	added.classList.add('shown');
 
-	setTimeout( function(){
+	setTimeout( () => {
 		added.classList.remove('shown');
-	}, 1500)
+	}, 1500);
 
 }
 
@@ -164,7 +164,7 @@ function copy_order_form(){
     const orderForm = document.querySelector("#order-form");
     const name = orderForm.querySelector("input[name='order-name']");
     const number = orderForm.querySelector("input[name='order-number']");
-    const address = orderForm.querySelector("input[name='order-address']");
+    const address = orderForm.querySelector("textarea[name='order-address']");
     const products = orderForm.querySelector("textarea[name='order-product-quantity']");
     const schedule = orderForm.querySelector("input[name='order-schedule']");
     const modeOfPayment = orderForm.querySelector("input[type='radio'][name='order-mode-of-payment']");
@@ -196,8 +196,12 @@ function copy_order_form(){
 	    input.remove();
 
 	    confirm_copy();
-	    scroll_to_socmed();
-	    dm_us();
+
+	    setTimeout( () => {
+	    	scroll_to_socmed();
+	      dm_us();
+	    }, 2000);
+	    
     }
 }
 
