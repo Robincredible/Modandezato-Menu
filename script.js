@@ -127,7 +127,8 @@ function copy_order_form(){
     const products = orderForm.querySelector("input[name='order-product-flavor']");
     const quantity = orderForm.querySelector("input[name='order-quantity']");
     const schedule = orderForm.querySelector("input[name='order-schedule']");
-    const modeOfPayment = orderForm.querySelector("input[type='radio'][name='order-mode-of-payment']:checked");
+    const modeOfPayment = orderForm.querySelector("input[type='radio'][name='order-mode-of-payment']");
+    const modeOfPaymentChecked = orderForm.querySelector("input[type='radio'][name='order-mode-of-payment']:checked") || 'Waley';
 
     //form labels
     const label_name = name.previousElementSibling.textContent;
@@ -145,7 +146,7 @@ function copy_order_form(){
     		order += label_products + " " + products.value + '\n';
     		order += label_quantity + " " + quantity.value + '\n';
     		order += label_schedule + " " + schedule.value + '\n';
-    		order += label_modeOfPayment + " " + modeOfPayment.value;
+    		order += label_modeOfPayment + " " + modeOfPaymentChecked.value;
 
     let input = document.createElement("textarea");
 
@@ -157,6 +158,8 @@ function copy_order_form(){
 	    input.remove();
 
 	    confirm_copy();
+	    scroll_to_socmed();
+	    dm_us();
     }
 }
 
@@ -176,9 +179,30 @@ function confirm_copy(){
 
 }
 
+function dm_us(){
+	const chatBubble = document.querySelector('.socmed-bubble');
+
+	if (chatBubble.classList.contains('dm-us')){
+		chatBubble.classList.remove("dm-us");
+	}
+
+	else{
+		chatBubble.classList.add("dm-us");
+		setTimeout(() => {chatBubble.classList.remove("dm-us")}, 6000);
+	}
+
+}
+
 //sanitize copied texts
 function strip_whitespaces(string){
 	return string.replace(/\t+/g, "");
+}
+
+function scroll_to_socmed(){
+	const socmed = document.querySelector('.socmed');
+	const topPos = socmed.offsetTop - 80;
+
+	window.scrollTo(0, topPos);
 }
 
 //add/remove "float" class
