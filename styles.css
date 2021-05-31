@@ -1032,6 +1032,7 @@ img{
 
 .order-form{
 	margin-bottom: 40px;
+	overflow: hidden;
 }
 
 .order-form label{
