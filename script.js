@@ -200,7 +200,7 @@ function strip_whitespaces(string){
 
 function scroll_to_socmed(){
 	const socmed = document.querySelector('.socmed');
-	const topPos = socmed.offsetTop - 80;
+	const topPos = socmed.offsetTop - 400;
 
 	window.scrollTo(0, topPos);
 }
