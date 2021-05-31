@@ -1723,7 +1723,7 @@ input[type=number]::-webkit-inner-spin-button {
 	}
 
 	.added{
-		bottom: 25px;
+		bottom: 20px;
 	}
 
 	.added p{
@@ -1806,7 +1806,7 @@ input[type=number]::-webkit-inner-spin-button {
 
 	.added{
 		top: auto;
-		bottom: 15px;
+		bottom: 10px;
 		font-size: 10pt;
 	}
 
