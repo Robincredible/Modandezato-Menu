@@ -1,6 +1,5 @@
 function startup(){
 	add_event_listeners();
-	tap_here();
 	modal();
 }
 
@@ -9,6 +8,13 @@ document.addEventListener("DOMContentLoaded", startup);
 function add_event_listeners(){
 
 	//Main Function
+
+	//tap
+	setTimeout(()=>{ tap_here_add() }, 2000);
+	setTimeout(()=>{ tap_here_remove() }, 8000);
+
+	document.addEventListener('scroll', tap_here_remove);
+	document.addEventListener('click', tap_here_remove);
 
 	/* float circles */
 	const circlesCount = document.querySelectorAll('.circle').length;
@@ -97,8 +103,6 @@ function modalHeight(){
 	const modalImageContainer = document.querySelector('.modal-image-container');
 	const windowHeight = window.screen.height;
 	const windowWidth = window.screen.width;
-
-	console.log(windowWidth);
 
 	if (windowWidth <= 992 && windowWidth >= 576){
 		modalImageContainer.style.maxHeight = (modalContainer.offsetHeight / 2) + 'px';
@@ -233,10 +237,14 @@ function copy_order_form(){
     }
 }
 
-function tap_here(){
+function tap_here_add(){
 	const firstItem = document.querySelector('.item-container:first-child');
-	setTimeout(()=>{firstItem.querySelector('.tap-bubble-container').classList.add('show')}, 2000);
-	setTimeout(()=>{firstItem.querySelector('.tap-bubble-container').classList.remove('show')}, 8000);
+	firstItem.querySelector('.tap-bubble-container').classList.add('show');
+}
+
+function tap_here_remove(){
+	const firstItem = document.querySelector('.item-container:first-child');
+	firstItem.querySelector('.tap-bubble-container').classList.remove('show');
 }
 
 function confirm_copy(){
