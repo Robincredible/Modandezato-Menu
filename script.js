@@ -146,7 +146,7 @@ function add_to_cart(quantity, name, price){
 
 	setTimeout( () => {
 		added.classList.remove('shown');
-		addButton.textContent = "Add to Cart";
+		addButton.textContent = "Add to Order";
 	}, 1500);
 
 }
