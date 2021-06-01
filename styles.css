@@ -1753,6 +1753,18 @@ img{
 	.added p{
 		font-size: 10pt;
 	}
+
+	.order-form-container p{
+		font-size: 16px;
+	}
+
+	.order-form > div > input, 
+	.order-form > div > input:focus, 
+	.order-form > div > textarea{
+		font-size: 16px;
+	}
+
+
 }
 
 @media screen and (max-width: 420px){
