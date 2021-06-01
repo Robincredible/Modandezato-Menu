@@ -1,5 +1,6 @@
 function startup(){
 	add_event_listeners();
+	tap_here();
 	modal();
 }
 
@@ -216,7 +217,7 @@ function copy_order_form(){
     if(order){
     	input.value = strip_whitespaces(order);
 	    document.body.appendChild(input);
-	    input.value = input.value.replace("(i.e. 1 - Assorted Box of 6, etc...)", "");
+	    input.value = input.value.replace("(i.e. 1 - Assorted Box of 6, etc..)", "");
 	    input.value = input.value.replace("(Please attach a google map link)", "");
 	    input.select();
 	    document.execCommand("Copy");
@@ -230,6 +231,12 @@ function copy_order_form(){
 	    }, 2000);
 	    
     }
+}
+
+function tap_here(){
+	const firstItem = document.querySelector('.item-container:first-child');
+	setTimeout(()=>{firstItem.querySelector('.tap-bubble-container').classList.add('show')}, 2000);
+	setTimeout(()=>{firstItem.querySelector('.tap-bubble-container').classList.remove('show')}, 8000);
 }
 
 function confirm_copy(){

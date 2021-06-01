@@ -40,6 +40,48 @@
 	margin: 4px 10px;
 }
 
+.tap-bubble-container{
+	position: absolute;
+	top: 5%;
+	left: 25%;
+	transform: translateX(-50%);
+	z-index: 2;
+	opacity: 0;
+	pointer-events: none;
+	animation: 3s swell infinite forwards;
+	transition: 0.6s;
+}
+
+.tap-bubble-container.show{
+	opacity: 1;
+	transition: 0.6s;
+}
+
+.tap-bubble{
+	position: relative;
+	background: #3d3d3d;
+	border-radius: .4em;
+	color: #ffffff;
+	padding: 14px 24px;
+	font-weight: 600;
+	font-size: 20px;
+	letter-spacing: 1px;
+}
+
+.tap-bubble:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-top-color: #3d3d3d;
+	border-bottom: 0;
+	margin-left: -20px;
+	margin-bottom: -10px;
+}
+
 /* fonts */
 
 @font-face {
@@ -1754,6 +1796,10 @@ img{
 		font-size: 10pt;
 	}
 
+	.order-form-container h2{
+		font-size: 28px;
+	}
+
 	.order-form-container p{
 		font-size: 16px;
 	}
@@ -1761,7 +1807,7 @@ img{
 	.order-form > div > input, 
 	.order-form > div > input:focus, 
 	.order-form > div > textarea{
-		font-size: 16px;
+		font-size: 20px;
 	}
 
 
