@@ -99,16 +99,12 @@ function modalHeight(){
 
 	console.log(windowWidth);
 
-	if (windowWidth <= 992){
+	if (windowWidth <= 992 && windowWidth >= 576){
 		modalImageContainer.style.maxHeight = (modalContainer.offsetHeight / 2) + 'px';
 	}
 
-	else if (windowWidth <= 460){
-		modalImageContainer.style.maxHeight = ((modalContainer.offsetHeight / 2) - 100) + 'px';
-
-		if ( windowHeight <= 700){
-				modalImageContainer.style.maxHeight = ((modalContainer.offsetHeight / 2) - 150) + 'px';
-		}
+	else if (windowWidth <= 576){
+		modalImageContainer.style.maxHeight = ( (modalContainer.offsetHeight / 2) -100 ) + 'px';
 	}
 
 	else{
