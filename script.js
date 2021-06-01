@@ -100,7 +100,15 @@ function modalHeight(){
 	console.log(windowWidth);
 
 	if (windowWidth <= 992){
-		modalImageContainer.style.maxHeight = (modalContainer.offsetHeight/2) + 'px';
+		modalImageContainer.style.maxHeight = (modalContainer.offsetHeight / 2) + 'px';
+	}
+
+	else if (windowWidth <= 460){
+		modalImageContainer.style.maxHeight = ((modalContainer.offsetHeight / 2) - 100) + 'px';
+
+		if ( windowHeight <= 700){
+				modalImageContainer.style.maxHeight = ((modalContainer.offsetHeight / 2) - 150) + 'px';
+		}
 	}
 
 	else{
@@ -139,7 +147,7 @@ function add_to_cart(quantity, name, price){
 	const added = document.querySelector('.added');
 	const addButton = document.querySelector('#addToCart p');
 
-	addButton.textContent = "Added!";
+	addButton.textContent = "Added to Orders!";
 
 	productQuantity.textContent += quantity + " - " + name + " " + price + '\n';
 	added.classList.add('shown');
@@ -169,12 +177,14 @@ function modal_open(name, image, info, price){
 }
 
 function modal_close(){
+
 	const modal = document.querySelector('.modal-container');
 	const added = document.querySelector('.added');
 	const productQuantity = document.querySelector('.quantityCart input');
 	productQuantity.value = 1;
 	added.classList.remove('shown');
 	modal.classList.remove('active');
+
 }
 
 //copy order form button
