@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", startup);
 
 function add_event_listeners(){
 
+	//Main Function
+
 	/* float circles */
 	const circlesCount = document.querySelectorAll('.circle').length;
 	let circle;
@@ -16,15 +18,6 @@ function add_event_listeners(){
 		circle = document.querySelectorAll('.circle')[i];
 		circle.addEventListener("click", float_circles);
 	}
-
-	/* roll dice */
-	const diceCount = document.querySelectorAll(".dice").length;
-	let dice;
-
-	for (let j = 0; j < diceCount; j++){
-		dice = document.querySelectorAll('.dice')[j];
-		dice.addEventListener("click", dice_roll);
-	} 
 
 	/* copy */
 	const copyButton = document.querySelector('.copy-button p');
@@ -41,10 +34,15 @@ function add_event_listeners(){
 
 	});
 
+	/* modal height */
+	window.addEventListener('resize', modalHeight);
+	window.addEventListener('load', modalHeight);
+
 	/* add to cart */
 	const addToCartButton = document.querySelector('#addToCart');
 	const textArea = document.querySelector('#order-product-quantity');
 	let addToCartClicks = 0;
+	let cartAdd = [];
 	
 	addToCartButton.addEventListener('click', function(){
 
@@ -56,7 +54,7 @@ function add_event_listeners(){
 
 		add_to_cart(thisProductQuantity, thisProduct, thisProductPrice);
 
-		addToCartClicks ++;
+		addToCartClicks++;
 
 		if (addToCartClicks > 2){
 			textArea.rows += 1;
@@ -93,11 +91,28 @@ function collections_change(text){
 	
 }
 
+function modalHeight(){
+	const modalContainer = document.querySelector('.modal-content-container');
+	const modalImageContainer = document.querySelector('.modal-image-container');
+	const windowHeight = window.screen.height;
+	const windowWidth = window.screen.width;
+
+	console.log(windowWidth);
+
+	if (windowWidth <= 992){
+		modalImageContainer.style.maxHeight = (modalContainer.offsetHeight/2) + 'px';
+	}
+
+	else{
+		modalImageContainer.style.maxHeight = modalContainer.offsetHeight + 'px';
+	}
+}
+
 function modal(){
 	const closeModal = document.querySelector('.close-modal');
 	const imageCount = document.querySelectorAll('.image').length;
 	let openModal;
-	
+
 	for (let j = 0; j < imageCount; j++){
 		openModal = document.querySelectorAll('.image')[j];
 		openModal.addEventListener('click', function(){
@@ -122,12 +137,16 @@ function add_to_cart(quantity, name, price){
 
 	const productQuantity = document.querySelector('.product-quantity textarea');
 	const added = document.querySelector('.added');
+	const addButton = document.querySelector('#addToCart p');
+
+	addButton.textContent = "Added!";
 
 	productQuantity.textContent += quantity + " - " + name + " " + price + '\n';
 	added.classList.add('shown');
 
 	setTimeout( () => {
 		added.classList.remove('shown');
+		addButton.textContent = "Add to Cart";
 	}, 1500);
 
 }
@@ -191,6 +210,8 @@ function copy_order_form(){
     if(order){
     	input.value = strip_whitespaces(order);
 	    document.body.appendChild(input);
+	    input.value = input.value.replace("(i.e. 1 - Assorted Box of 6, etc...)", "");
+	    input.value = input.value.replace("(Please attach a google map link)", "");
 	    input.select();
 	    document.execCommand("Copy");
 	    input.remove();
@@ -207,8 +228,6 @@ function copy_order_form(){
 
 function confirm_copy(){
 	const chatBubble = document.querySelector('.confirm-bubble');
-
-	console.log(chatBubble.classList);
 
 	if (chatBubble.classList.contains('confirming')){
 		chatBubble.classList.remove("confirming");
@@ -259,45 +278,46 @@ function float_circles(){
 	}
 
 	this.addEventListener("animationend", float_circles);
-
 }
 
-//dice roll
-function dice_roll(){
+/*Experimental Functionalities */
+function get_total_price(){
+	const priceStore = document.querySelector('.price-store');
+	let prices = document.querySelectorAll('.price-store p');
+	let sum = 0;
 
-	if (this.classList.contains('circulate')){
-		this.classList.remove("circulate");
-		//this.attr('style').remove();
+	for (let i=0; i < prices.length; i++){
+		sum += parseInt(prices[i].textContent);
 	}
-
-	else{
-		this.classList.add("circulate");
-		// this.style.transition = '0.3s';
-		//this.style.transform = 'rotate('+ (getCurrentRotation(this)) +'deg)';
-	}
-
-	this.addEventListener("animationend", dice_roll);
+	return sum;
 }
 
-//get current rotation
-function getCurrentRotation(el){
-  let st = window.getComputedStyle(el, null);
-  let tm = st.getPropertyValue("-webkit-transform") ||
-           st.getPropertyValue("-moz-transform") ||
-           st.getPropertyValue("-ms-transform") ||
-           st.getPropertyValue("-o-transform") ||
-           st.getPropertyValue("transform") ||
-           "none";
-  if (tm != "none") {
-    let values = tm.split('(')[1].split(')')[0].split(',');
-    /*
-    a = values[0];
-    b = values[1];
-    angle = Math.round(Math.atan2(b,a) * (180/Math.PI));
-    */
-    //return Math.round(Math.atan2(values[1],values[0]) * (180/Math.PI)); //this would return negative values the OP doesn't wants so it got commented and the next lines of code added
-    var angle = Math.round(Math.atan2(values[1],values[0]) * (180/Math.PI));
-    return (angle < 0 ? angle + 360 : angle); //adding 360 degrees here when angle < 0 is equivalent to adding (2 * Math.PI) radians before
-  }
-  return 0;
+function remove_from_cart(string){
+	const productTextArea = document.querySelector('#order-product-quantity');
+	let data = productTextArea.value;
+
+	productTextArea.value = productTextArea.value.replace(string, "");
 }
+
+function store_prices(price, quantity){
+	let absoluteElement = document.querySelector('.price-store');
+	let multipliedPrice = parseInt(price) * quantity;
+	let para = document.createElement('p');
+	absoluteElement.appendChild(para).textContent += multipliedPrice;
+}
+
+function display_total_price(price){
+	const totalPrice = document.querySelector('.total-price');
+	const totalPriceContainer = document.querySelector('.total-price-container');
+	totalPriceContainer.classList.add('show');
+	totalPrice.textContent = price;
+}
+
+function filter_price_from_string(string){
+	let pattern = /[0-9]+/;
+	let price = string.slice(string.length - 7);
+	let filteredPrice = price.match(pattern);//i.e. filter to 300, 320... - without the PHP
+
+	return Math.max(filteredPrice);
+}
+/* End Experiments */
