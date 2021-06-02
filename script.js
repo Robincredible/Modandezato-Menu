@@ -109,7 +109,11 @@ function modalHeight(){
 	}
 
 	else if (windowWidth <= 576){
-		modalImageContainer.style.maxHeight = ( (modalContainer.offsetHeight / 2) -100 ) + 'px';
+		modalImageContainer.style.maxHeight = ( (modalContainer.offsetHeight / 2) - 50 ) + 'px';
+
+		if(windowHeight <= 600){
+			modalImageContainer.style.maxHeight = ( (modalContainer.offsetHeight / 2) - 80 ) + 'px';
+		}
 	}
 
 	else{
