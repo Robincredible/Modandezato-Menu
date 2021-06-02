@@ -1,3 +1,47 @@
+/* added to cart */
+
+.added{
+	pointer-events: none;
+	opacity: 0;
+	transition: 0.6s;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	top: 50%;
+	background: rgba(30, 30, 30, 0.9);
+	backdrop-filter: blur( 2px );
+	-webkit-backdrop-filter: blur( 2px );
+	box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+	padding: 20px;
+	max-width: 400px;
+	max-height: 280px;
+	width: 100%;
+	height: 100%;
+	color: #fff;
+	border-radius: 25px;
+	text-align: center;
+	letter-spacing: 2px;
+	display: flex;
+	transition: 1s;
+	justify-content: center;
+	z-index: 99;
+}
+
+.added p{
+	align-self: center;
+	font-weight: 200;
+}
+
+.added span{
+	font-size: 26pt;
+	font-weight: 600;
+}
+
+.added.shown{
+	opacity: 1;
+	transition: 1s;
+}
+
 /* cookie emoji filters */
 
 .modal-heading.classic-chocolate{
@@ -270,7 +314,7 @@ img{
 	margin: 0 auto;
 	align-self: center;
 	max-width: 90%;
-	max-height: 75%;
+	max-height: 90%;
 	width: 100%;
 	height: auto;
 	background: #ffffff;
@@ -432,39 +476,20 @@ input[type=number]::-webkit-inner-spin-button {
 	border-radius: 30px;
 	background: #202020;
 	color: #ffffff;
-	padding: 4px 24px;
+	padding: 0px 24px;
 	letter-spacing: 2px;
 	margin-left: 20px;
 	transition: 0.3s;
+	display: flex;
 }
 
 .addToCart p{
 	transition: inherit;
+	align-self: center;
 }
 
 .addToCart:hover{
 	background: #404040;
-}
-
-.added{
-	position: absolute;
-	flex-basis: 100%;
-	font-size: 14pt;
-	opacity: 0.0;
-	pointer-events: none;
-	transition: 1s;
-	bottom:  5px;
-}
-
-.added.p{
-	transition: 0.3s;
-}
-
-.added.shown{
-	opacity: 0.5;
-	height: auto;
-	pointer-events: all;
-	transition: 1s;
 }
 
 /* floats */
@@ -1655,9 +1680,6 @@ input[type=number]::-webkit-inner-spin-button {
     top: -240%;
 	}
 
-	.added{
-		bottom: 10px;
-	}
 }
 
 @media screen and (max-width: 800px){
@@ -1700,7 +1722,6 @@ input[type=number]::-webkit-inner-spin-button {
 		max-height: 100%;
 	}
 
-	.quantityCart,
 	.addToCartContainer{
 		flex-basis: 100%;
 		align-self: center;
@@ -1708,7 +1729,7 @@ input[type=number]::-webkit-inner-spin-button {
 
 	.addToCart{
 		flex-wrap: wrap;
-		margin-left: 0;
+		margin-left: 10px;
 	}
 
 	.our-products-header{
@@ -1727,13 +1748,46 @@ input[type=number]::-webkit-inner-spin-button {
 
 @media screen and (max-width: 600px){
 
+	.added{
+		max-width: 300px;
+	}
+
+	.addToCart{
+		padding: 6px 24px;
+	}
+
 	.circles-container{
 		min-height: 120px;
 	}
 
 	.circles-container:before{
-		top: -240%;
+		top: -260%;
 		right: -25%;
+	}
+
+	.modal-content-container{
+		box-shadow: 0px 2px 30px rgb(0 0 0 / 10%);
+	}
+
+	.modal-container h1{
+		font-size: 28px;
+		text-shadow: 2px 2px 1px #f9d098;
+	}
+
+	.modal-image-container{
+		max-height: 300px;
+	}
+
+	.our-products-header{
+		justify-content: center;
+	}
+
+	.our-products-header h2{
+		margin-right: 0;
+	}
+
+	.collection h2{
+		text-align: center;
 	}
 
 	.item-container:nth-child(odd) .image-container:after,
@@ -1761,21 +1815,12 @@ input[type=number]::-webkit-inner-spin-button {
 		margin: 0 auto;
 	}
 
-	.modal-image-container{
-		max-height: 300px;
-	}
-
 	.content-footer-gap .right-circles .circles-container .circle.pink{
     top: -450%;
 	}
 
 	.content-footer-gap .right-circles .circles-container .circle.yellow{
     top: -350%;
-	}
-
-	.modal-container h1{
-		font-size: 28px;
-		text-shadow: 2px 2px 1px #f9d098;
 	}
 
 }
@@ -1828,14 +1873,6 @@ input[type=number]::-webkit-inner-spin-button {
 		padding-bottom: 20px;
 	}
 
-	.added{
-		bottom: 20px;
-	}
-
-	.added p{
-		font-size: 10pt;
-	}
-
 	.order-form-container h2{
 		font-size: 28px;
 	}
@@ -1854,6 +1891,14 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 420px){
+
+	.added{
+		border-radius: 0px;
+	}
+
+	.added span{
+		font-size: 16pt;
+	}
 
 	.tap-bubble{
 		font-size: 16px;
@@ -1930,20 +1975,6 @@ input[type=number]::-webkit-inner-spin-button {
 		top: auto;
 	}
 
-	.added{
-		top: auto;
-		bottom: 10px;
-		font-size: 10pt;
-	}
-
-	.added p{
-		font-size: 10pt;
-	}
-
-	.added.shown p{
-		font-size: 10pt;
-	}
-
 }
 
 @media (min-width: 400px ) and (max-width: 402px){
@@ -1953,6 +1984,10 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 360px){
+
+	.addToCart p{
+		font-size: 14px;
+	}
 
 	.item-container:nth-child(odd) .image-container:after,
 	.item-container:nth-child(even) .image-container:after,

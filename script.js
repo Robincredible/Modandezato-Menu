@@ -104,12 +104,12 @@ function modalHeight(){
 	const windowHeight = window.screen.height;
 	const windowWidth = window.screen.width;
 
-	if (windowWidth <= 992 && windowWidth >= 576){
+	if (windowWidth <= 992 && windowWidth > 600){
 		modalImageContainer.style.maxHeight = (modalContainer.offsetHeight / 2) + 'px';
 	}
 
-	else if (windowWidth <= 576){
-		modalImageContainer.style.maxHeight = ( (modalContainer.offsetHeight / 2) - 50 ) + 'px';
+	else if (windowWidth <= 600){
+		modalImageContainer.style.maxHeight = ( (modalContainer.offsetHeight / 2) + 100 ) + 'px';
 
 		if(windowHeight <= 600){
 			modalImageContainer.style.maxHeight = ( (modalContainer.offsetHeight / 2) - 80 ) + 'px';
@@ -151,8 +151,20 @@ function add_to_cart(quantity, name, price){
 	const productQuantity = document.querySelector('.product-quantity textarea');
 	const added = document.querySelector('.added');
 	const addButton = document.querySelector('#addToCart p');
+	const windowHeight = window.screen.height;
+	const windowWidth = window.screen.width;
 
-	addButton.textContent = "Added to Orders!";
+	if (windowWidth <= 768 && windowWidth > 600 ){
+		addButton.textContent = "Added!";
+	}
+
+	else if ( windowWidth <= 600 ){
+		addButton.textContent = "Added to Orders!";
+	}
+
+	else{
+		addButton.textContent = "Added to Orders!";
+	}
 
 	productQuantity.textContent += quantity + " - " + name + " " + price + '\n';
 	added.classList.add('shown');
@@ -160,7 +172,7 @@ function add_to_cart(quantity, name, price){
 	setTimeout( () => {
 		added.classList.remove('shown');
 		addButton.textContent = "Add to Order";
-	}, 1500);
+	}, 2500);
 
 }
 
