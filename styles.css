@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: Cocomat Light;
-  src: local('Roboto'), local('sans-serif'), url(fonts/Cocomat-Light-trial.ttf);
+  src: url(fonts/Cocomat-Light-trial.ttf);
   font-display: swap;
 }
 
