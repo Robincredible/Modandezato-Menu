@@ -1,102 +1,25 @@
-.price-store{
-	font-family: sans-serif;
-	position: absolute;
-	z-index: -1;
-	opacity: 0;
-	pointer-events: none;
-	height: 0;
-	width: 0;
-}
-
-.total-price-container{
-	position: absolute;
-	height: 0;
-	width: 0;
-	transition: 0.6s;
-	pointer-events: all;
-	display: none;
-	opacity: 0;
-}
-
-.total-price-container.show{
-	opacity: 1;
-	height: auto;
-	width: 100%;
-	transition: 0.6s;
-	pointer-events: all;
-}
-
-.total-price-php{
-	display: flex;
-	flex: 1 0;
-}
-
-.total-price-container .total-price-php p{
-	font-family: sans-serif;
-}
-
-.total-price-php *{
-	align-self: center;
-	margin: 4px 10px;
-}
-
-.tap-bubble-container{
-	position: absolute;
-	top: 5%;
-	left: 25%;
-	transform: translateX(-50%);
-	z-index: 2;
-	opacity: 0;
-	pointer-events: none;
-	animation: 3s swell infinite forwards;
-	transition: 0.6s;
-}
-
-.tap-bubble-container.show{
-	opacity: 1;
-	transition: 0.6s;
-}
-
-.tap-bubble{
-	position: relative;
-	background: #3d3d3d;
-	border-radius: .4em;
-	color: #ffffff;
-	padding: 14px 24px;
-	font-weight: 600;
-	font-size: 20px;
-	letter-spacing: 1px;
-}
-
-.tap-bubble:after {
-	content: '';
-	position: absolute;
-	bottom: 0;
-	left: 50%;
-	width: 0;
-	height: 0;
-	border: 20px solid transparent;
-	border-top-color: #3d3d3d;
-	border-bottom: 0;
-	margin-left: -20px;
-	margin-bottom: -10px;
+img {
+  aspect-ratio: attr(width) / attr(height);
 }
 
 /* fonts */
 
 @font-face {
   font-family: BaksoSapi;
-  src: url(fonts/BaksoSapi.otf);
+  src: local('serif'), url(fonts/BaksoSapi.otf);
+  font-display: swap;
 }
 
 @font-face {
   font-family: Cocomat Light;
-  src: url(fonts/Cocomat-Light-trial.ttf);
+  src: local('Roboto'), local('sans-serif'), url(fonts/Cocomat-Light-trial.ttf);
+  font-display: swap;
 }
 
 @font-face {
   font-family: Cocomat Ultralight;
-  src: url(fonts/Cocomat-Ultralight-trial.ttf);
+  src: local('Roboto'), local('sans-serif'), url(fonts/Cocomat-Ultralight-trial.ttf);
+  font-display: swap;
 }
 
 /* animations  */
@@ -408,7 +331,6 @@ input[type=number]::-webkit-inner-spin-button {
 	flex-basis: 100%;
 	font-size: 14pt;
 	opacity: 0.0;
-	/*height: 0;*/
 	pointer-events: none;
 	transition: 1s;
 	bottom:  5px;
@@ -576,7 +498,6 @@ img{
 	transition: 1s;
 	cursor: grab;
 	z-index: 1;
-	/*animation:  10s swell forwards, 20s wiggle forwards;*/
 }
 
 .circle:nth-of-type(odd){
@@ -680,10 +601,52 @@ img{
 
 /* Content */
 
+.tap-bubble-container{
+	position: absolute;
+	top: 5%;
+	left: 25%;
+	transform: translateX(-50%);
+	z-index: 2;
+	opacity: 0;
+	pointer-events: none;
+	animation: 3s swell infinite forwards;
+	transition: 0.6s;
+}
+
+.tap-bubble-container.show{
+	opacity: 1;
+	transition: 0.6s;
+}
+
+.tap-bubble{
+	position: relative;
+	background: #3d3d3d;
+	border-radius: .4em;
+	color: #ffffff;
+	padding: 14px 24px;
+	font-weight: 600;
+	font-size: 20px;
+	letter-spacing: 1px;
+}
+
+.tap-bubble:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-top-color: #3d3d3d;
+	border-bottom: 0;
+	margin-left: -20px;
+	margin-bottom: -10px;
+}
+
 /* Top Content */
 
 .our-products-header{
-	font-family: BaksoSapi;
+	font-family: "BaksoSapi";
 	color: #fea88d;
 	display: flex;
 	align-items: center;
@@ -2135,3 +2098,48 @@ img{
 }
 
 /* bubble - extension - end */
+
+/* experimental */
+.price-store{
+	font-family: sans-serif;
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	pointer-events: none;
+	height: 0;
+	width: 0;
+}
+
+.total-price-container{
+	position: absolute;
+	height: 0;
+	width: 0;
+	transition: 0.6s;
+	pointer-events: all;
+	display: none;
+	opacity: 0;
+}
+
+.total-price-container.show{
+	opacity: 1;
+	height: auto;
+	width: 100%;
+	transition: 0.6s;
+	pointer-events: all;
+}
+
+.total-price-php{
+	display: flex;
+	flex: 1 0;
+}
+
+.total-price-container .total-price-php p{
+	font-family: sans-serif;
+}
+
+.total-price-php *{
+	align-self: center;
+	margin: 4px 10px;
+}
+
+/* end experimental */
