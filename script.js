@@ -150,8 +150,6 @@ function add_to_cart(quantity, name, price){
 
 	addButton.textContent = "Added to Orders!";
 
-	let sanitizedName = remove_emojis(name, "🍪");//sanitize emoji cookies
-
 	productQuantity.textContent += quantity + " - " + sanitizedName + " " + price + '\n';
 	added.classList.add('shown');
 
@@ -168,13 +166,12 @@ function remove_emojis(string, emoji){
 
 function add_class_to_modal_heading(name){
 	const modalHeading = document.querySelector('.modal-heading');
-	let sanitizedName = remove_emojis(name, "🍪");
-	let className = sanitizedName.trim()
-															 .toLowerCase()
-															 .replaceAll(" ", "-")
-															 .replaceAll("'", "")
-															 .replaceAll("&", "")
-															 .replaceAll("--", "-");
+	let className = name.trim()
+											 .toLowerCase()
+											 .replaceAll(" ", "-")
+											 .replaceAll("'", "")
+											 .replaceAll("&", "")
+											 .replaceAll("--", "-");
 
 	modalHeading.classList.add( className );
 }
@@ -192,7 +189,7 @@ function modal_open(name, image, info, price){
 	const modalDesc = document.querySelector('.modal-description');
 	const modalPrice = document.querySelector('.modal-price');
 
-	add_class_to_modal_heading(remove_emojis(name, "🍪"));
+	add_class_to_modal_heading(name);
 
 	imageModal.src =  image;
 	imageModal.alt =  name;

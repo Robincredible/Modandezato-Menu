@@ -303,8 +303,8 @@ img{
 .modal-container h1{
 	margin: 0;
 	font-size: 32pt;
-	text-shadow: 3px 3px 1px #f9d098;
-	color: #303030;
+	text-shadow: 3px 3px 2px #f9d098;
+	color: #404040;
 }
 
 .modal-container .modal-price{
