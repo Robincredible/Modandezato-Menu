@@ -314,6 +314,11 @@ img{
   padding: 12px;
   user-select: none;
   transition: 0.3s;
+  font-family: "Cocomat Light", sans-serif;
+}
+
+.close-modal .close-inner{
+	font-family: "Cocomat Light", sans-serif;
 }
 
 .close-modal:after{
@@ -1576,8 +1581,16 @@ input[type=number]::-webkit-inner-spin-button {
 		font-size: 18pt;
 	}
 
+	.modal-info{
+		padding: 12px 22px 12px;
+	}
+
 	.modal-info p{
 		font-size: 14pt;
+	}
+
+	.addToCartContainer{
+		margin: 0 auto;
 	}
 
 	.content-footer-gap .right-circles .circles-container .circle.pink{
