@@ -150,7 +150,7 @@ function add_to_cart(quantity, name, price){
 
 	addButton.textContent = "Added to Orders!";
 
-	productQuantity.textContent += quantity + " - " + sanitizedName + " " + price + '\n';
+	productQuantity.textContent += quantity + " - " + name + " " + price + '\n';
 	added.classList.add('shown');
 
 	setTimeout( () => {
