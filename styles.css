@@ -1008,7 +1008,12 @@ img{
 	word-break: all;
 }
 
-.order-form-container p{
+.order-form-container label{
+	margin: 1em auto;
+}
+
+.order-form-container p,
+.order-form-container label{
 	font-weight: 600;
 	font-family: "Cocomat Light", Roboto, sans-serif;
 	width: 100%;
@@ -1043,14 +1048,16 @@ img{
 	align-items: center;
 }
 
-.order-form > div > p{
+.order-form > div > p,
+.order-form > div > label{
 	font-weight: bold;
 	opacity: 0.6;
 }
 
 .order-form > div > p,
 .order-form > div > input,
-.order-form > div > textarea{
+.order-form > div > textarea,
+.order-form > div > label{
 	flex-basis: 100%;
 	background: transparent;
 	resize: none;

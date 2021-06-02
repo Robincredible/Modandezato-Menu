@@ -260,21 +260,22 @@
 				<form class="form-proper" autocomplete="on">
 					<div id="order-form" class="order-form">
 						<div class="full-name">
-							<p>Full Name:</p>
+							<label for="order-name">Full Name:</label>
 							<input id="order-name" name="order-name" type="text" />
 						</div>
 						<div class="contact-number">
-							<p>Contact Number:</p>
+							<label for="order-number">Contact Number:</label>
 							<input id="order-number" name="order-number" type="tel" />
 						</div>
 						<div class="address">
-							<p>Address<span>(Please attach a <a href="https://www.google.com/maps" target="_blank">google map</a> link)</i></span>:</p>
+							<label for="order-address">Address<span>(Please attach a <a href="https://www.google.com/maps" target="_blank">google map</a> link)</i></span>:</label>
 							<textarea id="order-address" name="order-address" type="text"></textarea>
 						</div>
 						<div class="product-quantity">
-							<p class="with-numbers">Product and Quantity(i.e. <span>1</span> - Assorted Box of <span>6</span>, etc..):</p>
+							<label class="with-numbers">Product and Quantity(i.e. <span>1</span> - Assorted Box of <span>6</span>, etc..):</label>
 							<textarea resize="none" id="order-product-quantity" name="order-product-quantity" row="1"></textarea>
 						</div>
+						<!-- experimental -->
 						<div class="total-price-container">
 							<p>Total Price</p>
 							<div class="total-price-php">
@@ -282,19 +283,20 @@
 								<p>PHP</p>
 							</div>
 						</div>
+						<!-- end experimental -->
 						<div class="schedule-of-delivery">
-							<p>Schedule of Delivery:</p>
+							<label for="order-schedule">Schedule of Delivery:</label>
 							<input id="order-schedule" name="order-schedule" type="date" />
 						</div>
 						<div class="mode-of-payment">
 							<p>Mode of Payment (BPI/BDO/GCash):</p>
 							<div class="mode-of-payment-selection">
 								<input id="order-bpi" name="order-mode-of-payment" type="radio" value="BPI" />
-								<label for="BPI">BPI</label>
+								<label for="order-bpi">BPI</label>
 								<input id="order-bdo" name="order-mode-of-payment" type="radio" value="BDO"/>
-								<label for="BDO">BDO</label>
-								<input id="order-gcash " name="order-mode-of-payment" type="radio" checked value="GCash"/>
-								<label for="GCash">GCash</label>
+								<label for="order-bdo">BDO</label>
+								<input id="order-gcash" name="order-mode-of-payment" type="radio" checked value="GCash"/>
+								<label for="order-gcash">GCash</label>
 							</div>
 						</div>
 					</div>
