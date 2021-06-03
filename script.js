@@ -169,6 +169,10 @@ function add_to_cart(quantity, name, price){
 	productQuantity.textContent += quantity + " - " + name + " " + price + '\n';
 	added.classList.add('shown');
 
+	store_prices(filter_price_from_string(price), quantity);
+	let total = get_total_price();
+	display_total_price(total);
+
 	setTimeout( () => {
 		added.classList.remove('shown');
 		addButton.textContent = "Add to Order";

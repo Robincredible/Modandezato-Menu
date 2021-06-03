@@ -113,7 +113,7 @@
     margin-left: 0;
   }
   100% {
-    margin-left: -1755px;
+    margin-left: -1600px;
   }
 }
 
@@ -1319,7 +1319,7 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .wave {
-  background: url(https://res.cloudinary.com/robin-optimizations/image/upload/q_100/v1622287596/footer-wave-yellow_my6wrh.webp) repeat-x; 
+  background: url(./images/wave-yellow.svg) repeat-x; 
   position: absolute;
   top: -198px;
   width: 6400px;
@@ -1329,7 +1329,7 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .wave:nth-of-type(2) {
-	background: url(https://res.cloudinary.com/robin-optimizations/image/upload/q_100/v1622287596/footer-wave-pink_g36pbj.webp) repeat-x;
+	background: url(./images/wave-pink.svg) repeat-x;
   top: -175px;
   animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 6s ease -1.25s infinite;
   opacity: 1;
@@ -2218,7 +2218,7 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .total-price-container{
-	position: absolute;
+	position: relative;
 	height: 0;
 	width: 0;
 	transition: 0.6s;
@@ -2240,8 +2240,10 @@ input[type=number]::-webkit-inner-spin-button {
 	flex: 1 0;
 }
 
-.total-price-container .total-price-php p{
+.total-price-container .total-price-php p,
+.total-price-container .total-price-php{
 	font-family: sans-serif;
+	font-size: 24px;
 }
 
 .total-price-php *{
