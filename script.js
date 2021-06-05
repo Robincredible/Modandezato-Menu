@@ -16,6 +16,10 @@ function add_event_listeners(){
 	document.addEventListener('scroll', tap_here_remove);
 	document.addEventListener('click', tap_here_remove);
 
+	//no products add a product
+	const noProducts = document.querySelector('.add-a-product');
+	noProducts.addEventListener('click', no_items_add_a_product);
+
 	/* float circles */
 	const circlesCount = document.querySelectorAll('.circle').length;
 	let circle;
@@ -49,7 +53,6 @@ function add_event_listeners(){
 	const addToCartButton = document.querySelector('#addToCart');
 	const textArea = document.querySelector('#order-product-quantity');
 	let addToCartClicks = 0;
-	let cartAdd = [];
 	
 	addToCartButton.addEventListener('click', function(){
 
@@ -67,6 +70,15 @@ function add_event_listeners(){
 			textArea.rows += 1;
 		}
 
+	});
+
+	document.addEventListener('click', function(e){
+	
+	if (e.target && e.target.id == 'remove-item'){
+		let thisProduct = e.target.parentElement.querySelector('.product').textContent;
+
+		remove_from_cart(thisProduct);
+		}
 	});
 
 }
@@ -146,44 +158,6 @@ function modal(){
 
 }
 
-function add_to_cart(quantity, name, price){
-
-	const productQuantity = document.querySelector('.product-quantity textarea');
-	const added = document.querySelector('.added');
-	const addButton = document.querySelector('#addToCart p');
-	const windowHeight = window.screen.height;
-	const windowWidth = window.screen.width;
-
-	if (windowWidth <= 768 && windowWidth > 600 ){
-		addButton.textContent = "Added!";
-	}
-
-	else if ( windowWidth <= 600 ){
-		addButton.textContent = "Added to Orders!";
-	}
-
-	else{
-		addButton.textContent = "Added to Orders!";
-	}
-
-	productQuantity.textContent += quantity + " - " + name + " " + price + '\n';
-	added.classList.add('shown');
-
-	store_prices(filter_price_from_string(price), quantity);
-	let total = get_total_price();
-	display_total_price(total);
-
-	setTimeout( () => {
-		added.classList.remove('shown');
-		addButton.textContent = "Add to Order";
-	}, 2500);
-
-}
-
-function remove_emojis(string, emoji){
-	return string.replace(emoji, " ");
-}
-
 function add_class_to_modal_heading(name){
 	const modalHeading = document.querySelector('.modal-heading');
 	let className = name.trim()
@@ -240,7 +214,7 @@ function copy_order_form(){
     const name = orderForm.querySelector("input[name='order-name']");
     const number = orderForm.querySelector("input[name='order-number']");
     const address = orderForm.querySelector("textarea[name='order-address']");
-    const products = orderForm.querySelector("textarea[name='order-product-quantity']");
+    const products = orderForm.querySelector("div[name='order-product-quantity']");
     const schedule = orderForm.querySelector("input[name='order-schedule']");
     const modeOfPayment = orderForm.querySelector("input[type='radio'][name='order-mode-of-payment']");
     const modeOfPaymentChecked = orderForm.querySelector("input[type='radio'][name='order-mode-of-payment']:checked") || 'Waley';
@@ -253,11 +227,28 @@ function copy_order_form(){
     const label_schedule = schedule.previousElementSibling.textContent;
     const label_modeOfPayment = modeOfPayment.parentElement.previousElementSibling.textContent;
 
+    let order_products = products.querySelectorAll('.cart-item');
+    let products_final = "";
+
+    for (let i = 0; i < order_products.length; i++){
+    	let product_order_name = order_products[i].querySelector('.product').textContent;
+    	let product_order_quantity = order_products[i].querySelector('.quantity').textContent;
+    	let product_order_price = order_products[i].querySelector('.total-price').textContent;
+    	let product_boxes = ' Box of 6';
+
+    	if (product_order_name == 'Assorted'){
+    		product_boxes = ' Box of 8';
+    	}
+
+    	products_final += product_order_quantity + ' ' + product_order_name + ' ' + product_boxes + ' ' + product_order_price + ' PHP' + '\n';
+    }
+
     //form labels + values
     let order = label_name + " " + name.value + '\n';
     		order += label_number + " " + number.value + '\n';
     		order += label_address + " \n" + address.value + '\n\n';
-    		order += label_products + " \n" + products.value + '\n';
+    		order += label_products + " \n" + products_final + '\n';
+    		order += 'Total Price: ' + get_total_price() + ' PHP \n\n';
     		order += label_schedule + " " + schedule.value + '\n';
     		order += label_modeOfPayment + " " + modeOfPaymentChecked.value;
 
@@ -325,6 +316,17 @@ function strip_whitespaces(string){
 	return string.replace(/\t+/g, "");
 }
 
+function no_items_add_a_product(){
+	scroll_to('.our-products-header');
+}
+
+function scroll_to(element){
+	const elementToScrollTo = document.querySelector(element);
+	const topPos = elementToScrollTo.offsetTop - 400;
+
+	window.scrollTo(0, topPos);
+}
+
 function scroll_to_socmed(){
 	const socmed = document.querySelector('.socmed');
 	const topPos = socmed.offsetTop - 400;
@@ -346,23 +348,178 @@ function float_circles(){
 	this.addEventListener("animationend", float_circles);
 }
 
-/*Experimental Functionalities */
+//cart functions
+function store_to_cart(quantity, name, price){
+	const productQuantityElement = document.querySelector('.order-product-quantity');
+	const productQuantityStore = document.createElement('div');
+	const productStorage = document.createElement('div');
+	const quantityStorage = document.createElement('div');
+	const priceStorage = document.createElement('div');
+	const totalPriceStorage = document.createElement('div');
+	const removeItem = document.createElement('div');
+
+	let sameName, sameNameQuantity, sameNamePrice;
+	let added_already_bool = already_added_to_cart(name);
+	let sanitizedName = name.trim()
+											 .toLowerCase()
+											 .replaceAll(" ", "-")
+											 .replaceAll("'", "")
+											 .replaceAll("&", "")
+											 .replaceAll("--", "-");
+
+	if (added_already_bool === true){
+
+		sameName = productQuantityElement.querySelector('.order-' + sanitizedName + ' .product').textContent;
+		sameNameQuantity = parseFloat(productQuantityElement.querySelector('.order-' + sanitizedName + ' .quantity').textContent);
+		sameNamePrice = parseFloat(productQuantityElement.querySelector('.order-' + sanitizedName + ' .price').textContent);
+		
+		if (sameName == name){
+
+			let newQuantity = parseInt(quantity) + sameNameQuantity;
+			let newPrice = parseFloat(filter_price_from_string(price)) + parseFloat(sameNamePrice * sameNameQuantity);
+
+			productQuantityElement.querySelector('.order-' + sanitizedName + ' .quantity').textContent = newQuantity;
+			productQuantityElement.querySelector('.order-' + sanitizedName + ' .total-price').textContent = newPrice;
+
+		}
+	}
+
+	else{
+
+		if (sameName != name){
+
+			productQuantityElement.appendChild(productQuantityStore).classList.add('order-' + sanitizedName, 'cart-item');
+			productQuantityStore.appendChild(quantityStorage).classList.add('quantity');
+			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .quantity').textContent = quantity;
+			productQuantityStore.appendChild(productStorage).classList.add('product');
+			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .product').textContent = name;
+			productQuantityStore.appendChild(priceStorage).classList.add('price');
+			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .price').textContent = filter_price_from_string(price);
+			productQuantityStore.appendChild(totalPriceStorage).classList.add('total-price');
+			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .total-price').textContent = (parseInt(filter_price_from_string(price)) * parseInt(quantity));
+			productQuantityStore.appendChild(removeItem).classList.add('remove-item');
+			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .remove-item').id = 'remove-item';
+			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .remove-item').textContent = '+';
+
+			let productCount = document.querySelectorAll('.order-product-quantity > div').length;
+			let filteredPrice = filter_price_from_string(price);
+			let totalPrice = filteredPrice * quantity;
+
+		}
+
+	}
+	
+}
+
+function already_added_to_cart(name){
+	
+	let productCount = document.querySelectorAll('.order-product-quantity > div').length;
+	let added = false;
+	let sanitizedName = name.trim()
+											 .toLowerCase()
+											 .replaceAll(" ", "-")
+											 .replaceAll("'", "")
+											 .replaceAll("&", "")
+											 .replaceAll("--", "-");
+	let product, productName;
+
+	for(let i=0; i < productCount; i++){
+		product = document.querySelectorAll('.order-product-quantity > div')[i];
+		
+		if (product.querySelector('.product') ){
+			productName = product.querySelector('.product').textContent;
+		}
+		else{
+			console.error('No product yet');
+		}
+		
+		let countProduct = 0;
+
+		if (productName == name){
+			countProduct += 1;
+			
+			if (countProduct > 0){
+				added = true;
+			}
+
+			else{
+				added = false;
+			}
+
+		}
+
+	}
+
+	return added;
+}
+
+function add_to_cart(quantity, name, price){
+
+	const productQuantity = document.querySelector('.order-product-quantity');
+	const noProducts = document.querySelector('.no-products-yet');
+	const added = document.querySelector('.added');
+	const addButton = document.querySelector('#addToCart p');
+	const windowHeight = window.screen.height;
+	const windowWidth = window.screen.width;
+
+	if (windowWidth <= 768 && windowWidth > 600 ){
+		addButton.textContent = "Added!";
+	}
+
+	else if ( windowWidth <= 600 ){
+		addButton.textContent = "Added to Orders!";
+	}
+
+	else{
+		addButton.textContent = "Added to Orders!";
+	}
+
+	added.classList.add('shown');
+
+	store_to_cart(quantity, name, price);
+
+	noProducts.classList.add('hide');
+
+	display_total_price(get_total_price());
+
+	setTimeout( () => {
+		added.classList.remove('shown');
+		addButton.textContent = "Add to Order";
+	}, 1500);
+
+}
+
 function get_total_price(){
-	const priceStore = document.querySelector('.price-store');
-	let prices = document.querySelectorAll('.price-store p');
+	const priceStore = document.querySelectorAll('.order-product-quantity > div');
+	let prices;
 	let sum = 0;
 
-	for (let i=0; i < prices.length; i++){
-		sum += parseInt(prices[i].textContent);
+	for (let i = 0; i < priceStore.length; i++){
+		prices = priceStore[i].querySelector('.total-price').textContent;
+		sum += parseInt(prices);
 	}
+
 	return sum;
 }
 
-function remove_from_cart(string){
-	const productTextArea = document.querySelector('#order-product-quantity');
-	let data = productTextArea.value;
+function remove_from_cart(name){
+	const product = document.querySelector('.order-product-quantity');
+	let sanitizedName = name.trim()
+											 .toLowerCase()
+											 .replaceAll(" ", "-")
+											 .replaceAll("'", "")
+											 .replaceAll("&", "")
+											 .replaceAll("--", "-");
+	
+	let priceToBeSubtracted = parseFloat(product.querySelector('.order-' + sanitizedName + ' .total-price').textContent);
 
-	productTextArea.value = productTextArea.value.replace(string, "");
+	product.querySelector('.order-' + sanitizedName).remove();
+
+	let totalPrice = parseFloat(document.querySelector('.total-price-display').textContent);
+
+	let newTotalPrice = totalPrice - priceToBeSubtracted;
+
+	document.querySelector('.total-price-display').textContent = newTotalPrice;
 }
 
 function store_prices(price, quantity){
@@ -373,7 +530,7 @@ function store_prices(price, quantity){
 }
 
 function display_total_price(price){
-	const totalPrice = document.querySelector('.total-price');
+	const totalPrice = document.querySelector('.total-price-display');
 	const totalPriceContainer = document.querySelector('.total-price-container');
 	totalPriceContainer.classList.add('show');
 	totalPrice.textContent = price;
@@ -386,4 +543,3 @@ function filter_price_from_string(string){
 
 	return Math.max(filteredPrice);
 }
-/* End Experiments */

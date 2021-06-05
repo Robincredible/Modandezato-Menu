@@ -29,6 +29,7 @@
 
 <body>
 	<div class="price-store"></div>
+	<div class="cart-store"></div>
 	<div id="background-wrap">
 	    <div class="bubble x1"></div>
 	    <div class="bubble x2"></div>
@@ -276,14 +277,17 @@
 							<textarea id="order-address" name="order-address" type="text"></textarea>
 						</div>
 						<div class="product-quantity">
-							<label class="with-numbers">Product and Quantity(i.e. <span>1</span> - Assorted Box of <span>6</span>, etc..):</label>
-							<textarea resize="none" id="order-product-quantity" name="order-product-quantity" row="1"></textarea>
+							<label class="with-numbers">Product and Quantity:</label>
+							<!-- <textarea readonly resize="none" id="order-product-quantity" name="order-product-quantity" row="1"></textarea> -->
+							<div id="order-product-quantity" name="order-product-quantity" class="order-product-quantity">
+								<p class="no-products-yet">No items in here yet! <span class="add-a-product">Add a product <span class="add-a-product-plus">+</span> </span></p>
+							</div>
 						</div>
 						<!-- experimental -->
 						<div class="total-price-container">
 							<p>Total Price</p>
 							<div class="total-price-php">
-								<div class="total-price"></div>
+								<div class="total-price-display"></div>
 								<p>PHP</p>
 							</div>
 						</div>

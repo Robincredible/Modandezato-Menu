@@ -1110,7 +1110,8 @@ input[type=number]::-webkit-inner-spin-button {
 
 .order-form > div > input,
 .order-form > div > input:focus,
-.order-form > div > textarea{
+.order-form > div > textarea,
+.order-form > div > div{
 	font-size: 20pt;
 	font-weight: normal;
 	color: #505050;
@@ -1122,6 +1123,101 @@ input[type=number]::-webkit-inner-spin-button {
 	border-radius: 15px;
 	width: 100%;
 	max-width: 100%;
+}
+
+.order-form > div > div{
+	min-height: 50px;
+}
+
+.no-products-yet{
+	font-weight: 200;
+	opacity: 0.7;
+	letter-spacing: 1px;
+	opacity: 1;
+	pointer-events: all;
+	transition: 0.6s;
+	height: auto;
+	position: relative;
+}
+
+.no-products-yet.hide{
+	opacity: 0;
+	pointer-events: none;
+	transition: 0.6s;
+	height: 0;
+	position: absolute;
+}
+
+.add-a-product{
+	cursor: pointer;
+	background: #3d3d3d;
+	color: #ffffff;
+	padding: 8px 16px;
+	border-radius: 15px;
+	font-weight: 400;
+	transition: 0.3s;
+}
+
+.add-a-product:hover{
+	transition: 0.3s;
+	background: #5d5d5d;
+}
+
+.add-a-product span{
+	background: transparent;
+	line-height: 0;
+	font-size: 24px;
+	font-weight: 400;
+}
+
+.cart-item{
+	display: flex;
+	font-family: sans-serif;
+	background: rgba(0,0,0,0.7);
+	color: #ffffff;
+	max-width: max-content;
+	padding: 8px 40px 8px 16px;
+	border-radius:  15px;
+	font-size: 20px;
+	margin: 10px;
+	position: relative;
+}
+
+.cart-item .price{
+	display: none;
+}
+
+.cart-item .total-price:after{
+	content: " PHP";
+}
+
+.cart-item:not(.order-assorted) .product:after{
+	content: "- Box of 6";
+	margin-left: 5px;
+}
+
+.cart-item.order-assorted .product:after{
+	content: "- Box of 8";
+	margin-left: 5px;
+}
+
+.cart-item > div{
+	margin: 0px 5px;
+}
+
+.remove-item{
+	cursor: pointer;
+	align-self: center;
+	transition: 0.6s;
+  transform: rotate(45deg);
+  position: absolute;
+  right: 10px;
+  font-size: 28px;
+  align-self: center;
+}
+
+.order-product-quantity{
+	padding: 15px;
 }
 
 .order-extra-details{
