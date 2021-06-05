@@ -240,7 +240,7 @@ function copy_order_form(){
     		product_boxes = ' Box of 8';
     	}
 
-    	products_final += product_order_quantity + ' ' + product_order_name + ' ' + product_boxes + ' ' + product_order_price + ' PHP' + '\n';
+    	products_final += product_order_quantity + 'x ' + product_order_name + ' ' + product_boxes + ' ' + product_order_price + ' PHP' + '\n';
     }
 
     //form labels + values
@@ -268,7 +268,7 @@ function copy_order_form(){
 	    setTimeout( () => {
 	    	scroll_to_socmed();
 	      dm_us();
-	    }, 2000);
+	    }, 1000);
 	    
     }
 }

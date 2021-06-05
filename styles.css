@@ -1138,6 +1138,13 @@ input[type=number]::-webkit-inner-spin-button {
 	transition: 0.6s;
 	height: auto;
 	position: relative;
+	flex-wrap: wrap;
+	display: flex;
+}
+
+.no-products-yet *{
+	align-self: center;
+	margin: 3px;
 }
 
 .no-products-yet.hide{
@@ -1156,6 +1163,7 @@ input[type=number]::-webkit-inner-spin-button {
 	border-radius: 15px;
 	font-weight: 400;
 	transition: 0.3s;
+	display: inherit;
 }
 
 .add-a-product:hover{
@@ -1187,6 +1195,11 @@ input[type=number]::-webkit-inner-spin-button {
 	display: none;
 }
 
+.cart-item .quantity:after{
+	content: "x";
+	color: #f9d098;
+}
+
 .cart-item .total-price:after{
 	content: " PHP";
 }
@@ -1194,11 +1207,13 @@ input[type=number]::-webkit-inner-spin-button {
 .cart-item:not(.order-assorted) .product:after{
 	content: "- Box of 6";
 	margin-left: 5px;
+	display: inline-block;
 }
 
 .cart-item.order-assorted .product:after{
 	content: "- Box of 8";
 	margin-left: 5px;
+	display: inline-block;
 }
 
 .cart-item > div{
@@ -1845,6 +1860,19 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 600px){
+
+	.cart-item *{
+		align-self: center;
+	}
+
+	.cart-item{
+		flex-wrap: wrap;
+		font-size: 16px;
+	}
+
+	.remove-item{
+		font-size: 24px;
+	}
 
 	.added{
 		max-width: 300px;
