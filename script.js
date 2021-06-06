@@ -50,7 +50,7 @@ function add_event_listeners(){
 	window.addEventListener('load', modalHeight);
 
 	/* google maps paste */
-	put_comma_after_paste();
+	put_space_after_paste();
 
 	/* add to cart */
 	const addToCartButton = document.querySelector('#addToCart');
@@ -556,7 +556,7 @@ function display_total_price(price){
 	totalPrice.textContent = price;
 }
 
-//detect paste
+//detect paste, https://stackoverflow.com/questions/3211505/detect-pasted-text-with-ctrlv-or-right-click-paste
 function getTextAreaSelection(textarea) {
     let start = textarea.selectionStart, end = textarea.selectionEnd;
     return {
@@ -586,12 +586,12 @@ function detectPaste(textarea, callback) {
 }
 
 
-function put_comma_after_paste(){
+function put_space_after_paste(){
 
 	let textarea = document.getElementById("order-address");
 	detectPaste(textarea, function(pasteInfo) {
-	let newValue = pasteInfo.text.replace("https", ", https");
-	let textValue = textarea.value.replace("https", ", https");
+	let newValue = pasteInfo.text.replace("https", " https");
+	let textValue = textarea.value.replace("https", " https");
 	textarea.value = textValue;
 	    // pasteInfo also has properties for the start and end character
 	    // index and length of the pasted text
