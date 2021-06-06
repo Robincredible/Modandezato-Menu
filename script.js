@@ -49,6 +49,9 @@ function add_event_listeners(){
 	window.addEventListener('resize', modalHeight);
 	window.addEventListener('load', modalHeight);
 
+	/* google maps paste */
+	put_comma_after_paste();
+
 	/* add to cart */
 	const addToCartButton = document.querySelector('#addToCart');
 	const textArea = document.querySelector('#order-product-quantity');
@@ -551,4 +554,47 @@ function display_total_price(price){
 	const totalPriceContainer = document.querySelector('.total-price-container');
 	totalPriceContainer.classList.add('show');
 	totalPrice.textContent = price;
+}
+
+//detect paste
+function getTextAreaSelection(textarea) {
+    let start = textarea.selectionStart, end = textarea.selectionEnd;
+    return {
+        start: start,
+        end: end,
+        length: end - start,
+        text: textarea.value.slice(start, end)
+    };
+}
+
+function detectPaste(textarea, callback) {
+    textarea.onpaste = function() {
+        let sel = getTextAreaSelection(textarea);
+        let initialLength = textarea.value.length;
+        window.setTimeout(function() {
+            let val = textarea.value;
+            let pastedTextLength = val.length - (initialLength - sel.length);
+            let end = sel.start + pastedTextLength;
+            callback({
+                start: sel.start,
+                end: end,
+                length: pastedTextLength,
+                text: val.slice(sel.start, end)
+            });
+        }, 1);
+    };
+}
+
+
+function put_comma_after_paste(){
+
+	let textarea = document.getElementById("order-address");
+	detectPaste(textarea, function(pasteInfo) {
+	let newValue = pasteInfo.text.replace("https", ", https");
+	let textValue = textarea.value.replace("https", ", https");
+	textarea.value = textValue;
+	    // pasteInfo also has properties for the start and end character
+	    // index and length of the pasted text
+	});
+
 }
