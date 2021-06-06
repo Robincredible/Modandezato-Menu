@@ -1115,7 +1115,7 @@ input[type=number]::-webkit-inner-spin-button {
 .order-form > div > input,
 .order-form > div > input:focus,
 .order-form > div > textarea,
-.order-form > div > div{
+.order-form > div > div:not(.total-price-php){
 	font-size: 20pt;
 	font-weight: normal;
 	color: #505050;
@@ -1238,6 +1238,7 @@ input[type=number]::-webkit-inner-spin-button {
 .order-product-quantity{
 	padding: 15px;
 	transition: 1s;
+	border: none;
 }
 
 .order-extra-details{
@@ -2370,6 +2371,7 @@ input[type=number]::-webkit-inner-spin-button {
 .total-price-php{
 	display: flex;
 	flex: 1 0;
+	border: none;
 }
 
 .total-price-container .total-price-php p,

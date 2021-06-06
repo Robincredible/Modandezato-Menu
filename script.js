@@ -229,6 +229,7 @@ function copy_order_form(){
 
     let order_products = products.querySelectorAll('.cart-item');
     let products_final = "";
+    let address_sanitized = "";
 
     for (let i = 0; i < order_products.length; i++){
     	let product_order_name = order_products[i].querySelector('.product').textContent;
@@ -240,13 +241,14 @@ function copy_order_form(){
     		product_boxes = ' Box of 8';
     	}
 
+    	address_sanitized += address.value.replace("https", "\nhttps");
     	products_final += product_order_quantity + 'x ' + product_order_name + ' ' + product_boxes + ' ' + product_order_price + ' PHP' + '\n';
     }
 
     //form labels + values
     let order = label_name + " " + name.value + '\n';
     		order += label_number + " " + number.value + '\n';
-    		order += label_address + " \n" + address.value + '\n\n';
+    		order += label_address + " \n" + address_sanitized + '\n\n';
     		order += label_products + " \n" + products_final + '\n';
     		order += 'Total Price: ' + get_total_price() + ' PHP \n\n';
     		order += label_schedule + " " + schedule.value + '\n';
