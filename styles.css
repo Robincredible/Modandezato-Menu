@@ -443,7 +443,7 @@ img{
 }
 
 .addToCartContainer > div{
-	margin: 4px;
+	margin-right: 4px;
 }
 
 input[type=number]::-webkit-inner-spin-button {
