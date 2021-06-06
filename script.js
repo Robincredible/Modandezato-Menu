@@ -268,7 +268,7 @@ function copy_order_form(){
 	    setTimeout( () => {
 	    	scroll_to_socmed();
 	      dm_us();
-	    }, 1000);
+	    }, 500);
 	    
     }
 }
@@ -322,7 +322,7 @@ function no_items_add_a_product(){
 
 function scroll_to(element){
 	const elementToScrollTo = document.querySelector(element);
-	const topPos = elementToScrollTo.offsetTop - 400;
+	const topPos = elementToScrollTo.offsetTop - 0;
 
 	window.scrollTo(0, topPos);
 }
@@ -510,16 +510,20 @@ function remove_from_cart(name){
 											 .replaceAll("'", "")
 											 .replaceAll("&", "")
 											 .replaceAll("--", "-");
-	
+
 	let priceToBeSubtracted = parseFloat(product.querySelector('.order-' + sanitizedName + ' .total-price').textContent);
 
 	product.querySelector('.order-' + sanitizedName).remove();
 
 	let totalPrice = parseFloat(document.querySelector('.total-price-display').textContent);
-
 	let newTotalPrice = totalPrice - priceToBeSubtracted;
 
 	document.querySelector('.total-price-display').textContent = newTotalPrice;
+
+	if (newTotalPrice == 0){
+		document.querySelector('.no-products-yet').classList.remove('hide');
+		document.querySelector('.total-price-container').classList.remove('show');
+	}
 }
 
 function store_prices(price, quantity){
