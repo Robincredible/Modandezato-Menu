@@ -442,6 +442,10 @@ img{
 	margin: 20px auto;
 }
 
+.addToCartContainer > div{
+	margin: 4px;
+}
+
 input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
@@ -461,7 +465,7 @@ input[type=number]::-webkit-inner-spin-button {
 	border: solid 2px #202020;
 	background: transparent;
 	font-weight: bold;
-	border-radius: 15px;
+	border-radius: 30px;
 }
 
 .addToCart{
