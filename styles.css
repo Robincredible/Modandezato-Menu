@@ -2026,7 +2026,9 @@ input[type=number]::-webkit-inner-spin-button {
 @media screen and (max-width: 420px){
 
 	.added{
-		border-radius: 0px;
+		border-radius: 10px;
+		max-width: 225px;
+		max-height: 225px;
 	}
 
 	.added span{
