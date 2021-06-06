@@ -9,7 +9,7 @@ function add_event_listeners(){
 
 	//Main Function
 
-	//tap
+	//tap bubbles
 	setTimeout(()=>{ tap_here_add() }, 2000);
 	setTimeout(()=>{ tap_here_remove() }, 8000);
 
@@ -72,6 +72,7 @@ function add_event_listeners(){
 
 	});
 
+	//remove from cart
 	document.addEventListener('click', function(e){
 	
 	if (e.target && e.target.id == 'remove-item'){
@@ -81,11 +82,6 @@ function add_event_listeners(){
 		}
 	});
 
-}
-
-function filter_text_from_string(text,string){
-	let filtered = string.replace(text, "");
-	return filtered;
 }
 
 //dropdown change
@@ -110,6 +106,7 @@ function collections_change(text){
 	
 }
 
+//modal functions
 function modalHeight(){
 	const modalContainer = document.querySelector('.modal-content-container');
 	const modalImageContainer = document.querySelector('.modal-image-container');
@@ -155,7 +152,6 @@ function modal(){
 	} 
 
 	closeModal.addEventListener("click", modal_close);
-
 }
 
 function add_class_to_modal_heading(name){
@@ -231,6 +227,7 @@ function copy_order_form(){
     let products_final = "";
     let address_sanitized = "";
 
+    //get the data from all the products in the order formn
     for (let i = 0; i < order_products.length; i++){
     	let product_order_name = order_products[i].querySelector('.product').textContent;
     	let product_order_quantity = order_products[i].querySelector('.quantity').textContent;
@@ -241,9 +238,11 @@ function copy_order_form(){
     		product_boxes = ' Box of 8';
     	}
 
-    	address_sanitized += address.value.replace("https", "\nhttps");
     	products_final += product_order_quantity + 'x ' + product_order_name + ' ' + product_boxes + ' ' + product_order_price + ' PHP' + '\n';
     }
+
+    //separate google maps link from actual address
+    address_sanitized += address.value.replace("https", "\nhttps");
 
     //form labels + values
     let order = label_name + " " + name.value + '\n';
@@ -318,6 +317,20 @@ function strip_whitespaces(string){
 	return string.replace(/\t+/g, "");
 }
 
+function filter_text_from_string(text,string){
+	let filtered = string.replace(text, "");
+	return filtered;
+}
+
+function filter_price_from_string(string){
+	let pattern = /[0-9]+/;
+	let price = string.slice(string.length - 7);
+	let filteredPrice = price.match(pattern);//i.e. filter to 300, 320... - without the PHP
+
+	return Math.max(filteredPrice);
+}
+
+//scroll functions
 function no_items_add_a_product(){
 	scroll_to('.our-products-header');
 }
@@ -341,9 +354,7 @@ function float_circles(){
 
 	if (this.classList.contains('float')){
 		this.classList.remove("float");
-	}
-
-	else{
+	} else {
 		this.classList.add("float");
 	}
 
@@ -540,12 +551,4 @@ function display_total_price(price){
 	const totalPriceContainer = document.querySelector('.total-price-container');
 	totalPriceContainer.classList.add('show');
 	totalPrice.textContent = price;
-}
-
-function filter_price_from_string(string){
-	let pattern = /[0-9]+/;
-	let price = string.slice(string.length - 7);
-	let filteredPrice = price.match(pattern);//i.e. filter to 300, 320... - without the PHP
-
-	return Math.max(filteredPrice);
 }
