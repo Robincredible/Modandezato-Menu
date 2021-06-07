@@ -1,4 +1,5 @@
 function startup(){
+	setTimeout( () => { intro() }, 200);
 	add_event_listeners();
 	modal();
 }
@@ -85,6 +86,11 @@ function add_event_listeners(){
 		}
 	});
 
+}
+
+function intro(){
+	const body = document.body;
+	body.classList.remove('intro');
 }
 
 //dropdown change
