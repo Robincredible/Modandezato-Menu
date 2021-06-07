@@ -596,9 +596,11 @@ function put_space_after_paste(){
 
 	let textarea = document.getElementById("order-address");
 	detectPaste(textarea, function(pasteInfo) {
-	let newValue = pasteInfo.text.replace("https", " https");
-	let textValue = textarea.value.replace("https", " https");
-	textarea.value = textValue;
+		let str = pasteInfo.text;
+		str = str.substring(str.indexOf("https") + 0);
+
+		let textValue = textarea.value.replace("https", " https");
+		textarea.value = str;
 	    // pasteInfo also has properties for the start and end character
 	    // index and length of the pasted text
 	});
