@@ -1650,6 +1650,17 @@ input[type=number]::-webkit-inner-spin-button {
     top: 20%;
   }
 
+  .footer-logo{
+  	position: absolute;
+    max-width: 80px;
+    width: 100%;
+    height: auto;
+    left: 50%;
+    top: 70%;
+    transform: translate(-50%, -30%);
+    filter: brightness(0) saturate(0) invert(1);
+  }
+
   .dice{
   	width: 90px;
   	height: 90px;
