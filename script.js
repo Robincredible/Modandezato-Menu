@@ -11,8 +11,8 @@ function add_event_listeners(){
 	//Main Function
 
 	//tap bubbles
-	setTimeout(()=>{ tap_here_add() }, 2000);
-	setTimeout(()=>{ tap_here_remove() }, 8000);
+	setTimeout(()=>{ tap_here_add() }, 4000);
+	setTimeout(()=>{ tap_here_remove() }, 10000);
 
 	document.addEventListener('scroll', tap_here_remove);
 	document.addEventListener('click', tap_here_remove);
