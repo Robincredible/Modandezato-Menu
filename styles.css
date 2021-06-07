@@ -480,7 +480,7 @@ input[type=number]::-webkit-inner-spin-button {
 	border-radius: 30px;
 	background: #202020;
 	color: #ffffff;
-	padding: 0px 24px;
+	padding: 5px 24px;
 	letter-spacing: 2px;
 	margin-left: 20px;
 	transition: 0.3s;
@@ -490,6 +490,7 @@ input[type=number]::-webkit-inner-spin-button {
 .addToCart p{
 	transition: inherit;
 	align-self: center;
+	font-size: 12pt;
 }
 
 .addToCart:hover{
@@ -1764,7 +1765,7 @@ input[type=number]::-webkit-inner-spin-button {
 
 	.addToCart{
 		flex-wrap: nowrap;
-		margin-left: 20px;
+		margin-left: 12px;
 	}
 
 	.modal-content-container{
@@ -1793,6 +1794,10 @@ input[type=number]::-webkit-inner-spin-button {
 
 	.modal-info p{
 		font-size: 14pt;
+	}
+
+	.addToCart p{
+		font-size: 12pt;
 	}
 
 	.addToCartContainer{
@@ -1916,7 +1921,7 @@ input[type=number]::-webkit-inner-spin-button {
 	}
 
 	.modal-container h1{
-		font-size: 28px;
+		font-size: 22px;
 		text-shadow: 2px 2px 1px #f9d098;
 	}
 
@@ -2096,7 +2101,7 @@ input[type=number]::-webkit-inner-spin-button {
 	}
 
 	.modal-container .modal-price{
-		font-size: 18pt;
+		font-size: 18px;
 	}
 
 	.modal-info p{
