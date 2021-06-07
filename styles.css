@@ -1189,7 +1189,7 @@ input[type=number]::-webkit-inner-spin-button {
 .order-form > div > input,
 .order-form > div > input:focus,
 .order-form > div > textarea,
-.order-form > div > div:not(.total-price-php){
+.order-form > div > div:not(.total-price-php):not(.mode-of-payment-selection){
 	font-size: 20pt;
 	font-weight: normal;
 	color: #505050;
