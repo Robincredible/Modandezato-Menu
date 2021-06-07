@@ -7,8 +7,6 @@
 .intro .circles-container .circle.pink{
 	right: 300%;
 	top: -500%;
-	max-height: 80px;
-	max-width: 80px;
 }
 
 .intro .circles-container .circle.yellow{
@@ -285,6 +283,8 @@ body{
 	padding: 0;
 	overflow-x: hidden;
 	scroll-behavior: smooth;
+	width: 100%;
+	transition: 0.3s;
 }
 
 p{
@@ -1995,7 +1995,7 @@ input[type=number]::-webkit-inner-spin-button {
 	}
 
 	.modal-container h1{
-		font-size: 22px;
+		font-size: 28px;
 		text-shadow: 2px 2px 1px #f9d098;
 	}
 

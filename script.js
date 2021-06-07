@@ -43,7 +43,6 @@ function add_event_listeners(){
 		let text = selectedOption.text;
 
 		collections_change( filter_text_from_string("Categories:", text) );
-
 	});
 
 	/* modal height */
@@ -56,7 +55,6 @@ function add_event_listeners(){
 	/* add to cart */
 	const addToCartButton = document.querySelector('#addToCart');
 	const textArea = document.querySelector('#order-product-quantity');
-	let addToCartClicks = 0;
 	
 	addToCartButton.addEventListener('click', function(){
 
@@ -67,12 +65,6 @@ function add_event_listeners(){
 		let thisProductQuantity = this.parentElement.parentElement.querySelector('.quantityCart input').value;
 
 		add_to_cart(thisProductQuantity, thisProduct, thisProductPrice);
-
-		addToCartClicks++;
-
-		if (addToCartClicks > 2){
-			textArea.rows += 1;
-		}
 
 	});
 
@@ -142,25 +134,28 @@ function modalHeight(){
 function modal(){
 	const closeModal = document.querySelector('.close-modal');
 	const imageCount = document.querySelectorAll('.image').length;
-	let openModal;
+	let openModal, scrollAmount;
+	let scrollFinal = 0;
 
 	for (let j = 0; j < imageCount; j++){
 		openModal = document.querySelectorAll('.image')[j];
-		openModal.addEventListener('click', function(){
+		openModal.addEventListener('click', function(e){
 
 		const thisItem = this;
+		scrollAmount = e.pageY;
 
 		let currentSelect = thisItem.parentElement.parentElement.querySelector('.product-name').textContent;
 		let currentSelectDesc = thisItem.parentElement.parentElement.querySelector('.product-desc').textContent;
 		let currentSelectImage = thisItem.parentElement.parentElement.querySelector('.image img').src;
 		let currentSelectPrice = thisItem.parentElement.parentElement.querySelector('.box-price').textContent;
 
-		modal_open(currentSelect, currentSelectImage, currentSelectDesc, currentSelectPrice);
+		modal_open(currentSelect, currentSelectImage, currentSelectDesc, currentSelectPrice, scrollAmount);
 
 		});
+
 	} 
 
-	closeModal.addEventListener("click", modal_close);
+	closeModal.addEventListener("click", () => { modal_close() });
 }
 
 function add_class_to_modal_heading(name){
@@ -180,7 +175,31 @@ function remove_classes_from_modal_heading(){
 	modalHeading.className ="modal-heading"; 
 }
 
-function modal_open(name, image, info, price){
+function hide_overflow(scrollAmount){
+
+	const body = document.body;
+	const html = document.body.parentElement;
+
+	window.scrollTo(0, scrollAmount - 300);
+
+	html.style.overflowY = 'hidden';
+	body.style.overflowY = 'hidden';
+
+}
+
+function visible_overflow(){
+
+	const body = document.body;
+	const html = document.body.parentElement;
+
+	html.style.overflowY = 'visible';
+	body.style.overflowY = 'visible';
+
+}
+
+function modal_open(name, image, info, price, scrollAmount){
+
+	hide_overflow(scrollAmount);
 
 	const modal = document.querySelector('.modal-container');
 	const imageModal = document.querySelector('.modal-image-container img');
@@ -209,6 +228,8 @@ function modal_close(){
 	modal.classList.remove('active');
 
 	remove_classes_from_modal_heading();
+
+	visible_overflow();
 
 }
 
