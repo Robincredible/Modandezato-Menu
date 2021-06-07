@@ -251,12 +251,12 @@ function copy_order_form(){
     }
 
     //separate google maps link from actual address
-    address_sanitized += address.value.replace("https", "\nhttps");
+    address_sanitized += address.value.trim().replace("https", "\nhttps");
 
     //form labels + values
     let order = label_name + " " + name.value + '\n';
     		order += label_number + " " + number.value + '\n';
-    		order += label_address + " \n" + address_sanitized + '\n\n';
+    		order += label_address + " \n" + address.value + '\n\n';
     		order += label_products + " \n" + products_final + '\n';
     		order += 'Total Price: ' + get_total_price() + ' PHP \n\n';
     		order += label_schedule + " " + schedule.value + '\n';
@@ -597,10 +597,10 @@ function put_space_after_paste(){
 	let textarea = document.getElementById("order-address");
 	detectPaste(textarea, function(pasteInfo) {
 		let str = pasteInfo.text;
-		str = str.substring(str.indexOf("https") + 0);
+		str = str.substring(str.indexOf("https") - 100);
+		str2 = str.substring(str.indexOf("https") + 0);
 
-		let textValue = textarea.value.replace("https", " https");
-		textarea.value = str;
+		textarea.value = textarea.value.trim().replace(str, "") + '\n' + str2;
 	    // pasteInfo also has properties for the start and end character
 	    // index and length of the pasted text
 	});
