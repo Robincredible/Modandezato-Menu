@@ -88,17 +88,33 @@ function intro(){
 //dropdown change
 function collections_change(text){
 	let collectionID = text.replace(/\s/g, "").replace("Collection", "-Collection").toLowerCase();
+	let newID;
 	let collectionsContainer = document.querySelector(".collections ." + collectionID );
 
+	if (collectionID == 'specials'){
+		newID = collectionID + '-collection';
+		collectionsContainer = document.querySelector(".collections ." + newID );
+	}
+	
 	if (collectionsContainer.previousElementSibling.classList.contains("active") ){
 		collectionsContainer.previousElementSibling.classList.remove("active");
 		collectionsContainer.classList.add("active");
 	}
 
+	// else if (collectionsContainer.previousElementSibling.previousElementSibling.classList.contains("active") ){
+	// 	collectionsContainer.previousElementSibling.classList.remove("active");
+	// 	collectionsContainer.classList.add("active");
+	// }
+
 	else if (collectionsContainer.nextElementSibling.classList.contains("active") ){
 		collectionsContainer.classList.add("active");
 		collectionsContainer.nextElementSibling.classList.remove("active");
 	}
+
+	// else if (collectionsContainer.nextElementSibling.nextElementSibling.classList.contains("active") ){
+	// 	collectionsContainer.classList.add("active");
+	// 	collectionsContainer.nextElementSibling.classList.remove("active");
+	// }
 
 	else{
 		collectionsContainer.previousElementSibling.classList.remove("active");
