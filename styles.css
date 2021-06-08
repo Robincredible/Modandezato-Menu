@@ -1663,13 +1663,11 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width:  1600px){
+
 	.modal-image-container{
 		display: flex;
 	}
 
-	.modal-image-container img{
-		/*transform: translateY(0);*/
-	}
 }
 
 @media screen and (max-width: 1550px){
@@ -1746,6 +1744,7 @@ input[type=number]::-webkit-inner-spin-button {
 		margin-left: 0;
 		margin: 10px 0 10px 0;
 	}
+
 }
 
 @media screen and (max-width: 1350px){
@@ -1899,6 +1898,7 @@ input[type=number]::-webkit-inner-spin-button {
 	.item-container .image .quick-view{
 		font-size: 24pt;
 	}
+
 }
 
 @media screen and (max-width: 768px){
@@ -1914,9 +1914,7 @@ input[type=number]::-webkit-inner-spin-button {
 	}
 
 	.image img{
-		/*transform: translateY(-50%);*/
 	  position: relative;
-	  /*top: 80px;*/
 	}
 
 	.item-container .image .quick-view{
@@ -1962,6 +1960,7 @@ input[type=number]::-webkit-inner-spin-button {
 		max-width: 250px;
 		max-height: 250px;
 	}
+}
 
 @media screen and (max-width: 600px){
 
@@ -2133,7 +2132,6 @@ input[type=number]::-webkit-inner-spin-button {
 		font-size: 20px;
 	}
 
-
 }
 
 @media screen and (max-width: 420px){
@@ -2178,7 +2176,7 @@ input[type=number]::-webkit-inner-spin-button {
 
 	.circles-container .circle.yellow{
 		top: 85%;
-    	right: 85%;
+    right: 85%;
 	}
 
 	.dropdown select{
@@ -2240,9 +2238,11 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 @media (min-width: 400px ) and (max-width: 402px){
+
 	.content-footer-gap .right-circles .circles-container .circle.pink{
 		top: -310%;
 	}
+
 }
 
 @media screen and (max-width: 375px){
