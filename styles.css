@@ -224,7 +224,6 @@
 
 /* base styles */
 
-html,
 body{
 	box-sizing: border-box;
 	position: relative;
@@ -1442,7 +1441,7 @@ input[type=number]::-webkit-inner-spin-button {
 .footer{
 	width: 100%;
 	height: auto;
-	min-height: 400px;
+	min-height: 425px;
 	max-height: 600px;
 	overflow: hidden;
 	position: relative;
