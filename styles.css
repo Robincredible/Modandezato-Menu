@@ -224,6 +224,11 @@
 
 /* base styles */
 
+html{
+	overflow-x: hidden;
+	-webkit-overflow-x: hidden;
+}
+
 body{
 	box-sizing: border-box;
 	position: relative;
