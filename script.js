@@ -170,31 +170,31 @@ function remove_classes_from_modal_heading(){
 	modalHeading.className ="modal-heading"; 
 }
 
-// function hide_overflow(scrollAmount){
+function hide_overflow(scrollAmount){
 
-// 	const body = document.body;
-// 	const html = document.body.parentElement;
+	const body = document.body;
+	const html = document.body.parentElement;
 
-// 	window.scrollTo(0, scrollAmount - 300);
+	window.scrollTo(0, scrollAmount - 300);
 
-// 	html.style.overflowY = 'hidden';
-// 	body.style.overflowY = 'hidden';
+	html.style.overflowY = 'hidden';
+	body.style.overflowY = 'hidden';
 
-// }
+}
 
-// function visible_overflow(){
+function visible_overflow(){
 
-// 	const body = document.body;
-// 	const html = document.body.parentElement;
+	const body = document.body;
+	const html = document.body.parentElement;
 
-// 	html.style.overflowY = 'visible';
-// 	body.style.overflowY = 'visible';
+	html.style.overflowY = 'visible';
+	body.style.overflowY = 'visible';
 
-// }
+}
 
 function modal_open(name, image, info, price){
 
-	//hide_overflow(scrollAmount);
+	hide_overflow(scrollAmount);
 
 	const modal = document.querySelector('.modal-container');
 	const imageModal = document.querySelector('.modal-image-container img');
@@ -223,7 +223,7 @@ function modal_close(){
 	modal.classList.remove('active');
 
 	remove_classes_from_modal_heading();
-	//visible_overflow();
+	visible_overflow();
 
 }
 
