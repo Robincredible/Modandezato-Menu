@@ -2246,10 +2246,15 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 375px){
+	
 	.item-container:nth-child(odd) .image-container:after, 
 	.item-container:nth-child(even) .image-container:after, 
 	.item-container .image{
 		max-height: 285px;
+	}
+
+	.image img{
+		top: 120px;
 	}
 }
 
