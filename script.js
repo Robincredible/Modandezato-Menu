@@ -129,7 +129,7 @@ function modalHeight(){
 function modal(){
 	const closeModal = document.querySelector('.close-modal');
 	const imageCount = document.querySelectorAll('.image').length;
-	let openModal, scrollAmount;
+	let openModal;
 	let scrollFinal = 0;
 
 	for (let j = 0; j < imageCount; j++){
@@ -144,7 +144,7 @@ function modal(){
 		let currentSelectImage = thisItem.parentElement.parentElement.querySelector('.image img').src;
 		let currentSelectPrice = thisItem.parentElement.parentElement.querySelector('.box-price').textContent;
 
-		modal_open(currentSelect, currentSelectImage, currentSelectDesc, currentSelectPrice, scrollAmount);
+		modal_open(currentSelect, currentSelectImage, currentSelectDesc, currentSelectPrice);
 
 		});
 
@@ -170,31 +170,31 @@ function remove_classes_from_modal_heading(){
 	modalHeading.className ="modal-heading"; 
 }
 
-function hide_overflow(scrollAmount){
+// function hide_overflow(scrollAmount){
 
-	const body = document.body;
-	const html = document.body.parentElement;
+// 	const body = document.body;
+// 	const html = document.body.parentElement;
 
-	window.scrollTo(0, scrollAmount - 300);
+// 	window.scrollTo(0, scrollAmount - 300);
 
-	html.style.overflowY = 'hidden';
-	body.style.overflowY = 'hidden';
+// 	html.style.overflowY = 'hidden';
+// 	body.style.overflowY = 'hidden';
 
-}
+// }
 
-function visible_overflow(){
+// function visible_overflow(){
 
-	const body = document.body;
-	const html = document.body.parentElement;
+// 	const body = document.body;
+// 	const html = document.body.parentElement;
 
-	html.style.overflowY = 'visible';
-	body.style.overflowY = 'visible';
+// 	html.style.overflowY = 'visible';
+// 	body.style.overflowY = 'visible';
 
-}
+// }
 
-function modal_open(name, image, info, price, scrollAmount){
+function modal_open(name, image, info, price){
 
-	hide_overflow(scrollAmount);
+	//hide_overflow(scrollAmount);
 
 	const modal = document.querySelector('.modal-container');
 	const imageModal = document.querySelector('.modal-image-container img');
@@ -223,7 +223,7 @@ function modal_close(){
 	modal.classList.remove('active');
 
 	remove_classes_from_modal_heading();
-	visible_overflow();
+	//visible_overflow();
 
 }
 

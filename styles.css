@@ -97,7 +97,6 @@
 	99% { filter: hue-rotate(-5deg) saturate(100%) }
 }
 
-
 /* fonts */
 
 @font-face {
@@ -234,6 +233,8 @@ body{
 	margin: 0;
 	padding: 0;
 	overflow-x: hidden;
+	-webkit-overflow-x: hidden;
+	-webkit-scroll-behavior: smooth;
 	scroll-behavior: smooth;
 	width: 100%;
 }
