@@ -223,10 +223,6 @@
 }
 
 /* base styles */
-html{
-	overflow-y: visible;
-  overflow-x: hidden;
-}
 
 body{
 	box-sizing: border-box;
@@ -1674,10 +1670,10 @@ input[type=number]::-webkit-inner-spin-button {
 
 }
 
-@media screen and (max-width: 1550px){
+@media all and (max-width: 1550px){
 
 	.container{
-		overflow-x: hidden;
+		overflow: hidden;
 	}
 
 	.circles-container{
@@ -2096,12 +2092,12 @@ input[type=number]::-webkit-inner-spin-button {
 @media screen and (max-width: 460px){
 	.circles-container .circle.pink{
 		top: 85%;
-    	right: 85%;
+    right: 85%;
 	}
 
 	.circles-container .circle.yellow{
 		top: 75%;
-    	right: 75%;
+    right: 75%;
 	}
 
 	.content-footer-gap .right-circles .circles-container .circle.pink{
@@ -2250,7 +2246,6 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 375px){
-	
 	.item-container:nth-child(odd) .image-container:after, 
 	.item-container:nth-child(even) .image-container:after, 
 	.item-container .image{
