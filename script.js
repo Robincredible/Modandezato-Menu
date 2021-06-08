@@ -83,19 +83,20 @@ function add_event_listeners(){
 function collections_change(text){
 	let collectionID = text.replace(/\s/g, "").replace("Collection", "-Collection").toLowerCase();
 	let newID;
-	const collections = document.querySelectorAll(".collections");
+	const collection = document.querySelectorAll(".collection");
 
-	for (let i=0; i < collections.length; i++){
+	for (let i=0; i < collection.length; i++){
 
 		if(collectionID.indexOf("-collection") < 1){
 			newID = collectionID + '-collection';
 		} else{
 			newID = collectionID;
 		}
+		
+		if ( collection[i].classList.contains('active') ){
+			collection[i].classList.remove('active');
+		}
 
-		let collect = collections[i].querySelector(":not(.circles-container):not(.circle.pink):not(.circle.yellow):not(.circle-inner):not(" + newID + ")");
-		console.log(newID);
-		collect.classList.remove('active');
 		document.querySelector('.' + newID).classList.add('active');
 	}
 	
@@ -222,7 +223,6 @@ function modal_close(){
 	modal.classList.remove('active');
 
 	remove_classes_from_modal_heading();
-
 	visible_overflow();
 
 }
