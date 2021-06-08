@@ -236,7 +236,6 @@ body{
 	overflow-x: hidden;
 	scroll-behavior: smooth;
 	width: 100%;
-	transition: 0.3s;
 }
 
 p{
