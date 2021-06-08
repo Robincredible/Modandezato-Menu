@@ -2162,6 +2162,10 @@ input[type=number]::-webkit-inner-spin-button {
 		top: auto;
 	}
 
+	.footer{
+		min-height: 490px;
+	}
+
 }
 
 @media (min-width: 400px ) and (max-width: 402px){
