@@ -1,5 +1,4 @@
 function startup(){
-	//setTimeout( () => { intro() }, 200);
 	add_event_listeners();
 	modal();
 }
@@ -80,16 +79,10 @@ function add_event_listeners(){
 
 }
 
-function intro(){
-	const body = document.body;
-	body.classList.remove('intro');
-}
-
 //dropdown change
 function collections_change(text){
 	let collectionID = text.replace(/\s/g, "").replace("Collection", "-Collection").toLowerCase();
 	let newID;
-	let collectionsContainer = document.querySelector(".collections ." + collectionID );
 	const collections = document.querySelectorAll(".collections");
 
 	for (let i=0; i < collections.length; i++){
@@ -105,21 +98,6 @@ function collections_change(text){
 		collect.classList.remove('active');
 		document.querySelector('.' + newID).classList.add('active');
 	}
-
-	// if (collectionsContainer.previousElementSibling.classList.contains("active") ){
-	// 	collectionsContainer.previousElementSibling.classList.remove("active");
-	// 	collectionsContainer.classList.add("active");
-	// }
-
-	// else if (collectionsContainer.nextElementSibling.classList.contains("active") ){
-	// 	collectionsContainer.classList.add("active");
-	// 	collectionsContainer.nextElementSibling.classList.remove("active");
-	// }
-
-	// else{
-	// 	collectionsContainer.previousElementSibling.classList.remove("active");
-	// 	collectionsContainer.classList.add("active");	
-	// }
 	
 }
 
