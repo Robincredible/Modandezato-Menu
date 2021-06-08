@@ -1,5 +1,5 @@
 function startup(){
-	setTimeout( () => { intro() }, 200);
+	//setTimeout( () => { intro() }, 200);
 	add_event_listeners();
 	modal();
 }
@@ -90,36 +90,36 @@ function collections_change(text){
 	let collectionID = text.replace(/\s/g, "").replace("Collection", "-Collection").toLowerCase();
 	let newID;
 	let collectionsContainer = document.querySelector(".collections ." + collectionID );
+	const collections = document.querySelectorAll(".collections");
 
-	if (collectionID == 'specials'){
-		newID = collectionID + '-collection';
-		collectionsContainer = document.querySelector(".collections ." + newID );
-	}
-	
-	if (collectionsContainer.previousElementSibling.classList.contains("active") ){
-		collectionsContainer.previousElementSibling.classList.remove("active");
-		collectionsContainer.classList.add("active");
+	for (let i=0; i < collections.length; i++){
+
+		if(collectionID.indexOf("-collection") < 1){
+			newID = collectionID + '-collection';
+		} else{
+			newID = collectionID;
+		}
+
+		let collect = collections[i].querySelector(":not(.circles-container):not(.circle.pink):not(.circle.yellow):not(.circle-inner):not(" + newID + ")");
+		console.log(newID);
+		collect.classList.remove('active');
+		document.querySelector('.' + newID).classList.add('active');
 	}
 
-	// else if (collectionsContainer.previousElementSibling.previousElementSibling.classList.contains("active") ){
+	// if (collectionsContainer.previousElementSibling.classList.contains("active") ){
 	// 	collectionsContainer.previousElementSibling.classList.remove("active");
 	// 	collectionsContainer.classList.add("active");
 	// }
 
-	else if (collectionsContainer.nextElementSibling.classList.contains("active") ){
-		collectionsContainer.classList.add("active");
-		collectionsContainer.nextElementSibling.classList.remove("active");
-	}
-
-	// else if (collectionsContainer.nextElementSibling.nextElementSibling.classList.contains("active") ){
+	// else if (collectionsContainer.nextElementSibling.classList.contains("active") ){
 	// 	collectionsContainer.classList.add("active");
 	// 	collectionsContainer.nextElementSibling.classList.remove("active");
 	// }
 
-	else{
-		collectionsContainer.previousElementSibling.classList.remove("active");
-		collectionsContainer.classList.add("active");	
-	}
+	// else{
+	// 	collectionsContainer.previousElementSibling.classList.remove("active");
+	// 	collectionsContainer.classList.add("active");	
+	// }
 	
 }
 
