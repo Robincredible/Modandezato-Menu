@@ -50,6 +50,7 @@ function add_event_listeners(){
 
 	/* google maps paste */
 	put_space_after_paste();
+	collections_items_count();
 
 	/* add to cart */
 	const addToCartButton = document.querySelector('#addToCart');
@@ -102,6 +103,57 @@ function collections_change(text){
 	
 }
 
+function collections_items_count(){
+	const collection = document.querySelectorAll('.collection');
+
+	for (let i = 0; i < collection.length; i++){
+		count_items(collection[i].id);
+	}
+}
+
+function count_items(elementID){ //not yet done
+	const countChildren = document.querySelector('#' + elementID);
+	let itemsContainer = countChildren.querySelectorAll('.items-container');
+	let count = parseInt(countChildren.querySelectorAll('.items-container > div').length);
+
+	for(let i = 0; i < itemsContainer.length; i++){
+
+		switch (itemsContainer.length){
+
+			case 2:
+				switch(count){
+					case 4:
+						itemsContainer[i].classList.add('two-columns');
+					break;
+
+					case 1:
+						itemsContainer[i].classList.add('one-column');
+					break;
+
+					default:
+						itemsContainer[i].classList.add('three-columns');
+				}
+
+			break;
+
+			default:
+
+				switch(count){
+					case 4:
+						itemsContainer[i].classList.add('two-columns');
+					break;
+
+					case 1:
+						itemsContainer[i].classList.add('one-column');
+					break;
+
+					default:
+						itemsContainer[i].classList.add('three-columns');
+				}
+		}
+	}
+}
+
 //modal functions
 function modalHeight(){
 	const modalContainer = document.querySelector('.modal-content-container');
@@ -124,33 +176,6 @@ function modalHeight(){
 	else{
 		modalImageContainer.style.maxHeight = modalContainer.offsetHeight + 'px';
 	}
-}
-
-function modal(){
-	const closeModal = document.querySelector('.close-modal');
-	const imageCount = document.querySelectorAll('.image').length;
-	let openModal;
-	let scrollFinal = 0;
-
-	for (let j = 0; j < imageCount; j++){
-		openModal = document.querySelectorAll('.image')[j];
-		openModal.addEventListener('click', function(e){
-
-		const thisItem = this;
-		scrollAmount = e.pageY;
-
-		let currentSelect = thisItem.parentElement.parentElement.querySelector('.product-name').textContent;
-		let currentSelectDesc = thisItem.parentElement.parentElement.querySelector('.product-desc').textContent;
-		let currentSelectImage = thisItem.parentElement.parentElement.querySelector('.image img').src;
-		let currentSelectPrice = thisItem.parentElement.parentElement.querySelector('.box-price').textContent;
-
-		modal_open(currentSelect, currentSelectImage, currentSelectDesc, currentSelectPrice);
-
-		});
-
-	} 
-
-	closeModal.addEventListener("click", () => { modal_close() });
 }
 
 function add_class_to_modal_heading(name){
@@ -192,9 +217,46 @@ function visible_overflow(){
 
 }
 
+function modal(){
+	const closeModal = document.querySelector('.close-modal');
+	const imageCount = document.querySelectorAll('.image').length;
+	let openModal;
+	let scrollFinal = 0;
+	let currentSelectPrice;
+
+	for (let j = 0; j < imageCount; j++){
+		openModal = document.querySelectorAll('.image')[j];
+		openModal.addEventListener('click', function(e){
+
+		const thisItem = this;
+		scrollAmount = e.pageY;
+
+		let currentSelect = thisItem.parentElement.parentElement.querySelector('.product-name').textContent;
+		let currentSelectDesc = thisItem.parentElement.parentElement.querySelector('.product-desc').innerHTML;
+		let currentSelectImage = thisItem.parentElement.parentElement.querySelector('.image img').src;
+		if (thisItem.parentElement.parentElement.querySelector('.box-price') != null){
+			currentSelectPrice = thisItem.parentElement.parentElement.querySelector('.box-price').textContent;
+		}
+
+		modal_open(currentSelect, currentSelectImage, currentSelectDesc, currentSelectPrice);
+
+		});
+
+	} 
+
+	closeModal.addEventListener("click", () => { modal_close() });
+}
+
 function modal_open(name, image, info, price){
 
 	hide_overflow(scrollAmount);
+
+	let className = name.trim()
+											 .toLowerCase()
+											 .replaceAll(" ", "-")
+											 .replaceAll("'", "")
+											 .replaceAll("&", "")
+											 .replaceAll("--", "-");
 
 	const modal = document.querySelector('.modal-container');
 	const imageModal = document.querySelector('.modal-image-container img');
@@ -207,9 +269,17 @@ function modal_open(name, image, info, price){
 	imageModal.src =  image;
 	imageModal.alt =  name;
 	modalHeading.textContent = name;
-	modalDesc.textContent = info;
+	modalDesc.innerHTML = info;
 	modalPrice.textContent = price;
 	modal.classList.add('active');
+
+	if (name == 'Cookie Cake' || name == 'Bite-Sized Cookies'){
+			document.querySelector('.' + className).parentElement.querySelector('.addToCartContainer').classList.add('hide');
+			document.querySelector('.' + className).parentElement.querySelector('.modal-price').classList.add('hide');
+	} else{
+		document.querySelector('.' + className).parentElement.querySelector('.addToCartContainer').classList.remove('hide');
+		document.querySelector('.' + className).parentElement.querySelector('.modal-price').classList.remove('hide');
+	}
 
 }
 

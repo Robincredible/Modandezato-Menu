@@ -287,6 +287,7 @@ img{
 	width: 100%;
 	position: relative;
 	box-sizing: border-box;
+	/*overflow: hidden;*/
 }
 
 .with-numbers span{
@@ -366,6 +367,10 @@ img{
 .modal-container .modal-price{
 	font-size: 20pt;
 	margin: 12px auto;
+}
+
+.modal-price.hide{
+	display: none;
 }
 
 .modal-info p{
@@ -452,6 +457,10 @@ img{
 .addToCartContainer{
 	display: flex;
 	margin: 20px auto;
+}
+
+.addToCartContainer.hide{
+	display: none;
 }
 
 .addToCartContainer > div{
@@ -799,6 +808,17 @@ input[type=number]::-webkit-inner-spin-button {
 
 /* Products */
 
+.items-container.two-columns .item-container{
+	flex-basis: 45%;
+}
+
+.items-container.two-columns .item-container .image,
+.two-columns .item-container:nth-child(odd) .image-container:after,
+.two-columns .item-container:nth-child(even) .image-container:after{
+	max-width: 420px;
+	max-height: 410px;
+}
+
 .items-container{
 	display: flex;
 	justify-content: center;
@@ -808,7 +828,7 @@ input[type=number]::-webkit-inner-spin-button {
 
 .item-container{
 	flex-basis: 30%;
-	margin: 25px 12px 8px;
+	margin: 25px 12px;
 	position: relative;
 }
 
@@ -949,31 +969,31 @@ input[type=number]::-webkit-inner-spin-button {
 .item-container:nth-child(1) .image-container:after{
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -53%);
+	transform: translate(-50%, -52%);
 }
 
 .item-container:nth-child(2) .image-container:after{
 	top: 50%;
 	left: 50%;
-	transform: translate(-47%, -50%);
+	transform: translate(-48%, -50%);
 }
 
 .item-container:nth-child(3) .image-container:after{
 	top: 50%;
 	left: 50%;
-	transform: translate(-47%, -47%);
+	transform: translate(-48%, -48%);
 }
 
 .item-container:nth-child(4) .image-container:after{
 	top: 50%;
 	left: 50%;
-	transform: translate(-52%, -47%);
+	transform: translate(-52%, -48%);
 }
 
 .item-container:nth-child(5) .image-container:after{
 	top: 50%;
 	left: 50%;
-	transform: translate(-47%, -53%);
+	transform: translate(-48%, -52%);
 }
 
 .item-container .item .image-container:after{
@@ -1654,6 +1674,10 @@ input[type=number]::-webkit-inner-spin-button {
 
 @media screen and (max-width: 1550px){
 
+	.container{
+		overflow: hidden;
+	}
+
 	.circles-container{
 		min-height: 180px;
 	}
@@ -1752,7 +1776,7 @@ input[type=number]::-webkit-inner-spin-button {
 	}
 
 	.item-container{
-		flex-basis: 40%;
+		flex-basis: 45%;
 	}
 
 	.modal-image-container{
@@ -1770,6 +1794,13 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 992px){
+
+	.items-container.two-columns .item-container .image,
+	.two-columns .item-container:nth-child(odd) .image-container:after,
+	.two-columns .item-container:nth-child(even) .image-container:after{
+		max-width: 320px;
+		max-height: 320px;
+	}
 
 	.circles-container{
 		min-height: 150px;
@@ -1857,9 +1888,12 @@ input[type=number]::-webkit-inner-spin-button {
 
 	.item-container:nth-child(odd) .image-container:after,
 	.item-container:nth-child(even) .image-container:after,
-	.item-container .image{
-		max-width: 250px;
-		max-height: 250px;
+	.item-container .image,
+	.items-container.two-columns .item-container .image,
+	.two-columns .item-container:nth-child(odd) .image-container:after,
+	.two-columns .item-container:nth-child(even) .image-container:after{
+		max-width: 300px;
+		max-height: 280px;
 	}
 
 	.item-container .image .quick-view{
@@ -1868,17 +1902,21 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 768px){
+
 	.item-container:nth-child(odd) .image-container:after,
 	.item-container:nth-child(even) .image-container:after,
-	.item-container .image{
-		max-width: 200px;
-		max-height: 200px;
+	.item-container .image,
+	.items-container.two-columns .item-container .image,
+	.two-columns .item-container:nth-child(odd) .image-container:after,
+	.two-columns .item-container:nth-child(even) .image-container:after{
+		max-width: 300px;
+		max-height: 300px;
 	}
 
 	.image img{
-		transform: translateY(-50%);
+		/*transform: translateY(-50%);*/
 	  position: relative;
-	  top: 80px;
+	  /*top: 80px;*/
 	}
 
 	.item-container .image .quick-view{
@@ -1913,7 +1951,33 @@ input[type=number]::-webkit-inner-spin-button {
 
 }
 
+@media screen and (max-width: 720px){
+
+	.item-container:nth-child(odd) .image-container:after,
+	.item-container:nth-child(even) .image-container:after,
+	.item-container .image,
+	.items-container.two-columns .item-container .image,
+	.two-columns .item-container:nth-child(odd) .image-container:after,
+	.two-columns .item-container:nth-child(even) .image-container:after{
+		max-width: 250px;
+		max-height: 250px;
+	}
+
 @media screen and (max-width: 600px){
+
+	.item-container:nth-child(odd) .image-container:after,
+	.item-container:nth-child(even) .image-container:after,
+	.item-container .image,
+	.items-container.two-columns .item-container .image,
+	.two-columns .item-container:nth-child(odd) .image-container:after,
+	.two-columns .item-container:nth-child(even) .image-container:after{
+		max-width: 350px;
+		max-height: 350px;
+	}
+
+	.items-container.two-columns .item-container{
+		flex-basis: 100%;
+	}
 
 	.collection-paragraph{
 	 text-align: center;
@@ -1975,15 +2039,12 @@ input[type=number]::-webkit-inner-spin-button {
 		text-align: center;
 	}
 
-	.item-container:nth-child(odd) .image-container:after,
-	.item-container:nth-child(even) .image-container:after,
-	.item-container .image{
-		max-width: 320px;
-		max-height: 320px;
+	.modal-image-container img{
+		object-position: 60% 50%;
 	}
 
 	.image img{
-		top: 120px;
+		top: 170px;
 	}
 
 	.item-container .image .quick-view{
@@ -2076,6 +2137,16 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 420px){
+
+	.item-container:nth-child(odd) .image-container:after,
+	.item-container:nth-child(even) .image-container:after,
+	.item-container .image,
+	.items-container.two-columns .item-container .image,
+	.two-columns .item-container:nth-child(odd) .image-container:after,
+	.two-columns .item-container:nth-child(even) .image-container:after{
+		max-width: 310px;
+		max-height: 290px;
+	}
 
 	.added{
 		border-radius: 10px;
@@ -2190,8 +2261,11 @@ input[type=number]::-webkit-inner-spin-button {
 
 	.item-container:nth-child(odd) .image-container:after,
 	.item-container:nth-child(even) .image-container:after,
-	.item-container .image{
-		max-width: 250px;
+	.item-container .image,
+	.items-container.two-columns .item-container .image,
+	.two-columns .item-container:nth-child(odd) .image-container:after,
+	.two-columns .item-container:nth-child(even) .image-container:after{
+		max-width: 260px;
 		max-height: 250px;
 	}
 
