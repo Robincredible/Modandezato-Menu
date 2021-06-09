@@ -48,8 +48,6 @@ function add_event_listeners(){
 	window.addEventListener('resize', modalHeight);
 	window.addEventListener('load', modalHeight);
 
-	/* google maps paste */
-	put_space_after_paste();
 	collections_items_count();
 	item_names_as_classes_on_images();
 
