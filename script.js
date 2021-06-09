@@ -16,7 +16,7 @@ function detectManufacturer(){
 		'ua-parser-js' + '\n' +
 		'Device Vendor: ' + result.device.vendor + '\n\n' +
 
-		'Platform JS' + '\n\n' +
+		'Platform JS' + '\n' +
 		'Name: ' + platform.name + '\n' + // 'IE'
 		'Version: ' + platform.version + '\n' +  // '10.0'
 		'Layout: ' + platform.layout + '\n' +// 'Trident'
