@@ -1,3 +1,32 @@
+.width-checker{
+	display: flex;
+	position: fixed;
+	width: max-content;
+	height: auto;
+	max-height: 50%;
+	max-width: 50%;
+	font-size: 24px;
+	background: rgba(0,0,0,0.7);
+	color: #ffffff;
+	right: 0;
+	bottom: 0;
+	text-align: center;
+	font-family: sans-serif;
+	font-weight: 200;
+	padding: 8px 24px;
+	z-index: 1000;
+	pointer-events: none;
+	opacity: 0;
+}
+
+.width-checker.show{
+	opacity: 1;
+}
+
+.width-checker p{
+	align-self: center;
+}
+
 /* added to cart */
 
 .added{
@@ -1817,7 +1846,7 @@ input[type=number]::-webkit-inner-spin-button {
 	}
 
 	.modal-content-container{
-		max-height: 65%;
+		max-height: 80%;
 	}
 
 	.modal-info p{
@@ -1827,6 +1856,10 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 992px){
+
+	.modal-image-container img{
+		object-position: 60% 48%;
+	}
 
 	.items-container.two-columns .item-container .image,
 	.two-columns .item-container:nth-child(odd) .image-container:after,
@@ -1866,7 +1899,7 @@ input[type=number]::-webkit-inner-spin-button {
 	}
 
 	.modal-content-container{
-		max-height: 80%;
+		max-height: 90%;
 	}
 
 	.modal-content{

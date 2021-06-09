@@ -1,43 +1,15 @@
 //get platform source: https://github.com/bestiejs/platform.js
 
 function startup(){
-	detectManufacturer();
 	add_event_listeners();
 	modal();
 }
 
 document.addEventListener("DOMContentLoaded", startup);
 
-function detectManufacturer(){
-	var parser = new UAParser();
-	var result = parser.getResult();
-	let checklet = 'hey!';
-	let message;
-
-	if (typeof(checklet) !== 'undefined'){
-		message = "JS is ES6 and above";
-	} else{
-		message = "JS is below ES6";
-	}
-
-	alert(
-		message + '\n\n' +
-		'ua-parser-js' + '\n' +
-		'Device Vendor: ' + result.device.vendor + '\n\n' +
-
-		'Platform JS' + '\n' +
-		'Name: ' + platform.name + '\n' + // 'IE'
-		'Version: ' + platform.version + '\n' +  // '10.0'
-		'Layout: ' + platform.layout + '\n' +// 'Trident'
-		'OS: ' + platform.os + '\n' + // 'Windows Server 2008 R2 / 7 x64'
-		'Description: ' + platform.description+ '\n' +// 'IE 10.0 x86 (platform preview; running in IE 7 mode) on Windows Server 2008 R2 / 7 x64'
-		'Product: ' + platform.product + '\n' +
-		'Manufacturer: ' + platform.manufacturer
-		);
-
-}
-
 function add_event_listeners(){
+
+	toggle_debug_mode();
 
 	//Main Function
 
@@ -77,6 +49,9 @@ function add_event_listeners(){
 	});
 
 	/* modal height */
+	window.onresize = modalHeight;
+	window.onload = modalHeight;
+
 	window.addEventListener('resize', modalHeight);
 	window.addEventListener('load', modalHeight);
 
@@ -109,6 +84,23 @@ function add_event_listeners(){
 		}
 	});
 
+}
+
+
+function widthChecker(){
+	const widthCheck = document.querySelector('.width-checker');
+	let windowHeight = window.innerHeight;
+	let windowWidth = window.innerWidth;
+
+	widthCheck.classList.add('show');
+
+	widthCheck.innerHTML = 'width: ' + windowWidth + ' x Height:' + windowHeight;
+
+	window.onresize = widthChecker;
+	window.onload = widthChecker;
+
+	window.addEventListener('resize', widthChecker);
+	window.addEventListener('load', widthChecker);
 }
 
 //dropdown change
@@ -208,23 +200,13 @@ function count_items(elementID){ //not yet done
 function modalHeight(){
 	const modalContainer = document.querySelector('.modal-content-container');
 	const modalImageContainer = document.querySelector('.modal-image-container');
-	const windowHeight = window.screen.height;
-	const windowWidth = window.screen.width;
+	const windowHeight = window.innerHeight;
+	const windowWidth = window.innerWidth;
 
-	if (windowWidth <= 992 && windowWidth > 600){
-		modalImageContainer.style.maxHeight = (modalContainer.offsetHeight / 2) + 'px';
-	}
+	modalImageContainer.style.maxHeight = windowHeight - (windowHeight * 0.2) + 'px';
 
-	else if (windowWidth <= 600){
-		modalImageContainer.style.maxHeight = ( (modalContainer.offsetHeight / 2) - 60 ) + 'px';
-
-		if(windowHeight <= 600){
-			modalImageContainer.style.maxHeight = ( (modalContainer.offsetHeight / 2) - 100 ) + 'px';
-		}
-	}
-
-	else{
-		modalImageContainer.style.maxHeight = modalContainer.offsetHeight + 'px';
+	if (windowWidth <= 992 ){
+		modalImageContainer.style.maxHeight = (windowHeight/2) - ((windowHeight/2) * 0.3) + 'px';
 	}
 }
 
@@ -329,12 +311,11 @@ function modal_open(name, image, info, price, scrollAmount){
 
 	hide_overflow(scrollAmount);
 
-	let className = name.trim()
-											 .toLowerCase()
-											 .replaceAll(" ", "-")
-											 .replaceAll("'", "")
-											 .replaceAll("&", "")
-											 .replaceAll("--", "-");
+	let className = name.trim().toLowerCase()
+							 .replaceAll(" ", "-")
+							 .replaceAll("'", "")
+							 .replaceAll("&", "")
+							 .replaceAll("--", "-");
 
 	const modalBG = document.querySelector('.modal-bg');
 	const modal = document.querySelector('.modal-container');
@@ -347,22 +328,20 @@ function modal_open(name, image, info, price, scrollAmount){
 	add_class_to_modal_heading(name);
 
 	if (className === 'cookie-cake' || className === 'bite-sized-cookies'){
-			modal.querySelector('.' + className).parentElement.querySelector('.addToCartContainer').classList.add('hide');
-			modal.querySelector('.' + className).parentElement.querySelector('.modal-price').classList.add('hide');
+		modal.querySelector('.' + className).parentElement.querySelector('.addToCartContainer').classList.add('hide');
+		modal.querySelector('.' + className).parentElement.querySelector('.modal-price').classList.add('hide');
 	} 
 
 	else{
-			modal.querySelector('.' + className).parentElement.querySelector('.addToCartContainer').classList.remove('hide');
-			modal.querySelector('.' + className).parentElement.querySelector('.modal-price').classList.remove('hide');
+		modal.querySelector('.' + className).parentElement.querySelector('.addToCartContainer').classList.remove('hide');
+		modal.querySelector('.' + className).parentElement.querySelector('.modal-price').classList.remove('hide');
 	}
 
 	imageModal.src = image;
 	imageModal.alt = name;
 	modalHeading.textContent = name;
 	modalDesc.innerHTML = info;
-	if (price){
-		modalPrice.textContent = price;
-	}
+	modalPrice.textContent = price;
 	modal.classList.add('active');
 	modalBG.classList.add('active');
 
@@ -386,7 +365,7 @@ function modal_close(){
 
 //copy order form button
 function copy_order_form(){
-		//form input elements
+	//form input elements
     const orderForm = document.querySelector("#order-form");
     const name = orderForm.querySelector("input[name='order-name']");
     const number = orderForm.querySelector("input[name='order-number']");
@@ -427,12 +406,12 @@ function copy_order_form(){
 
     //form labels + values
     let order = label_name + " " + name.value + '\n';
-    		order += label_number + " " + number.value + '\n';
-    		order += label_address + " \n" + address.value + '\n\n';
-    		order += label_products + " \n" + products_final + '\n';
-    		order += 'Total Price: ' + get_total_price() + ' PHP \n\n';
-    		order += label_schedule + " " + schedule.value + '\n';
-    		order += label_modeOfPayment + " " + modeOfPaymentChecked.value;
+		order += label_number + " " + number.value + '\n';
+		order += label_address + " \n" + address.value + '\n\n';
+		order += label_products + " \n" + products_final + '\n';
+		order += 'Total Price: ' + get_total_price() + ' PHP \n\n';
+		order += label_schedule + " " + schedule.value + '\n';
+		order += label_modeOfPayment + " " + modeOfPaymentChecked.value;
 
     let input = document.createElement("textarea");
 
@@ -554,12 +533,11 @@ function store_to_cart(quantity, name, price){
 
 	let sameName, sameNameQuantity, sameNamePrice;
 	let added_already_bool = already_added_to_cart(name);
-	let sanitizedName = name.trim()
-											 .toLowerCase()
-											 .replaceAll(" ", "-")
-											 .replaceAll("'", "")
-											 .replaceAll("&", "")
-											 .replaceAll("--", "-");
+	let sanitizedName = name.trim().toLowerCase()
+								 .replaceAll(" ", "-")
+								 .replaceAll("'", "")
+								 .replaceAll("&", "")
+								 .replaceAll("--", "-");
 
 	if (added_already_bool === true){
 
@@ -609,12 +587,11 @@ function already_added_to_cart(name){
 	
 	let productCount = document.querySelectorAll('.order-product-quantity > div').length;
 	let added = false;
-	let sanitizedName = name.trim()
-											 .toLowerCase()
-											 .replaceAll(" ", "-")
-											 .replaceAll("'", "")
-											 .replaceAll("&", "")
-											 .replaceAll("--", "-");
+	let sanitizedName = name.trim().toLowerCase()
+								 .replaceAll(" ", "-")
+								 .replaceAll("'", "")
+								 .replaceAll("&", "")
+								 .replaceAll("--", "-");
 	let product, productName;
 
 	for(let i=0; i < productCount; i++){
@@ -668,10 +645,9 @@ function add_to_cart(quantity, name, price){
 		addButton.textContent = "Added to Orders!";
 	}
 
-	added.classList.add('shown');
-
 	store_to_cart(quantity, name, price);
 
+	added.classList.add('shown');
 	noProducts.classList.add('hide');
 
 	display_total_price(get_total_price());
@@ -698,12 +674,11 @@ function get_total_price(){
 
 function remove_from_cart(name){
 	const product = document.querySelector('.order-product-quantity');
-	let sanitizedName = name.trim()
-											 .toLowerCase()
-											 .replaceAll(" ", "-")
-											 .replaceAll("'", "")
-											 .replaceAll("&", "")
-											 .replaceAll("--", "-");
+	let sanitizedName = name.trim().toLowerCase()
+								 .replaceAll(" ", "-")
+								 .replaceAll("'", "")
+								 .replaceAll("&", "")
+								 .replaceAll("--", "-");
 
 	let priceToBeSubtracted = parseFloat(product.querySelector('.order-' + sanitizedName + ' .total-price').textContent);
 
@@ -776,5 +751,60 @@ function put_space_after_paste(){
 	    // pasteInfo also has properties for the start and end character
 	    // index and length of the pasted text
 	});
+
+}
+
+//debugging
+
+function toggle_debug_mode(){
+	const dice = document.querySelector('.dice.large');
+	let clicks = 0;
+	let bool = false;
+
+	dice.addEventListener('click', function(){
+
+		if (clicks >= 10){
+			bool = true;
+			debug_mode(bool);
+		}
+
+		clicks++;
+
+	});
+}
+
+function debug_mode(activate){
+	if (activate === true){
+		detectManufacturer();
+		widthChecker();
+	}
+}
+
+function detectManufacturer(){
+	var parser = new UAParser();
+	var result = parser.getResult();
+	let checklet = 'hey!';
+	let message;
+
+	if (typeof(checklet) !== 'undefined'){
+		message = "JS is ES6 and above";
+	} else{
+		message = "JS is below ES6";
+	}
+
+	alert(
+		message + '\n\n' +
+		'ua-parser-js' + '\n' +
+		'Device Vendor: ' + result.device.vendor + '\n\n' +
+
+		'Platform JS' + '\n' +
+		'Name: ' + platform.name + '\n' + // 'IE'
+		'Version: ' + platform.version + '\n' +  // '10.0'
+		'Layout: ' + platform.layout + '\n' +// 'Trident'
+		'OS: ' + platform.os + '\n' + // 'Windows Server 2008 R2 / 7 x64'
+		'Description: ' + platform.description+ '\n' +// 'IE 10.0 x86 (platform preview; running in IE 7 mode) on Windows Server 2008 R2 / 7 x64'
+		'Product: ' + platform.product + '\n' +
+		'Manufacturer: ' + platform.manufacturer
+		);
 
 }
