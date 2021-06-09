@@ -818,7 +818,27 @@ function okay_device_notice(){
 }
 
 function device_notice(){
-	if (parseInt(platform.version) < 82){
+
+	let str, str2, chromeVersion, browser;
+	let desc = platform.description;
+
+	if ( desc.includes('Mobile') ){
+		str = desc.substring(desc.indexOf("Chrome") + 16);
+		str2 = desc.substring(desc.indexOf("Chrome") + 0).replace(str, "").replace("Mobile", "");
+		chromeVersion = str2.slice(-2);
+		browser = str2.slice(0).replace(chromeVersion, "").trim();
+		console.log('With mobile: ' + browser + ': ' + chromeVersion);
+	}
+
+	else{
+		str = platform.description.substring(platform.description.indexOf("Chrome") + 9);
+		str2 = platform.description.substring(platform.description.indexOf("Chrome") + 0).replace(str, "");
+		chromeVersion = str2.slice(-2);
+		browser = str2.slice(0).replace(chromeVersion, "").trim();
+		console.log('No mobile: ' + browser + ': ' + chromeVersion);
+	}
+
+	if (browser == "Chrome" && chromeVersion < 82){
 		document.querySelector('.device-notice').classList.add('show');
 	}
 }
