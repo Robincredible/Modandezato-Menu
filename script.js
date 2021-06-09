@@ -781,6 +781,8 @@ function debug_mode(activate){
 	if (activate === true){
 		detectManufacturer();
 		widthChecker();
+		document.querySelector('.debug-mode-display').classList.add('show');
+		console.log('--- Debug Mode ---');
 	}
 }
 
