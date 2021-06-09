@@ -51,6 +51,7 @@ function add_event_listeners(){
 	/* google maps paste */
 	put_space_after_paste();
 	collections_items_count();
+	item_names_as_classes_on_images();
 
 	/* add to cart */
 	const addToCartButton = document.querySelector('#addToCart');
@@ -108,6 +109,25 @@ function collections_items_count(){
 
 	for (let i = 0; i < collection.length; i++){
 		count_items(collection[i].id);
+	}
+}
+
+function item_names_as_classes_on_images(){
+	const itemContainer = document.querySelectorAll('.item-container');
+	let itemName, itemImage, sanitizedName;
+
+	for (let i = 0; i < itemContainer.length; i++){
+		itemName = itemContainer[i].querySelector('.product-name').textContent;
+		itemImage = itemContainer[i].querySelector('.image img');
+
+		sanitizedName = itemName.trim()
+											 .toLowerCase()
+											 .replaceAll(" ", "-")
+											 .replaceAll("'", "")
+											 .replaceAll("&", "")
+											 .replaceAll("--", "-");
+
+		itemImage.classList.add(sanitizedName + '-image');
 	}
 }
 
@@ -200,7 +220,7 @@ function hide_overflow(scrollAmount){
 	const body = document.body;
 	const html = document.body.parentElement;
 
-	window.scrollTo(0, scrollAmount - 300);
+	window.scrollTo(0, scrollAmount - 400);
 
 	html.style.overflowY = 'hidden';
 	body.style.overflowY = 'hidden';
@@ -217,19 +237,47 @@ function visible_overflow(){
 
 }
 
+/* Find the position of an object. Source: https://www.quirksmode.org/js/findpos.html */
+function findPos(obj) {
+	let curleft = curtop = 0;
+
+	if (obj.offsetParent) {
+		do {
+			curleft += obj.offsetLeft;
+			curtop += obj.offsetTop;
+			} while (obj = obj.offsetParent);
+		return [curleft,curtop];
+	}
+}
+
 function modal(){
 	const closeModal = document.querySelector('.close-modal');
 	const imageCount = document.querySelectorAll('.image').length;
-	let openModal;
+	let openModal, currentSelectPrice, clickedObject, scrollAmount;
 	let scrollFinal = 0;
-	let currentSelectPrice;
 
 	for (let j = 0; j < imageCount; j++){
 		openModal = document.querySelectorAll('.image')[j];
 		openModal.addEventListener('click', function(e){
 
 		const thisItem = this;
-		scrollAmount = e.pageY;
+		
+		const thisItemName = this.parentElement.parentElement.querySelector('.product-name');
+		const targetName = e.target.parentElement.parentElement.parentElement.querySelector('.product-name');
+
+		if (thisItemName.textContent === targetName.textContent){
+			let sanitizedName = targetName.textContent.trim()
+											 .toLowerCase()
+											 .replaceAll(" ", "-")
+											 .replaceAll("'", "")
+											 .replaceAll("&", "")
+											 .replaceAll("--", "-");
+
+		clickedObject = document.querySelector('.' + sanitizedName + '-image');
+
+		scrollAmount = findPos(clickedObject)[1];
+
+		}
 
 		let currentSelect = thisItem.parentElement.parentElement.querySelector('.product-name').textContent;
 		let currentSelectDesc = thisItem.parentElement.parentElement.querySelector('.product-desc').innerHTML;
@@ -238,7 +286,7 @@ function modal(){
 			currentSelectPrice = thisItem.parentElement.parentElement.querySelector('.box-price').textContent;
 		}
 
-		modal_open(currentSelect, currentSelectImage, currentSelectDesc, currentSelectPrice);
+		modal_open(currentSelect, currentSelectImage, currentSelectDesc, currentSelectPrice, scrollAmount);
 
 		});
 
@@ -247,7 +295,7 @@ function modal(){
 	closeModal.addEventListener("click", () => { modal_close() });
 }
 
-function modal_open(name, image, info, price){
+function modal_open(name, image, info, price, scrollAmount){
 
 	hide_overflow(scrollAmount);
 
@@ -258,39 +306,48 @@ function modal_open(name, image, info, price){
 											 .replaceAll("&", "")
 											 .replaceAll("--", "-");
 
+	const modalBG = document.querySelector('.modal-bg');
 	const modal = document.querySelector('.modal-container');
 	const imageModal = document.querySelector('.modal-image-container img');
 	const modalHeading = document.querySelector('.modal-heading');
 	const modalDesc = document.querySelector('.modal-description');
 	const modalPrice = document.querySelector('.modal-price');
+	const addToCart = document.querySelector('.addToCartContainer');
 
 	add_class_to_modal_heading(name);
 
-	imageModal.src =  image;
-	imageModal.alt =  name;
+	if (className === 'cookie-cake' || className === 'bite-sized-cookies'){
+			modal.querySelector('.' + className).parentElement.querySelector('.addToCartContainer').classList.add('hide');
+			modal.querySelector('.' + className).parentElement.querySelector('.modal-price').classList.add('hide');
+	} 
+
+	else{
+			modal.querySelector('.' + className).parentElement.querySelector('.addToCartContainer').classList.remove('hide');
+			modal.querySelector('.' + className).parentElement.querySelector('.modal-price').classList.remove('hide');
+	}
+
+	imageModal.src = image;
+	imageModal.alt = name;
 	modalHeading.textContent = name;
 	modalDesc.innerHTML = info;
-	modalPrice.textContent = price;
-	modal.classList.add('active');
-
-	if (name == 'Cookie Cake' || name == 'Bite-Sized Cookies'){
-			document.querySelector('.' + className).parentElement.querySelector('.addToCartContainer').classList.add('hide');
-			document.querySelector('.' + className).parentElement.querySelector('.modal-price').classList.add('hide');
-	} else{
-		document.querySelector('.' + className).parentElement.querySelector('.addToCartContainer').classList.remove('hide');
-		document.querySelector('.' + className).parentElement.querySelector('.modal-price').classList.remove('hide');
+	if (price){
+		modalPrice.textContent = price;
 	}
+	modal.classList.add('active');
+	modalBG.classList.add('active');
 
 }
 
 function modal_close(){
 
+	const modalBG = document.querySelector('.modal-bg');
 	const modal = document.querySelector('.modal-container');
 	const added = document.querySelector('.added');
 	const productQuantity = document.querySelector('.quantityCart input');
 	productQuantity.value = 1;
 	added.classList.remove('shown');
 	modal.classList.remove('active');
+	modalBG.classList.remove('active');
 
 	remove_classes_from_modal_heading();
 	visible_overflow();
