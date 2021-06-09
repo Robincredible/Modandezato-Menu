@@ -1,3 +1,78 @@
+.device-notice{
+	display: flex;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: auto;
+	max-height: 100px;
+	background: rgba(0, 0, 0, 0.8);
+	color: #ffffff;
+	padding: 6px 16px;
+	font-size: 16px;
+	justify-content: center;
+	z-index: 20;
+	font-style: italic;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.device-notice.show{
+	opacity: 1;
+	pointer-events: all;
+}
+
+.device-notice-content{
+	flex-basis: 90%;
+	max-width: 0 auto;
+	display: flex;
+}
+
+.device-notice *{
+	align-self: center;
+}
+
+.device-notice-content > div{
+	flex-basis: auto;
+}
+
+.notice{
+	font-weight: 200;
+	font-family: sans-serif;
+	padding: 0px 8px;
+	letter-spacing: 1px;
+}
+
+.notice-button{
+	max-width: max-content;
+	max-height: max-content;
+	cursor: pointer;
+	padding: 0px 8px;
+}
+
+.device-notice .okay{
+	background: #fea88d;
+	padding: 5px 10px;
+	color: #3d3d3d;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	display: flex;
+	font-size: 18px;
+	max-height: 36px;
+	font-style: normal;
+	line-height: 0;
+}
+
+.device-notice .okay:hover{
+	background: #f9d098;
+	color: #3d3d3d;
+}
+
+.okay p{
+	font-family: sans-serif;
+	align-self: center;
+}
+
 .width-checker{
 	display: flex;
 	position: fixed;
@@ -1857,6 +1932,10 @@ input[type=number]::-webkit-inner-spin-button {
 
 @media screen and (max-width: 992px){
 
+	.device-notice{
+		font-size: 14px;
+	}
+
 	.modal-image-container img{
 		object-position: 60% 48%;
 	}
@@ -2031,6 +2110,10 @@ input[type=number]::-webkit-inner-spin-button {
 
 @media screen and (max-width: 600px){
 
+	.device-notice{
+		font-size: 12px;
+	}
+
 	.modal-container{
 		top: 0;
 		left: 150%;
@@ -2169,6 +2252,11 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 460px){
+
+	.device-notice{
+		max-height: 140px;
+	}
+
 	.circles-container .circle.pink{
 		top: 85%;
     right: 85%;
@@ -2337,6 +2425,10 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 360px){
+
+	.device-notice{
+		max-height: 150px;
+	}
 
 	.addToCart p{
 		font-size: 14px;

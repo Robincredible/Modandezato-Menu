@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", startup);
 function add_event_listeners(){
 
 	toggle_debug_mode();
+	device_notice();
+
+	const deviceNoticeOkay = document.querySelector('.device-notice .okay');
+	deviceNoticeOkay.addEventListener('click', okay_device_notice);
 
 	//Main Function
 
@@ -807,4 +811,14 @@ function detectManufacturer(){
 		'Manufacturer: ' + platform.manufacturer
 		);
 
+}
+
+function okay_device_notice(){
+	document.querySelector('.device-notice').classList.remove('show');
+}
+
+function device_notice(){
+	if (platform.version < 82){
+		document.querySelector('.device-notice').classList.add('show');
+	}
 }
