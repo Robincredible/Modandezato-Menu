@@ -818,7 +818,7 @@ function okay_device_notice(){
 }
 
 function device_notice(){
-	if (platform.version < 82){
+	if (parseInt(platform.version) < 82){
 		document.querySelector('.device-notice').classList.add('show');
 	}
 }
