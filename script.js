@@ -1,18 +1,32 @@
+//get platform source: https://github.com/bestiejs/platform.js
+
 function startup(){
+	detectManufacturer();
 	add_event_listeners();
 	modal();
+}
+
+document.addEventListener("DOMContentLoaded", startup);
+
+function detectManufacturer(){
+	var parser = new UAParser();
+	var result = parser.getResult();
+
 	alert(
-		'Device Info: ' + '\n' +
+		'ua-parser-js' + '\n' +
+		'Device Vendor: ' + result.device.vendor + '\n\n' +
+
+		'Platform JS' + '\n\n' +
 		'Name: ' + platform.name + '\n' + // 'IE'
 		'Version: ' + platform.version + '\n' +  // '10.0'
 		'Layout: ' + platform.layout + '\n' +// 'Trident'
 		'OS: ' + platform.os + '\n' + // 'Windows Server 2008 R2 / 7 x64'
 		'Description: ' + platform.description+ '\n' +// 'IE 10.0 x86 (platform preview; running in IE 7 mode) on Windows Server 2008 R2 / 7 x64'
 		'Product: ' + platform.product + '\n' +
-		'Manufacturer: ' + platform.manufacturer );
-}
+		'Manufacturer: ' + platform.manufacturer
+		);
 
-document.addEventListener("DOMContentLoaded", startup);
+}
 
 function add_event_listeners(){
 
