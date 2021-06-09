@@ -1,6 +1,14 @@
 function startup(){
 	add_event_listeners();
 	modal();
+	alert(
+		'Device Info: ' + '\n' +
+		'Name: ' + platform.name + '\n' + // 'IE'
+		'Version: ' + platform.version + '\n' +  // '10.0'
+		'Layout: ' + platform.layout + '\n' +// 'Trident'
+		'OS: ' + platform.os + '\n' + // 'Windows Server 2008 R2 / 7 x64'
+		'Description: ' + platform.description+ '\n' +// 'IE 10.0 x86 (platform preview; running in IE 7 mode) on Windows Server 2008 R2 / 7 x64'
+		'Product: ' + platform.product);
 }
 
 document.addEventListener("DOMContentLoaded", startup);
