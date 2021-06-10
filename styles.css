@@ -984,9 +984,28 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .image img{
-	transform: translateY(-50%);
+	transform: translateY(-40%);
   position: relative;
   top: 140px;
+}
+
+.image img.double-chocolate-image,
+.image img.matcha-white-image,
+.image img.assorted-image,
+.image img.double-chocolate-muffins-image{
+	transform: translateY(-50%);
+}
+
+.image img.espresso-image{
+	transform: translateY(-55%);
+}
+
+.image img.reeses-peanut-butter-image{
+	transform: translateY(-35%);
+}
+
+.image img.deluxe-sampler-image{
+	transform: translateY(-30%);
 }
 
 .item-container .image .img-hover{
@@ -1906,6 +1925,18 @@ input[type=number]::-webkit-inner-spin-button {
 
 @media screen and (max-width: 992px){
 
+	.image img.cookie-cake-image{
+		transform: translateY(-55%);
+	}
+
+	.image img.hersheys-special-dark-image{
+		transform: translateY(-53%);
+	}
+
+	.image img.deluxe-sampler-image{
+		transform: translateY(-40%);
+	}
+
 	.device-notice{
 		font-size: 14px;
 	}
@@ -2070,9 +2101,47 @@ input[type=number]::-webkit-inner-spin-button {
 		max-width: 250px;
 		max-height: 250px;
 	}
+
+	.image img{
+		transform: translateY(-55%);
+	}
+
+	.image img.reeses-peanut-butter-image{
+		transform: translateY(-45%);
+	}
+
+	.image img.double-chocolate-image,
+	.image img.matcha-white-image,
+	.image img.assorted-image,
+	.image img.double-chocolate-muffins-image{
+		transform: translateY(-60%);
+	}
+
+	.image img.espresso-image{
+		transform: translateY(-65%);
+	}
+
+	.image img.deluxe-sampler-image{
+		transform: translateY(-50%);
+	}
 }
 
 @media screen and (max-width: 600px){
+
+	.image img{
+		transform: translateY(-45%);
+	}
+
+	.image img.double-chocolate-image,
+	.image img.matcha-white-image,
+	.image img.assorted-image,
+	.image img.double-chocolate-muffins-image{
+		transform: translateY(-50%);
+	}
+
+	.image img.espresso-image{
+		transform: translateY(-60%);
+	}
 
 	.device-notice{
 		font-size: 12px;
@@ -2267,6 +2336,22 @@ input[type=number]::-webkit-inner-spin-button {
 
 @media screen and (max-width: 420px){
 
+	.image img{
+		transform: translateY(-50%);
+	}
+
+	.image img.double-chocolate-image,
+	.image img.matcha-white-image,
+	.image img.assorted-image,
+	.image img.double-chocolate-muffins-image{
+		transform: translateY(-55%);
+	}
+
+	.image img.espresso-image,
+	.image img.cookie-cake-image{
+		transform: translateY(-60%);
+	}
+
 	.item-container:nth-child(odd) .image-container:after,
 	.item-container:nth-child(even) .image-container:after,
 	.item-container .image,
@@ -2385,11 +2470,49 @@ input[type=number]::-webkit-inner-spin-button {
 	}
 
 	.image img{
-		top: 120px;
+		transform: translateY(-50%);
 	}
+
+	.image img.double-chocolate-image,
+	.image img.matcha-white-image,
+	.image img.assorted-image,
+	.image img.double-chocolate-muffins-image{
+		transform: translateY(-60%);
+	}
+
+	.image img.hersheys-special-dark-image,
+	.image img.bite-sized-cookies-image{
+		transform: translateY(-55%);
+	}
+
 }
 
 @media screen and (max-width: 360px){
+
+	.image img{
+		transform: translateY(-55%);
+	}
+
+	.image img.reeses-peanut-butter-image{
+		transform: translateY(-50%);
+	}
+
+	.image img.double-chocolate-image,
+	.image img.matcha-white-image,
+	.image img.assorted-image,
+	.image img.double-chocolate-muffins-image,
+	.image img.espresso-image{
+		transform: translateY(-65%);
+	}
+
+	.image img.hersheys-special-dark-image,
+	.image img.bite-sized-cookies-image{
+		transform: translateY(-60%);
+	}
+
+	.image img.cookie-cake-image{
+		transform: translateY(-70%);
+	}
 
 	.device-notice{
 		max-height: 150px;
