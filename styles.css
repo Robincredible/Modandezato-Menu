@@ -305,12 +305,20 @@ img{
 	object-position: 60% 45%;
 }
 
+.modal-image-container img.classic-chocolate-image:hover{
+	transform: scale(1.4) translateX(13%);
+}
+
 .modal-image-container img.double-chocolate-image{
 	object-position: 60% 55%;
 }
 
 .modal-image-container img.espresso-image{
 	object-position: 60% 90%;
+}
+
+.modal-image-container img.espresso-image:hover{
+	transform: scale(1.4) translateX(14%) translateY(-5%);
 }
 
 .modal-image-container img.reeses-peanut-butter-image{
@@ -323,6 +331,10 @@ img{
 
 .modal-image-container img.deluxe-sampler-image{
 	object-position: 60% 25%;
+}
+
+.modal-image-container img.deluxe-sampler-image:hover{
+	transform: scale(1.4) translateX(13%);
 }
 
 .modal-image-container img.fudgy-brownie-cookies-image{
