@@ -80,6 +80,7 @@ function collections_change(text){
 	let collectionID = text.replace(/\s/g, "").replace("Collection", "-Collection").toLowerCase();
 	let newID;
 	const collection = document.querySelectorAll(".collection");
+	let bool = false;
 
 	for (let i=0; i < collection.length; i++){
 		if(collectionID.indexOf("-collection") < 1){
@@ -92,7 +93,26 @@ function collections_change(text){
 			collection[i].classList.remove('active');
 		}
 		document.querySelector('.' + newID).classList.add('active');
+		bool = true;
 	}
+
+	lazy_loading(bool, newID);
+}
+
+function lazy_loading(bool, collection){
+	console.log(bool + ', ' + collection);
+	const lazy_images_parent = document.querySelectorAll('.' + collection + '.active' + ' .item-container');
+
+	if (bool == true){
+		console.log(lazy_images_parent.length);
+		for (let i = 0; i < lazy_images_parent.length; i++){
+			let image = lazy_images_parent[i].querySelector('.image img');
+			
+			image.src = image.dataset.src;
+		}
+
+	}
+
 }
 
 function modalHeight(){
