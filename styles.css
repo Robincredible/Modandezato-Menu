@@ -301,6 +301,46 @@ img{
 }
 
 /* modal */
+.modal-image-container img.classic-chocolate-image{
+	object-position: 60% 45%;
+}
+
+.modal-image-container img.double-chocolate-image{
+	object-position: 60% 55%;
+}
+
+.modal-image-container img.espresso-image{
+	object-position: 60% 90%;
+}
+
+.modal-image-container img.reeses-peanut-butter-image{
+	object-position: 60% 30%;
+}
+
+.modal-image-container img.ghirardelli-white-image{
+	object-position: 60% 30%;
+}
+
+.modal-image-container img.deluxe-sampler-image{
+	object-position: 60% 25%;
+}
+
+.modal-image-container img.fudgy-brownie-cookies-image{
+	object-position: 60% 45%;
+}
+
+.modal-image-container img.double-chocolate-muffins-image{
+	object-position: 60% 90%;
+}
+
+.modal-image-container img.bite-sized-cookies-image{
+	object-position: 60% 60%;
+}
+
+.modal-image-container img.cookie-cake-image{
+	object-position: 60% 95%;
+}
+
 .modal-container{
 	position: fixed;
 	display: flex;
@@ -1006,6 +1046,10 @@ input[type=number]::-webkit-inner-spin-button {
 
 .image img.deluxe-sampler-image{
 	transform: translateY(-30%);
+}
+
+.image img.cookie-cake-image{
+	transform: translateY(-45%);
 }
 
 .item-container .image .img-hover{
@@ -1937,6 +1981,38 @@ input[type=number]::-webkit-inner-spin-button {
 		transform: translateY(-40%);
 	}
 
+	.modal-image-container img.espresso-image{
+		object-position: 60% 80%;
+	}
+
+	.modal-image-container img.assorted-image{
+		object-position: 60% 60%;
+	}
+
+	.modal-image-container img.deluxe-sampler-image{
+		object-position: 60% 30%;	
+	}
+
+	.modal-image-container img.double-chocolate-muffins-image{
+		object-position: 60% 60%;	
+	}
+
+	.modal-image-container img.bite-sized-cookies-image{
+		object-position: 60% 45%;	
+	}
+
+	.modal-image-container img.cookie-cake-image{
+		object-position: 60% 70%;
+	}
+
+	.modal-image-container img.deluxe-sampler-image:hover{
+		transform: scale(1.4) translateX(14%);
+	}
+
+	.modal-image-container img.espresso-image:hover{
+		transform: scale(1.4) translateX(14%) translateY(-5%);
+	}
+
 	.device-notice{
 		font-size: 14px;
 	}
@@ -2143,6 +2219,10 @@ input[type=number]::-webkit-inner-spin-button {
 		transform: translateY(-60%);
 	}
 
+	.image img.double-chocolate-muffins-image{
+		transform: translateY(-60%);
+	}
+
 	.device-notice{
 		font-size: 12px;
 	}
@@ -2266,6 +2346,11 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 550px){
+
+	.modal-image-container img.double-chocolate-muffins-image{
+		object-position: 60% 70%;	
+	}
+
 	.circles-container{
 		min-height: 100px;
 	}

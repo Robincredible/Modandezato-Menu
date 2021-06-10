@@ -108,17 +108,21 @@ function modalHeight(){
 	}
 }
 
-function add_class_to_modal_heading(name){
+function add_class_to_modal_elements(name){
 	const modalHeading = document.querySelector('.modal-heading');
+	const modalImage = document.querySelector('.modal-image');
 	let className = sanitize_text(name);
 
 	modalHeading.classList.add( className );
+	modalImage.classList.add( className + '-image' );
 }
 
-function remove_classes_from_modal_heading(){
+function remove_classes_from_modal_elements(){
 	const modalHeading = document.querySelector('.modal-heading');
+	const modalImage = document.querySelector('.modal-image');
 
-	modalHeading.className ="modal-heading"; 
+	modalHeading.className ="modal-heading";
+	modalImage.className = "modal-image";
 }
 
 function hide_overflow(scrollAmount){
@@ -201,7 +205,7 @@ function modal_open(name, image, info, price, scrollAmount){
 	const modalPrice = document.querySelector('.modal-price');
 	const addToCart = document.querySelector('.addToCartContainer');
 
-	add_class_to_modal_heading(name);
+	add_class_to_modal_elements(name);
 
 	if (className === 'cookie-cake' || className === 'bite-sized-cookies'){
 		modal.querySelector('.' + className).parentElement.querySelector('.addToCartContainer').classList.add('hide');
@@ -232,7 +236,7 @@ function modal_close(){
 	modal.classList.remove('active');
 	modalBG.classList.remove('active');
 
-	remove_classes_from_modal_heading();
+	remove_classes_from_modal_elements();
 	visible_overflow();
 }
 
@@ -550,7 +554,6 @@ function device_notice(){
 		str2 = desc.substring(desc.indexOf("Chrome") + 0).replace(str, "").replace("Mobile", "");
 		chromeVersion = str2.slice(-2);
 		browser = str2.slice(0).replace(chromeVersion, "").trim();
-		console.log('Mmobile: ' + browser + ': ' + chromeVersion);
 	}
 
 	else{
