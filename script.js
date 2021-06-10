@@ -1,7 +1,7 @@
 //get platform source: https://github.com/bestiejs/platform.js
 
 function startup(){
-	//add_event_listeners();
+	add_event_listeners();
 	modal();
 }
 
@@ -216,22 +216,14 @@ function modalHeight(){
 
 function add_class_to_modal_heading(name){
 	const modalHeading = document.querySelector('.modal-heading');
-	let className;
-	let success = false;
+	let className = name.trim()
+											 .toLowerCase()
+											 .replaceAll(" ", "-")
+											 .replaceAll("'", "")
+											 .replaceAll("&", "")
+											 .replaceAll("--", "-");
 
-	if (name){
-		className = name.trim()
-							 .toLowerCase()
-							 .replaceAll(" ", "-")
-							 .replaceAll("'", "")
-							 .replaceAll("&", "")
-							 .replaceAll("--", "-");
-
-		modalHeading.classList.add( className );
-		success = true
-	}
-
-	return success;
+	modalHeading.classList.add( className );
 }
 
 function remove_classes_from_modal_heading(){
@@ -284,14 +276,10 @@ function modal(){
 		openModal = document.querySelectorAll('.image')[j];
 		openModal.addEventListener('click', function(e){
 
-		console.log('--clicked image object');
-
 		const thisItem = this;
 		
 		const thisItemName = this.parentElement.parentElement.querySelector('.product-name');
 		const targetName = e.target.parentElement.parentElement.parentElement.querySelector('.product-name');
-
-		console.error('--attempting to open ' + thisItemName);
 
 		if (thisItemName.textContent === targetName.textContent){
 			let sanitizedName = targetName.textContent.trim()
@@ -303,25 +291,16 @@ function modal(){
 
 		clickedObject = document.querySelector('.' + sanitizedName + '-image');
 
-		if (clickedObject){
-			scrollAmount = findPos(clickedObject)[1];
-		}
+		scrollAmount = findPos(clickedObject)[1];
 
 		}
-
-		console.error('--compared ' + thisItemName + ' and ' + targetName);
 
 		let currentSelect = thisItem.parentElement.parentElement.querySelector('.product-name').textContent;
 		let currentSelectDesc = thisItem.parentElement.parentElement.querySelector('.product-desc').innerHTML;
 		let currentSelectImage = thisItem.parentElement.parentElement.querySelector('.image img').src;
-
-		console.error('--targeted currently selected element ' + currentSelect + ', ' + currentSelect + ', ' + currentSelectImage);
-
 		if (thisItem.parentElement.parentElement.querySelector('.box-price') != null){
 			currentSelectPrice = thisItem.parentElement.parentElement.querySelector('.box-price').textContent;
 		}
-
-		console.error('--checked if box price is not null..');
 
 		modal_open(currentSelect, currentSelectImage, currentSelectDesc, currentSelectPrice, scrollAmount);
 
@@ -334,13 +313,7 @@ function modal(){
 
 function modal_open(name, image, info, price, scrollAmount){
 
-	console.error('--attempting to hide overflow');
-
 	hide_overflow(scrollAmount);
-
-	console.error('--overflow is hidden');
-
-	console.error('--attempting to open modal... ' + name + ' ' + image + ' ' + info + ' ' + price + ' ' + scrollAmount  );
 
 	let className = name.trim().toLowerCase()
 							 .replaceAll(" ", "-")
@@ -356,11 +329,7 @@ function modal_open(name, image, info, price, scrollAmount){
 	const modalPrice = document.querySelector('.modal-price');
 	const addToCart = document.querySelector('.addToCartContainer');
 
-	console.error('--initializing Variables ' + className + ' modal bg: ' + modalBG + ' image: ' + imageModal + ' heading: ' + modalHeading + ' description: ' + modalDesc + ' price: ' +  modalPrice + ' cart: ' +  addToCart);
-
-	console.log( '--added classes to modal heading: ' + add_class_to_modal_heading(name));
-
-	//className = burat;
+	add_class_to_modal_heading(name);
 
 	if (className === 'cookie-cake' || className === 'bite-sized-cookies'){
 		modal.querySelector('.' + className).parentElement.querySelector('.addToCartContainer').classList.add('hide');
@@ -372,8 +341,6 @@ function modal_open(name, image, info, price, scrollAmount){
 		modal.querySelector('.' + className).parentElement.querySelector('.modal-price').classList.remove('hide');
 	}
 
-	console.error('--replacing modal contents...');
-
 	imageModal.src = image;
 	imageModal.alt = name;
 	modalHeading.textContent = name;
@@ -382,9 +349,7 @@ function modal_open(name, image, info, price, scrollAmount){
 	modal.classList.add('active');
 	modalBG.classList.add('active');
 
-	console.log('--replaced modal contents');
-
-	console.log('--modal Opened ' + name);
+	console.log('--Modal Opened ' + name);
 
 }
 
