@@ -97,8 +97,7 @@ function widthChecker(){
 	let windowWidth = window.innerWidth;
 
 	widthCheck.classList.add('show');
-
-	widthCheck.innerHTML = 'width: ' + windowWidth + ' x Height:' + windowHeight;
+	widthCheck.innerHTML = 'width: ' + windowWidth + ' x Height: ' + windowHeight;
 
 	window.onresize = widthChecker;
 	window.onload = widthChecker;
@@ -130,6 +129,7 @@ function collections_change(text){
 	
 }
 
+//count items for classes in case of quantity changes
 function collections_items_count(){
 	const collection = document.querySelectorAll('.collection');
 
@@ -146,18 +146,14 @@ function item_names_as_classes_on_images(){
 		itemName = itemContainer[i].querySelector('.product-name').textContent;
 		itemImage = itemContainer[i].querySelector('.image img');
 
-		sanitizedName = itemName.trim()
-											 .toLowerCase()
-											 .replaceAll(" ", "-")
-											 .replaceAll("'", "")
-											 .replaceAll("&", "")
-											 .replaceAll("--", "-");
+		sanitizedName = sanitize_text(itemName);
 
 		itemImage.classList.add(sanitizedName + '-image');
 	}
 }
 
-function count_items(elementID){ //not yet done
+//not yet done/polished
+function count_items(elementID){
 	const countChildren = document.querySelector('#' + elementID);
 	let itemsContainer = countChildren.querySelectorAll('.items-container');
 	let count = parseInt(countChildren.querySelectorAll('.items-container > div').length);
@@ -216,23 +212,19 @@ function modalHeight(){
 
 function add_class_to_modal_heading(name){
 	const modalHeading = document.querySelector('.modal-heading');
-	let className = name.trim()
-											 .toLowerCase()
-											 .replaceAll(" ", "-")
-											 .replaceAll("'", "")
-											 .replaceAll("&", "")
-											 .replaceAll("--", "-");
+	let className = sanitize_text(name);
 
 	modalHeading.classList.add( className );
 }
 
+//reset modal heading classes
 function remove_classes_from_modal_heading(){
 	const modalHeading = document.querySelector('.modal-heading');
 	modalHeading.className ="modal-heading"; 
 }
 
+//fixed body on modal_open
 function hide_overflow(scrollAmount){
-
 	const body = document.body;
 	const html = document.body.parentElement;
 
@@ -243,14 +235,13 @@ function hide_overflow(scrollAmount){
 
 }
 
+//scroll body again after modal_close
 function visible_overflow(){
-
 	const body = document.body;
 	const html = document.body.parentElement;
 
 	html.style.overflowY = 'visible';
 	body.style.overflowY = 'visible';
-
 }
 
 /* Find the position of an object. Source: https://www.quirksmode.org/js/findpos.html */
@@ -266,6 +257,7 @@ function findPos(obj) {
 	}
 }
 
+//modal main function
 function modal(){
 	const closeModal = document.querySelector('.close-modal');
 	const imageCount = document.querySelectorAll('.image').length;
@@ -282,17 +274,10 @@ function modal(){
 		const targetName = e.target.parentElement.parentElement.parentElement.querySelector('.product-name');
 
 		if (thisItemName.textContent === targetName.textContent){
-			let sanitizedName = targetName.textContent.trim()
-											 .toLowerCase()
-											 .replaceAll(" ", "-")
-											 .replaceAll("'", "")
-											 .replaceAll("&", "")
-											 .replaceAll("--", "-");
+			let sanitizedName = sanitize_text(targetName.textContent);
 
-		clickedObject = document.querySelector('.' + sanitizedName + '-image');
-
-		scrollAmount = findPos(clickedObject)[1];
-
+			clickedObject = document.querySelector('.' + sanitizedName + '-image');
+			scrollAmount = findPos(clickedObject)[1];
 		}
 
 		let currentSelect = thisItem.parentElement.parentElement.querySelector('.product-name').textContent;
@@ -315,11 +300,7 @@ function modal_open(name, image, info, price, scrollAmount){
 
 	hide_overflow(scrollAmount);
 
-	let className = name.trim().toLowerCase()
-							 .replaceAll(" ", "-")
-							 .replaceAll("'", "")
-							 .replaceAll("&", "")
-							 .replaceAll("--", "-");
+	let className = sanitize_text(name);
 
 	const modalBG = document.querySelector('.modal-bg');
 	const modal = document.querySelector('.modal-container');
@@ -478,7 +459,15 @@ function dm_us(){
 
 }
 
-//sanitize copied texts
+//sanitization functions
+function sanitize_text(texts){
+	return texts.trim().toLowerCase()
+							.replaceAll(" ", "-")
+							.replaceAll("'", "")
+							.replaceAll("&", "")
+							.replaceAll("--", "-");
+}
+
 function strip_whitespaces(string){
 	return string.replace(/\t+/g, "");
 }
@@ -539,11 +528,7 @@ function store_to_cart(quantity, name, price){
 
 	let sameName, sameNameQuantity, sameNamePrice;
 	let added_already_bool = already_added_to_cart(name);
-	let sanitizedName = name.trim().toLowerCase()
-								 .replaceAll(" ", "-")
-								 .replaceAll("'", "")
-								 .replaceAll("&", "")
-								 .replaceAll("--", "-");
+	let sanitizedName = sanitize_text(name);
 
 	if (added_already_bool === true){
 
@@ -593,11 +578,7 @@ function already_added_to_cart(name){
 	
 	let productCount = document.querySelectorAll('.order-product-quantity > div').length;
 	let added = false;
-	let sanitizedName = name.trim().toLowerCase()
-								 .replaceAll(" ", "-")
-								 .replaceAll("'", "")
-								 .replaceAll("&", "")
-								 .replaceAll("--", "-");
+	let sanitizedName = sanitize_text(name);
 	let product, productName;
 
 	for(let i=0; i < productCount; i++){
@@ -680,11 +661,7 @@ function get_total_price(){
 
 function remove_from_cart(name){
 	const product = document.querySelector('.order-product-quantity');
-	let sanitizedName = name.trim().toLowerCase()
-								 .replaceAll(" ", "-")
-								 .replaceAll("'", "")
-								 .replaceAll("&", "")
-								 .replaceAll("--", "-");
+	let sanitizedName = sanitize_text(name);
 
 	let priceToBeSubtracted = parseFloat(product.querySelector('.order-' + sanitizedName + ' .total-price').textContent);
 
