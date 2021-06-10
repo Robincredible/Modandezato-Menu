@@ -4,7 +4,7 @@
  * Version: 1.0
  * Note: So much to do, so many functions, still a novice, a lot of revisions incoming
  * MVC: Control
- * Script-Production
+ * Script: Production
  */
 
 function startup(){
@@ -41,8 +41,6 @@ function add_event_listeners(){
 	const copyButton = document.querySelector('.copy-button p');
 	copyButton.addEventListener("click", copy_order_form);
 
-	/* dropdown event change */
-
 	let dropdown = document.querySelector('#product-categories');
 
 	dropdown.addEventListener("change", function(){
@@ -59,15 +57,12 @@ function add_event_listeners(){
 	const textArea = document.querySelector('#order-product-quantity');
 	
 	addToCartButton.addEventListener('click', function(){
-
 		const quantityField = document.querySelector('.quantityCart input');
-
 		let thisProduct = this.parentElement.parentElement.querySelector('.modal-heading').textContent;
 		let thisProductPrice = this.parentElement.parentElement.querySelector('.modal-price').textContent;
 		let thisProductQuantity = this.parentElement.parentElement.querySelector('.quantityCart input').value;
 
 		add_to_cart(thisProductQuantity, thisProduct, thisProductPrice);
-
 	});
 
 	document.addEventListener('click', function(e){
@@ -87,7 +82,6 @@ function collections_change(text){
 	const collection = document.querySelectorAll(".collection");
 
 	for (let i=0; i < collection.length; i++){
-
 		if(collectionID.indexOf("-collection") < 1){
 			newID = collectionID + '-collection';
 		} else{
@@ -97,10 +91,8 @@ function collections_change(text){
 		if ( collection[i].classList.contains('active') ){
 			collection[i].classList.remove('active');
 		}
-
 		document.querySelector('.' + newID).classList.add('active');
 	}
-	
 }
 
 function modalHeight(){
@@ -125,6 +117,7 @@ function add_class_to_modal_heading(name){
 
 function remove_classes_from_modal_heading(){
 	const modalHeading = document.querySelector('.modal-heading');
+
 	modalHeading.className ="modal-heading"; 
 }
 
@@ -136,7 +129,6 @@ function hide_overflow(scrollAmount){
 
 	html.style.overflowY = 'hidden';
 	body.style.overflowY = 'hidden';
-
 }
 
 function visible_overflow(){
@@ -168,12 +160,10 @@ function modal(){
 	for (let j = 0; j < imageCount; j++){
 		openModal = document.querySelectorAll('.image')[j];
 		openModal.addEventListener('click', function(e){
-
 		openModal.onclick = modalHeight;
 		openModal.addEventListener('click', modalHeight);
 
 		const thisItem = this;
-		
 		const thisItemName = this.parentElement.parentElement.querySelector('.product-name');
 		const targetName = e.target.parentElement.parentElement.parentElement.querySelector('.product-name');
 
@@ -194,9 +184,7 @@ function modal(){
 		modal_open(currentSelect, currentSelectImage, currentSelectDesc, currentSelectPrice, scrollAmount);
 
 		});
-
 	} 
-
 	closeModal.addEventListener("click", () => { modal_close() });
 }
 
@@ -205,7 +193,6 @@ function modal_open(name, image, info, price, scrollAmount){
 	hide_overflow(scrollAmount);
 
 	let className = sanitize_text(name);
-
 	const modalBG = document.querySelector('.modal-bg');
 	const modal = document.querySelector('.modal-container');
 	const imageModal = document.querySelector('.modal-image-container img');
@@ -233,11 +220,9 @@ function modal_open(name, image, info, price, scrollAmount){
 	modalPrice.textContent = price;
 	modal.classList.add('active');
 	modalBG.classList.add('active');
-
 }
 
 function modal_close(){
-
 	const modalBG = document.querySelector('.modal-bg');
 	const modal = document.querySelector('.modal-container');
 	const added = document.querySelector('.added');
@@ -249,7 +234,6 @@ function modal_close(){
 
 	remove_classes_from_modal_heading();
 	visible_overflow();
-
 }
 
 function copy_order_form(){
@@ -283,7 +267,6 @@ function copy_order_form(){
     	if (product_order_name == 'Assorted'){
     		product_boxes = ' Box of 8';
     	}
-
     	products_final += product_order_quantity + 'x ' + product_order_name + ' ' + product_boxes + ' ' + product_order_price + ' PHP' + '\n';
     }
 
@@ -312,7 +295,6 @@ function copy_order_form(){
 	    	scroll_to_socmed();
 	      dm_us();
 	    }, 500);
-	    
     }
 }
 
@@ -328,30 +310,24 @@ function tap_here_remove(){
 
 function confirm_copy(){
 	const chatBubble = document.querySelector('.confirm-bubble');
-
 	if (chatBubble.classList.contains('confirming')){
 		chatBubble.classList.remove("confirming");
 	}
-
 	else{
 		chatBubble.classList.add("confirming");
 		setTimeout(() => {chatBubble.classList.remove("confirming")}, 2000);
 	}
-
 }
 
 function dm_us(){
 	const chatBubble = document.querySelector('.socmed-bubble');
-
 	if (chatBubble.classList.contains('dm-us')){
 		chatBubble.classList.remove("dm-us");
 	}
-
 	else{
 		chatBubble.classList.add("dm-us");
 		setTimeout(() => {chatBubble.classList.remove("dm-us")}, 6000);
 	}
-
 }
 
 function sanitize_text(texts){
@@ -374,8 +350,7 @@ function filter_text_from_string(text,string){
 function filter_price_from_string(string){
 	let pattern = /[0-9]+/;
 	let price = string.slice(string.length - 7);
-	let filteredPrice = price.match(pattern);//i.e. filter to 300, 320... - without the PHP
-
+	let filteredPrice = price.match(pattern);
 	return Math.max(filteredPrice);
 }
 
@@ -386,25 +361,21 @@ function no_items_add_a_product(){
 function scroll_to(element){
 	const elementToScrollTo = document.querySelector(element);
 	const topPos = elementToScrollTo.offsetTop - 0;
-
 	window.scrollTo(0, topPos);
 }
 
 function scroll_to_socmed(){
 	const socmed = document.querySelector('.socmed');
 	const topPos = socmed.offsetTop - 400;
-
 	window.scrollTo(0, topPos);
 }
 
 function float_circles(){
-
 	if (this.classList.contains('float')){
 		this.classList.remove("float");
 	} else {
 		this.classList.add("float");
 	}
-
 	this.addEventListener("animationend", float_circles);
 }
 
@@ -422,26 +393,22 @@ function store_to_cart(quantity, name, price){
 	let sanitizedName = sanitize_text(name);
 
 	if (added_already_bool === true){
-
 		sameName = productQuantityElement.querySelector('.order-' + sanitizedName + ' .product').textContent;
 		sameNameQuantity = parseFloat(productQuantityElement.querySelector('.order-' + sanitizedName + ' .quantity').textContent);
 		sameNamePrice = parseFloat(productQuantityElement.querySelector('.order-' + sanitizedName + ' .price').textContent);
 		
 		if (sameName == name){
-
 			let newQuantity = parseInt(quantity) + sameNameQuantity;
 			let newPrice = parseFloat(filter_price_from_string(price)) + parseFloat(sameNamePrice * sameNameQuantity);
 
 			productQuantityElement.querySelector('.order-' + sanitizedName + ' .quantity').textContent = newQuantity;
 			productQuantityElement.querySelector('.order-' + sanitizedName + ' .total-price').textContent = newPrice;
-
 		}
 	}
 
 	else{
 
 		if (sameName != name){
-
 			productQuantityElement.appendChild(productQuantityStore).classList.add('order-' + sanitizedName, 'cart-item');
 			productQuantityStore.appendChild(quantityStorage).classList.add('quantity');
 			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .quantity').textContent = quantity;
@@ -458,7 +425,6 @@ function store_to_cart(quantity, name, price){
 			let productCount = document.querySelectorAll('.order-product-quantity > div').length;
 			let filteredPrice = filter_price_from_string(price);
 			let totalPrice = filteredPrice * quantity;
-
 		}
 
 	}
@@ -466,7 +432,6 @@ function store_to_cart(quantity, name, price){
 }
 
 function already_added_to_cart(name){
-	
 	let productCount = document.querySelectorAll('.order-product-quantity > div').length;
 	let added = false;
 	let sanitizedName = sanitize_text(name);
@@ -494,11 +459,8 @@ function already_added_to_cart(name){
 			else{
 				added = false;
 			}
-
 		}
-
 	}
-
 	return added;
 }
 
@@ -546,14 +508,12 @@ function get_total_price(){
 		prices = priceStore[i].querySelector('.total-price').textContent;
 		sum += parseInt(prices);
 	}
-
 	return sum;
 }
 
 function remove_from_cart(name){
 	const product = document.querySelector('.order-product-quantity');
 	let sanitizedName = sanitize_text(name);
-
 	let priceToBeSubtracted = parseFloat(product.querySelector('.order-' + sanitizedName + ' .total-price').textContent);
 
 	product.querySelector('.order-' + sanitizedName).remove();
@@ -572,6 +532,7 @@ function remove_from_cart(name){
 function display_total_price(price){
 	const totalPrice = document.querySelector('.total-price-display');
 	const totalPriceContainer = document.querySelector('.total-price-container');
+
 	totalPriceContainer.classList.add('show');
 	totalPrice.textContent = price;
 }
@@ -581,7 +542,6 @@ function okay_device_notice(){
 }
 
 function device_notice(){
-
 	let str, str2, chromeVersion, browser;
 	let desc = platform.description;
 

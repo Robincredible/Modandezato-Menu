@@ -2516,7 +2516,7 @@ input[type=number]::-webkit-inner-spin-button {
 /* ANIMATIONS */
 
 .x1 {
-  -webkit-animation: animateBubble 25s linear infinite, sideWays 2s ease-in-out infinite alternate;
+    -webkit-animation: animateBubble 25s linear infinite, sideWays 2s ease-in-out infinite alternate;
 	-moz-animation: animateBubble 25s linear infinite, sideWays 2s ease-in-out infinite alternate;
 	animation: animateBubble 25s linear infinite, sideWays 2s ease-in-out infinite alternate;
 	
@@ -2529,7 +2529,7 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .x2 {
-  -webkit-animation: animateBubble 20s linear infinite, sideWays 4s ease-in-out infinite alternate;
+    -webkit-animation: animateBubble 20s linear infinite, sideWays 4s ease-in-out infinite alternate;
 	-moz-animation: animateBubble 20s linear infinite, sideWays 4s ease-in-out infinite alternate;
 	animation: animateBubble 20s linear infinite, sideWays 4s ease-in-out infinite alternate;
 	
@@ -2542,7 +2542,7 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .x5 {
-  -webkit-animation: animateBubble 29s linear infinite, sideWays 4s ease-in-out infinite alternate;
+    -webkit-animation: animateBubble 29s linear infinite, sideWays 4s ease-in-out infinite alternate;
 	-moz-animation: animateBubble 29s linear infinite, sideWays 4s ease-in-out infinite alternate;
 	animation: animateBubble 29s linear infinite, sideWays 4s ease-in-out infinite alternate;
 	
@@ -2555,7 +2555,7 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .x7 {
-  -webkit-animation: animateBubble 20s linear infinite, sideWays 2s ease-in-out infinite alternate;
+    -webkit-animation: animateBubble 20s linear infinite, sideWays 2s ease-in-out infinite alternate;
 	-moz-animation: animateBubble 20s linear infinite, sideWays 2s ease-in-out infinite alternate;
 	animation: animateBubble 20s linear infinite, sideWays 2s ease-in-out infinite alternate;
 	
@@ -2568,7 +2568,7 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .x8 {
-  -webkit-animation: animateBubble 22s linear infinite, sideWays 3s ease-in-out infinite alternate;
+    -webkit-animation: animateBubble 22s linear infinite, sideWays 3s ease-in-out infinite alternate;
 	-moz-animation: animateBubble 22s linear infinite, sideWays 3s ease-in-out infinite alternate;
 	animation: animateBubble 22s linear infinite, sideWays 3s ease-in-out infinite alternate;
 	
@@ -2581,7 +2581,7 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .x9 {
-  -webkit-animation: animateBubble 29s linear infinite, sideWays 4s ease-in-out infinite alternate;
+    -webkit-animation: animateBubble 29s linear infinite, sideWays 4s ease-in-out infinite alternate;
 	-moz-animation: animateBubble 29s linear infinite, sideWays 4s ease-in-out infinite alternate;
 	animation: animateBubble 29s linear infinite, sideWays 4s ease-in-out infinite alternate;
 	
@@ -2661,4 +2661,73 @@ input[type=number]::-webkit-inner-spin-button {
 .total-price-php *{
 	align-self: center;
 	margin: 4px 10px;
+}
+
+/* Debug styles  */
+
+.debug-mode-display.show{
+	opacity: 0.5;
+	z-index: 200;
+}
+
+.debug-mode-display{
+	opacity: 0;
+	pointer-events: none;
+	position: fixed;
+	left: 50%;
+	top:  50%;
+	transform: translate(-50%, -50%);
+	color: #3d3d3d;
+	font-size: 16px;
+	font-family: sans-serif;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	width: 100%;
+	text-align: center;
+}
+
+.console-log{
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: #3d3d3d;
+	opacity: 0.0;
+	color: #ffffff;
+	z-index: 120;
+	padding: 8px 12px;
+	font-family: sans-serif;
+	pointer-events: none;
+}
+
+.console-log.show{
+	opacity: 0.7;
+}
+
+.width-checker{
+	display: flex;
+	position: fixed;
+	width: max-content;
+	height: auto;
+	max-height: 50%;
+	max-width: 50%;
+	font-size: 16px;
+	background: rgba(0,0,0,0.7);
+	color: #ffffff;
+	right: 0;
+	bottom: 0;
+	text-align: center;
+	font-family: sans-serif;
+	font-weight: 200;
+	padding: 8px 24px;
+	z-index: 1000;
+	pointer-events: none;
+	opacity: 0;
+}
+
+.width-checker.show{
+	opacity: 1;
+}
+
+.width-checker p{
+	align-self: center;
 }
