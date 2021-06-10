@@ -991,7 +991,7 @@ input[type=number]::-webkit-inner-spin-button {
 .two-columns .item-container:nth-child(odd) .image-container:after,
 .two-columns .item-container:nth-child(even) .image-container:after{
 	max-width: 420px;
-	max-height: 410px;
+	max-height: 420px;
 }
 
 .items-container{
@@ -2076,7 +2076,7 @@ input[type=number]::-webkit-inner-spin-button {
 	.two-columns .item-container:nth-child(odd) .image-container:after,
 	.two-columns .item-container:nth-child(even) .image-container:after{
 		max-width: 300px;
-		max-height: 280px;
+		max-height: 300px;
 	}
 
 	.item-container .image .quick-view{
@@ -2086,16 +2086,6 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 768px){
-
-	.item-container:nth-child(odd) .image-container:after,
-	.item-container:nth-child(even) .image-container:after,
-	.item-container .image,
-	.items-container.two-columns .item-container .image,
-	.two-columns .item-container:nth-child(odd) .image-container:after,
-	.two-columns .item-container:nth-child(even) .image-container:after{
-		max-width: 300px;
-		max-height: 300px;
-	}
 
 	.image img{
 	  position: relative;
@@ -2348,7 +2338,7 @@ input[type=number]::-webkit-inner-spin-button {
 	.two-columns .item-container:nth-child(odd) .image-container:after,
 	.two-columns .item-container:nth-child(even) .image-container:after{
 		max-width: 310px;
-		max-height: 290px;
+		max-height: 310px;
 	}
 
 	.added{
@@ -2455,6 +2445,7 @@ input[type=number]::-webkit-inner-spin-button {
 	.item-container:nth-child(even) .image-container:after, 
 	.item-container .image{
 		max-height: 285px;
+		max-width: 285px;
 	}
 
 	.image img{
@@ -2479,7 +2470,7 @@ input[type=number]::-webkit-inner-spin-button {
 	.two-columns .item-container:nth-child(odd) .image-container:after,
 	.two-columns .item-container:nth-child(even) .image-container:after{
 		max-width: 260px;
-		max-height: 250px;
+		max-height: 260px;
 	}
 
 	.circles-container{
