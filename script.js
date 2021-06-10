@@ -349,8 +349,6 @@ function modal_open(name, image, info, price, scrollAmount){
 	modal.classList.add('active');
 	modalBG.classList.add('active');
 
-	console.log('--Modal Opened ' + name);
-
 }
 
 function modal_close(){
