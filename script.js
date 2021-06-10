@@ -1,7 +1,7 @@
 //get platform source: https://github.com/bestiejs/platform.js
 
 function startup(){
-	add_event_listeners();
+	//add_event_listeners();
 	modal();
 }
 
@@ -303,7 +303,9 @@ function modal(){
 
 		clickedObject = document.querySelector('.' + sanitizedName + '-image');
 
-		scrollAmount = findPos(clickedObject)[1];
+		if (clickedObject){
+			scrollAmount = findPos(clickedObject)[1];
+		}
 
 		}
 
