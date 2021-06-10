@@ -1,4 +1,12 @@
-//get platform source: https://github.com/bestiejs/platform.js
+/*
+ * Modandezato Menu Scripts
+ * Author: Robin Joshua Del Mundo
+ * Version: 1.0
+ * Note: So much to do, so many functions, still a novice, a lot of revisions incoming
+ * MVC: Control
+ */
+
+//Main function
 
 function startup(){
 	add_event_listeners();
@@ -9,40 +17,48 @@ document.addEventListener("DOMContentLoaded", startup);
 
 function add_event_listeners(){
 
+	//invoke debug toggler functionalities and detect device/device notice
+
 	toggle_debug_mode();
 	device_notice();
 
 	const deviceNoticeOkay = document.querySelector('.device-notice .okay');
 	deviceNoticeOkay.addEventListener('click', okay_device_notice);
 
-	//Main Function
+	//Main Function Thread for adding events
 
-	//tap bubbles
+	//tap bubbles, additional customer persuasion to tap/click the items
+
 	setTimeout(()=>{ tap_here_add() }, 4000);
 	setTimeout(()=>{ tap_here_remove() }, 10000);
 
 	document.addEventListener('scroll', tap_here_remove);
 	document.addEventListener('click', tap_here_remove);
 
-	//no products add a product
+	//no products/add a product events
+
 	const noProducts = document.querySelector('.add-a-product');
 	noProducts.addEventListener('click', no_items_add_a_product);
 
-	/* float circles */
+	/* float circles, interaction with the circle elements through the whole document */
+
 	const circlesCount = document.querySelectorAll('.circle').length;
 	let circle;
 
 	//get all instances of elements with the "circle" class
+
 	for (let i = 0; i < circlesCount; i++){
 		circle = document.querySelectorAll('.circle')[i];
 		circle.addEventListener("click", float_circles);
 	}
 
-	/* copy */
+	/* click copy button event */
+
 	const copyButton = document.querySelector('.copy-button p');
 	copyButton.addEventListener("click", copy_order_form);
 
-	/* dropdown */
+	/* dropdown event change */
+
 	let dropdown = document.querySelector('#product-categories');
 
 	dropdown.addEventListener("change", function(){
@@ -52,7 +68,8 @@ function add_event_listeners(){
 		collections_change( filter_text_from_string("Categories:", text) );
 	});
 
-	/* modal height */
+	/* modal height called and attached to resize and load events */
+
 	window.onresize = modalHeight;
 	window.onload = modalHeight;
 
@@ -63,6 +80,7 @@ function add_event_listeners(){
 	item_names_as_classes_on_images();
 
 	/* add to cart */
+
 	const addToCartButton = document.querySelector('#addToCart');
 	const textArea = document.querySelector('#order-product-quantity');
 	
@@ -78,7 +96,8 @@ function add_event_listeners(){
 
 	});
 
-	//remove from cart
+	//remove from cart, click event
+
 	document.addEventListener('click', function(e){
 	
 	if (e.target && e.target.id == 'remove-item'){
@@ -90,23 +109,8 @@ function add_event_listeners(){
 
 }
 
+//dropdown change present items based on chosen item
 
-function widthChecker(){
-	const widthCheck = document.querySelector('.width-checker');
-	let windowHeight = window.innerHeight;
-	let windowWidth = window.innerWidth;
-
-	widthCheck.classList.add('show');
-	widthCheck.innerHTML = 'width: ' + windowWidth + ' x Height: ' + windowHeight;
-
-	window.onresize = widthChecker;
-	window.onload = widthChecker;
-
-	window.addEventListener('resize', widthChecker);
-	window.addEventListener('load', widthChecker);
-}
-
-//dropdown change
 function collections_change(text){
 	let collectionID = text.replace(/\s/g, "").replace("Collection", "-Collection").toLowerCase();
 	let newID;
@@ -130,6 +134,7 @@ function collections_change(text){
 }
 
 //count items for classes in case of quantity changes
+
 function collections_items_count(){
 	const collection = document.querySelectorAll('.collection');
 
@@ -152,7 +157,8 @@ function item_names_as_classes_on_images(){
 	}
 }
 
-//not yet done/polished
+//not yet done/polished, for adjusting styles based on the number of items
+
 function count_items(elementID){
 	const countChildren = document.querySelector('#' + elementID);
 	let itemsContainer = countChildren.querySelectorAll('.items-container');
@@ -196,7 +202,9 @@ function count_items(elementID){
 	}
 }
 
-//modal functions
+//modal height adjustment, based on window innerHeight, subtract 20% from the total height
+//to supply an appropriate max-height to modal-image-container
+
 function modalHeight(){
 	const modalContainer = document.querySelector('.modal-content-container');
 	const modalImageContainer = document.querySelector('.modal-image-container');
@@ -218,12 +226,14 @@ function add_class_to_modal_heading(name){
 }
 
 //reset modal heading classes
+
 function remove_classes_from_modal_heading(){
 	const modalHeading = document.querySelector('.modal-heading');
 	modalHeading.className ="modal-heading"; 
 }
 
 //fixed body on modal_open
+
 function hide_overflow(scrollAmount){
 	const body = document.body;
 	const html = document.body.parentElement;
@@ -236,6 +246,7 @@ function hide_overflow(scrollAmount){
 }
 
 //scroll body again after modal_close
+
 function visible_overflow(){
 	const body = document.body;
 	const html = document.body.parentElement;
@@ -245,6 +256,8 @@ function visible_overflow(){
 }
 
 /* Find the position of an object. Source: https://www.quirksmode.org/js/findpos.html */
+// for getting back to the scrolled part of the window, after modal_close
+
 function findPos(obj) {
 	let curleft = curtop = 0;
 
@@ -258,6 +271,7 @@ function findPos(obj) {
 }
 
 //modal main function
+
 function modal(){
 	const closeModal = document.querySelector('.close-modal');
 	const imageCount = document.querySelectorAll('.image').length;
@@ -296,6 +310,8 @@ function modal(){
 	closeModal.addEventListener("click", () => { modal_close() });
 }
 
+// apply contents to modal based on passed information
+
 function modal_open(name, image, info, price, scrollAmount){
 
 	hide_overflow(scrollAmount);
@@ -332,6 +348,8 @@ function modal_open(name, image, info, price, scrollAmount){
 
 }
 
+//reset modal classes and contents
+
 function modal_close(){
 
 	const modalBG = document.querySelector('.modal-bg');
@@ -350,7 +368,9 @@ function modal_close(){
 
 //copy order form button
 function copy_order_form(){
+
 	//form input elements
+
     const orderForm = document.querySelector("#order-form");
     const name = orderForm.querySelector("input[name='order-name']");
     const number = orderForm.querySelector("input[name='order-number']");
@@ -361,6 +381,7 @@ function copy_order_form(){
     const modeOfPaymentChecked = orderForm.querySelector("input[type='radio'][name='order-mode-of-payment']:checked") || 'Waley';
 
     //form labels
+
     const label_name = name.previousElementSibling.textContent;
     const label_number = number.previousElementSibling.textContent;
     const label_address = address.previousElementSibling.textContent;
@@ -373,6 +394,7 @@ function copy_order_form(){
     let address_sanitized = "";
 
     //get the data from all the products in the order formn
+
     for (let i = 0; i < order_products.length; i++){
     	let product_order_name = order_products[i].querySelector('.product').textContent;
     	let product_order_quantity = order_products[i].querySelector('.quantity').textContent;
@@ -387,9 +409,11 @@ function copy_order_form(){
     }
 
     //separate google maps link from actual address
+
     address_sanitized += address.value.trim().replace("https", "\nhttps");
 
     //form labels + values
+
     let order = label_name + " " + name.value + '\n';
 		order += label_number + " " + number.value + '\n';
 		order += label_address + " \n" + address.value + '\n\n';
@@ -460,6 +484,7 @@ function dm_us(){
 }
 
 //sanitization functions
+
 function sanitize_text(texts){
 	return texts.trim().toLowerCase()
 							.replaceAll(" ", "-")
@@ -486,6 +511,7 @@ function filter_price_from_string(string){
 }
 
 //scroll functions
+
 function no_items_add_a_product(){
 	scroll_to('.our-products-header');
 }
@@ -505,6 +531,7 @@ function scroll_to_socmed(){
 }
 
 //add/remove "float" class
+
 function float_circles(){
 
 	if (this.classList.contains('float')){
@@ -517,6 +544,7 @@ function float_circles(){
 }
 
 //cart functions
+
 function store_to_cart(quantity, name, price){
 	const productQuantityElement = document.querySelector('.order-product-quantity');
 	const productQuantityStore = document.createElement('div');
@@ -573,6 +601,8 @@ function store_to_cart(quantity, name, price){
 	}
 	
 }
+
+//check if already added to cart, return a boolean value
 
 function already_added_to_cart(name){
 	
@@ -646,6 +676,8 @@ function add_to_cart(quantity, name, price){
 
 }
 
+//check total price based on items added, returns a number
+
 function get_total_price(){
 	const priceStore = document.querySelectorAll('.order-product-quantity > div');
 	let prices;
@@ -678,6 +710,8 @@ function remove_from_cart(name){
 	}
 }
 
+//function for testing purposes
+
 function store_prices(price, quantity){
 	let absoluteElement = document.querySelector('.price-store');
 	let multipliedPrice = parseInt(price) * quantity;
@@ -692,7 +726,15 @@ function display_total_price(price){
 	totalPrice.textContent = price;
 }
 
+/* 
+ * Google Map link Paste and Sanitization Functions 
+ * For the previously used google maps link, detects ctrl+v and right click -> paste whether on mobile or desktop
+ * to put spaces/clean the string to be pasted on the textarea thus making readability easier for both the vendor
+ * and the customers.
+ */
+
 //detect paste, https://stackoverflow.com/questions/3211505/detect-pasted-text-with-ctrlv-or-right-click-paste
+
 function getTextAreaSelection(textarea) {
     let start = textarea.selectionStart, end = textarea.selectionEnd;
     return {
@@ -721,7 +763,6 @@ function detectPaste(textarea, callback) {
     };
 }
 
-
 function put_space_after_paste(){
 
 	let textarea = document.getElementById("order-address");
@@ -737,7 +778,11 @@ function put_space_after_paste(){
 
 }
 
-//debugging
+/*
+ * Debugging functions, for older phones and general problem diagnosis
+ * Still can't detect browser errors, only console.logs and console.errors
+ * Source: https://stackoverflow.com/questions/6604192/showing-console-errors-and-alerts-in-a-div-inside-the-page
+ */
 
 function toggle_debug_mode(){
 	const dice = document.querySelector('.dice.large');
@@ -780,9 +825,8 @@ function debug_mode(activate){
 		'Description: ' + platform.description+ '<br />' +// 'IE 10.0 x86 (platform preview; running in IE 7 mode) on Windows Server 2008 R2 / 7 x64'
 		'Product: ' + platform.product + '<br />' +
 		'Manufacturer: ' + platform.manufacturer + '<br />' + '*****');
-		//detect_manufacturer();
-		//console_log();
-		widthChecker();
+		
+		width_checker();
 	}
 
 	return activate;
@@ -819,6 +863,29 @@ function console_log(){
     }
 }
 
+function width_checker(){
+	const widthCheck = document.querySelector('.width-checker');
+	let windowHeight = window.innerHeight;
+	let windowWidth = window.innerWidth;
+
+	widthCheck.classList.add('show');
+	widthCheck.innerHTML = 'width: ' + windowWidth + ' x Height: ' + windowHeight;
+
+	window.onresize = widthChecker;
+	window.onload = widthChecker;
+
+	window.addEventListener('resize', widthChecker);
+	window.addEventListener('load', widthChecker);
+}
+
+/* 
+ * Browser update notice, for phones that may not render the website properly
+ * Suggests to either update their browser or switch to Chrome
+ * Display notice update on Chrome Browsers version 82 and below - tested as of 06/10/2021
+ * Used ua-parser-js source: https://faisalman.github.io/ua-parser-js/
+ * and Platform JS source: https://github.com/bestiejs/platform.js/
+ */
+
 function detect_manufacturer(){
 	var parser = new UAParser();
 	var result = parser.getResult();
@@ -853,6 +920,20 @@ function okay_device_notice(){
 }
 
 function device_notice(){
+
+	/* 
+	 * A note on the variables:
+	 *
+	 * desc = platform.description describes the whole bnowser platform
+	 * when tested on huawei devices among others returns something on the lines of
+	 * 'Chrome 91.0.4472.77 on Windows 10 64-bit' or 'Android Browser 4.0 (Like Chrome 
+	 * Mobile 91.0.4472.77 on Android)', which made it logical to be the common denominator
+	 * amongst everyone.
+	 *
+	 * str removes the first instances up to the tenths of the version number.
+	 * str2 is the whole string where we remove the remaining texts we got from str.
+	 *
+	 */
 
 	let str, str2, chromeVersion, browser;
 	let desc = platform.description;
