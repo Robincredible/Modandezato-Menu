@@ -294,11 +294,21 @@ function copy_order_form(){
     	products_final += product_order_quantity + 'x ' + product_order_name + ' ' + product_boxes + ' ' + product_order_price + ' PHP' + '\n';
     }
 
+    let totalCopy;
+
+    if (get_total_price() > 0){
+    	totalCopy = 'Total Price: ' + get_total_price() + ' PHP';
+    } else{
+    	totalCopy = "";
+    }
+
+    console.log(get_total_price());
+
     let order = label_name + " " + name.value + '\n';
 		order += label_number + " " + number.value + '\n';
 		order += label_address + " \n" + address.value + '\n\n';
 		order += label_products + " \n" + products_final + '\n';
-		order += 'Total Price: ' + get_total_price() + ' PHP \n\n';
+		order += totalCopy + '\n\n';
 		order += label_schedule + " " + schedule.value + '\n';
 		order += label_modeOfPayment + " " + modeOfPaymentChecked.value;
 
@@ -585,7 +595,7 @@ function device_notice(){
 		//console.log('Not mobile: ' + browser + ': ' + chromeVersion);
 	}
 
-	if (browser == "Chrome" && chromeVersion < 82){
+	if (browser == "Chrome" && chromeVersion < 91){
 		document.querySelector('.device-notice').classList.add('show');
 	}
 }

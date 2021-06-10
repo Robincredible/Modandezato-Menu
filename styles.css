@@ -16,7 +16,7 @@
 	max-height: 100px;
 	background: rgba(0, 0, 0, 0.8);
 	color: #ffffff;
-	padding: 6px 16px;
+	padding: 6px 16px 6px 0px;
 	font-size: 16px;
 	justify-content: center;
 	z-index: 20;
@@ -70,6 +70,7 @@
 	max-height: 36px;
 	font-style: normal;
 	line-height: 0;
+	border-radius: 12px;
 }
 
 .device-notice .okay:hover{
@@ -80,6 +81,7 @@
 .okay p{
 	font-family: sans-serif;
 	align-self: center;
+	text-shadow: 1px 2px 1px rgb(255 255 255 / 50%);
 }
 
 
@@ -2142,6 +2144,10 @@ input[type=number]::-webkit-inner-spin-button {
 
 @media screen and (max-width: 768px){
 
+	.device-notice{
+		max-height: 200px;
+	}
+
 	.image img{
 	  position: relative;
 	}
@@ -2383,8 +2389,36 @@ input[type=number]::-webkit-inner-spin-button {
 
 @media screen and (max-width: 460px){
 
+	.device-notice-content{
+		flex-wrap: wrap;
+	}
+
+	.device-notice-content > div{
+		flex-basis: 100%;
+	}
+
+	.notice{
+		padding: 8px;
+		text-align: center;
+	}
+
+	.notice p{
+		margin: 0;
+	}
+
+	.notice-button{
+		max-width: 100%;
+		text-align: center;
+	}
+
+	.device-notice .okay{
+		padding: 0;
+		justify-content: center;
+	}
+
 	.device-notice{
-		max-height: 140px;
+		max-height: 250px;
+		padding: 4px 0px 9px;
 	}
 
 	.circles-container .circle.pink{
@@ -2609,10 +2643,6 @@ input[type=number]::-webkit-inner-spin-button {
 
 	.image img.cookie-cake-image{
 		transform: translateY(-70%);
-	}
-
-	.device-notice{
-		max-height: 150px;
 	}
 
 	.addToCart p{
