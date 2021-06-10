@@ -554,6 +554,7 @@ function device_notice(){
 		str2 = desc.substring(desc.indexOf("Chrome") + 0).replace(str, "").replace("Mobile", "");
 		chromeVersion = str2.slice(-2);
 		browser = str2.slice(0).replace(chromeVersion, "").trim();
+		//console.log('Mobile: ' + browser + ': ' + chromeVersion);
 	}
 
 	else{
@@ -561,7 +562,7 @@ function device_notice(){
 		str2 = platform.description.substring(platform.description.indexOf("Chrome") + 0).replace(str, "");
 		chromeVersion = str2.slice(-2);
 		browser = str2.slice(0).replace(chromeVersion, "").trim();
-		console.log('Not mobile: ' + browser + ': ' + chromeVersion);
+		//console.log('Not mobile: ' + browser + ': ' + chromeVersion);
 	}
 
 	if (browser == "Chrome" && chromeVersion < 82){
