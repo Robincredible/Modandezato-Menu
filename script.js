@@ -284,10 +284,14 @@ function modal(){
 		openModal = document.querySelectorAll('.image')[j];
 		openModal.addEventListener('click', function(e){
 
+		console.log('--clicked image object');
+
 		const thisItem = this;
 		
 		const thisItemName = this.parentElement.parentElement.querySelector('.product-name');
 		const targetName = e.target.parentElement.parentElement.parentElement.querySelector('.product-name');
+
+		console.error('--attempting to open ' + thisItemName);
 
 		if (thisItemName.textContent === targetName.textContent){
 			let sanitizedName = targetName.textContent.trim()
@@ -303,12 +307,19 @@ function modal(){
 
 		}
 
+		console.error('--compared ' + thisItemName + ' and ' + targetName);
+
 		let currentSelect = thisItem.parentElement.parentElement.querySelector('.product-name').textContent;
 		let currentSelectDesc = thisItem.parentElement.parentElement.querySelector('.product-desc').innerHTML;
 		let currentSelectImage = thisItem.parentElement.parentElement.querySelector('.image img').src;
+
+		console.error('--targeted currently selected element ' + currentSelect + ', ' + currentSelect + ', ' + currentSelectImage);
+
 		if (thisItem.parentElement.parentElement.querySelector('.box-price') != null){
 			currentSelectPrice = thisItem.parentElement.parentElement.querySelector('.box-price').textContent;
 		}
+
+		console.error('--checked if box price is not null..');
 
 		modal_open(currentSelect, currentSelectImage, currentSelectDesc, currentSelectPrice, scrollAmount);
 
@@ -321,9 +332,13 @@ function modal(){
 
 function modal_open(name, image, info, price, scrollAmount){
 
+	console.error('--attempting to hide overflow');
+
 	hide_overflow(scrollAmount);
 
-	console.error('--Attempting to Open Modal... ' + name + ' ' + image + ' ' + info + ' ' + price + ' ' + scrollAmount  );
+	console.error('--overflow is hidden');
+
+	console.error('--attempting to open modal... ' + name + ' ' + image + ' ' + info + ' ' + price + ' ' + scrollAmount  );
 
 	let className = name.trim().toLowerCase()
 							 .replaceAll(" ", "-")
@@ -339,9 +354,9 @@ function modal_open(name, image, info, price, scrollAmount){
 	const modalPrice = document.querySelector('.modal-price');
 	const addToCart = document.querySelector('.addToCartContainer');
 
-	console.error('--Initializing Variables ' + className + ' modal bg: ' + modalBG + ' image: ' + imageModal + ' heading: ' + modalHeading + ' description: ' + modalDesc + ' price: ' +  modalPrice + ' cart: ' +  addToCart);
+	console.error('--initializing Variables ' + className + ' modal bg: ' + modalBG + ' image: ' + imageModal + ' heading: ' + modalHeading + ' description: ' + modalDesc + ' price: ' +  modalPrice + ' cart: ' +  addToCart);
 
-	console.log( '--Added classes to modal heading: ' + add_class_to_modal_heading(name));
+	console.log( '--added classes to modal heading: ' + add_class_to_modal_heading(name));
 
 	//className = burat;
 
@@ -355,7 +370,7 @@ function modal_open(name, image, info, price, scrollAmount){
 		modal.querySelector('.' + className).parentElement.querySelector('.modal-price').classList.remove('hide');
 	}
 
-	console.error('--Replacing modal contents...');
+	console.error('--replacing modal contents...');
 
 	imageModal.src = image;
 	imageModal.alt = name;
@@ -365,9 +380,9 @@ function modal_open(name, image, info, price, scrollAmount){
 	modal.classList.add('active');
 	modalBG.classList.add('active');
 
-	console.log('--Replaced modal contents');
+	console.log('--replaced modal contents');
 
-	console.log('--Modal Opened ' + name);
+	console.log('--modal Opened ' + name);
 
 }
 
