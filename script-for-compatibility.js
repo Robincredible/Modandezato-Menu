@@ -441,7 +441,7 @@ function copy_order_form(){
 	    }, 500);
 	    
     }
-    console.log(order.replace('\n', '<br />'));
+    console.log(order.replaceAll('\n', '<br />'));
     console.log('--Copied Order Form');
 }
 
