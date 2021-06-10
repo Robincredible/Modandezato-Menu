@@ -4,8 +4,10 @@
  * Version: 1.0
  * Note: So much to do, so many functions, still a novice, a lot of revisions incoming
  * MVC: Control
- * Script-Production
+ * Script: Debugging
  */
+
+//Main function
 
 function startup(){
 	add_event_listeners();
@@ -16,10 +18,17 @@ document.addEventListener("DOMContentLoaded", startup);
 
 function add_event_listeners(){
 
+	//invoke debug toggler functionalities and detect device/device notice
+
+	toggle_debug_mode();
 	device_notice();
 
 	const deviceNoticeOkay = document.querySelector('.device-notice .okay');
 	deviceNoticeOkay.addEventListener('click', okay_device_notice);
+
+	//Main Function Thread for adding events
+
+	//tap bubbles, additional customer persuasion to tap/click the items
 
 	setTimeout(()=>{ tap_here_add() }, 4000);
 	setTimeout(()=>{ tap_here_remove() }, 10000);
@@ -27,16 +36,24 @@ function add_event_listeners(){
 	document.addEventListener('scroll', tap_here_remove);
 	document.addEventListener('click', tap_here_remove);
 
+	//no products/add a product events
+
 	const noProducts = document.querySelector('.add-a-product');
 	noProducts.addEventListener('click', no_items_add_a_product);
 
+	/* float circles, interaction with the circle elements through the whole document */
+
 	const circlesCount = document.querySelectorAll('.circle').length;
 	let circle;
+
+	//get all instances of elements with the "circle" class
 
 	for (let i = 0; i < circlesCount; i++){
 		circle = document.querySelectorAll('.circle')[i];
 		circle.addEventListener("click", float_circles);
 	}
+
+	/* click copy button event */
 
 	const copyButton = document.querySelector('.copy-button p');
 	copyButton.addEventListener("click", copy_order_form);
@@ -52,8 +69,18 @@ function add_event_listeners(){
 		collections_change( filter_text_from_string("Categories:", text) );
 	});
 
+	/* modal height called and attached to resize and load events */
+
 	window.onresize = modalHeight;
+	window.onload = modalHeight;
+
 	window.addEventListener('resize', modalHeight);
+	window.addEventListener('load', modalHeight);
+
+	collections_items_count();
+	item_names_as_classes_on_images();
+
+	/* add to cart */
 
 	const addToCartButton = document.querySelector('#addToCart');
 	const textArea = document.querySelector('#order-product-quantity');
@@ -70,6 +97,8 @@ function add_event_listeners(){
 
 	});
 
+	//remove from cart, click event
+
 	document.addEventListener('click', function(e){
 	
 	if (e.target && e.target.id == 'remove-item'){
@@ -80,6 +109,8 @@ function add_event_listeners(){
 	});
 
 }
+
+//dropdown change present items based on chosen item
 
 function collections_change(text){
 	let collectionID = text.replace(/\s/g, "").replace("Collection", "-Collection").toLowerCase();
@@ -103,6 +134,78 @@ function collections_change(text){
 	
 }
 
+//count items for classes in case of quantity changes
+
+function collections_items_count(){
+	const collection = document.querySelectorAll('.collection');
+
+	for (let i = 0; i < collection.length; i++){
+		count_items(collection[i].id);
+	}
+}
+
+function item_names_as_classes_on_images(){
+	const itemContainer = document.querySelectorAll('.item-container');
+	let itemName, itemImage, sanitizedName;
+
+	for (let i = 0; i < itemContainer.length; i++){
+		itemName = itemContainer[i].querySelector('.product-name').textContent;
+		itemImage = itemContainer[i].querySelector('.image img');
+
+		sanitizedName = sanitize_text(itemName);
+
+		itemImage.classList.add(sanitizedName + '-image');
+	}
+}
+
+//not yet done/polished, for adjusting styles based on the number of items
+
+function count_items(elementID){
+	const countChildren = document.querySelector('#' + elementID);
+	let itemsContainer = countChildren.querySelectorAll('.items-container');
+	let count = parseInt(countChildren.querySelectorAll('.items-container > div').length);
+
+	for(let i = 0; i < itemsContainer.length; i++){
+
+		switch (itemsContainer.length){
+
+			case 2:
+				switch(count){
+					case 4:
+						itemsContainer[i].classList.add('two-columns');
+					break;
+
+					case 1:
+						itemsContainer[i].classList.add('one-column');
+					break;
+
+					default:
+						itemsContainer[i].classList.add('three-columns');
+				}
+
+			break;
+
+			default:
+
+				switch(count){
+					case 4:
+						itemsContainer[i].classList.add('two-columns');
+					break;
+
+					case 1:
+						itemsContainer[i].classList.add('one-column');
+					break;
+
+					default:
+						itemsContainer[i].classList.add('three-columns');
+				}
+		}
+	}
+}
+
+//modal height adjustment, based on window innerHeight, subtract 20% from the total height
+//to supply an appropriate max-height to modal-image-container
+
 function modalHeight(){
 	const modalContainer = document.querySelector('.modal-content-container');
 	const modalImageContainer = document.querySelector('.modal-image-container');
@@ -123,10 +226,14 @@ function add_class_to_modal_heading(name){
 	modalHeading.classList.add( className );
 }
 
+//reset modal heading classes
+
 function remove_classes_from_modal_heading(){
 	const modalHeading = document.querySelector('.modal-heading');
 	modalHeading.className ="modal-heading"; 
 }
+
+//fixed body on modal_open
 
 function hide_overflow(scrollAmount){
 	const body = document.body;
@@ -139,6 +246,8 @@ function hide_overflow(scrollAmount){
 
 }
 
+//scroll body again after modal_close
+
 function visible_overflow(){
 	const body = document.body;
 	const html = document.body.parentElement;
@@ -146,6 +255,9 @@ function visible_overflow(){
 	html.style.overflowY = 'visible';
 	body.style.overflowY = 'visible';
 }
+
+/* Find the position of an object. Source: https://www.quirksmode.org/js/findpos.html */
+// for getting back to the scrolled part of the window, after modal_close
 
 function findPos(obj) {
 	let curleft = curtop = 0;
@@ -159,6 +271,8 @@ function findPos(obj) {
 	}
 }
 
+//modal main function
+
 function modal(){
 	const closeModal = document.querySelector('.close-modal');
 	const imageCount = document.querySelectorAll('.image').length;
@@ -168,9 +282,6 @@ function modal(){
 	for (let j = 0; j < imageCount; j++){
 		openModal = document.querySelectorAll('.image')[j];
 		openModal.addEventListener('click', function(e){
-
-		openModal.onclick = modalHeight;
-		openModal.addEventListener('click', modalHeight);
 
 		const thisItem = this;
 		
@@ -199,6 +310,8 @@ function modal(){
 
 	closeModal.addEventListener("click", () => { modal_close() });
 }
+
+// apply contents to modal based on passed information
 
 function modal_open(name, image, info, price, scrollAmount){
 
@@ -236,6 +349,8 @@ function modal_open(name, image, info, price, scrollAmount){
 
 }
 
+//reset modal classes and contents
+
 function modal_close(){
 
 	const modalBG = document.querySelector('.modal-bg');
@@ -252,7 +367,10 @@ function modal_close(){
 
 }
 
+//copy order form button
 function copy_order_form(){
+
+	//form input elements
 
     const orderForm = document.querySelector("#order-form");
     const name = orderForm.querySelector("input[name='order-name']");
@@ -262,6 +380,8 @@ function copy_order_form(){
     const schedule = orderForm.querySelector("input[name='order-schedule']");
     const modeOfPayment = orderForm.querySelector("input[type='radio'][name='order-mode-of-payment']");
     const modeOfPaymentChecked = orderForm.querySelector("input[type='radio'][name='order-mode-of-payment']:checked") || 'Waley';
+
+    //form labels
 
     const label_name = name.previousElementSibling.textContent;
     const label_number = number.previousElementSibling.textContent;
@@ -273,6 +393,8 @@ function copy_order_form(){
     let order_products = products.querySelectorAll('.cart-item');
     let products_final = "";
     let address_sanitized = "";
+
+    //get the data from all the products in the order formn
 
     for (let i = 0; i < order_products.length; i++){
     	let product_order_name = order_products[i].querySelector('.product').textContent;
@@ -286,6 +408,12 @@ function copy_order_form(){
 
     	products_final += product_order_quantity + 'x ' + product_order_name + ' ' + product_boxes + ' ' + product_order_price + ' PHP' + '\n';
     }
+
+    //separate google maps link from actual address
+
+    address_sanitized += address.value.trim().replace("https", "\nhttps");
+
+    //form labels + values
 
     let order = label_name + " " + name.value + '\n';
 		order += label_number + " " + number.value + '\n';
@@ -314,6 +442,8 @@ function copy_order_form(){
 	    }, 500);
 	    
     }
+    console.log(order.replace('\n', '<br />'));
+    console.log('--Copied Order Form');
 }
 
 function tap_here_add(){
@@ -354,6 +484,8 @@ function dm_us(){
 
 }
 
+//sanitization functions
+
 function sanitize_text(texts){
 	return texts.trim().toLowerCase()
 							.replaceAll(" ", "-")
@@ -379,6 +511,8 @@ function filter_price_from_string(string){
 	return Math.max(filteredPrice);
 }
 
+//scroll functions
+
 function no_items_add_a_product(){
 	scroll_to('.our-products-header');
 }
@@ -397,6 +531,8 @@ function scroll_to_socmed(){
 	window.scrollTo(0, topPos);
 }
 
+//add/remove "float" class
+
 function float_circles(){
 
 	if (this.classList.contains('float')){
@@ -407,6 +543,8 @@ function float_circles(){
 
 	this.addEventListener("animationend", float_circles);
 }
+
+//cart functions
 
 function store_to_cart(quantity, name, price){
 	const productQuantityElement = document.querySelector('.order-product-quantity');
@@ -464,6 +602,8 @@ function store_to_cart(quantity, name, price){
 	}
 	
 }
+
+//check if already added to cart, return a boolean value
 
 function already_added_to_cart(name){
 	
@@ -537,6 +677,8 @@ function add_to_cart(quantity, name, price){
 
 }
 
+//check total price based on items added, returns a number
+
 function get_total_price(){
 	const priceStore = document.querySelectorAll('.order-product-quantity > div');
 	let prices;
@@ -576,11 +718,144 @@ function display_total_price(price){
 	totalPrice.textContent = price;
 }
 
+/*
+ * Debugging functions, for older phones and general problem diagnosis
+ * Still can't detect browser errors, only console.logs and console.errors
+ * Source: https://stackoverflow.com/questions/6604192/showing-console-errors-and-alerts-in-a-div-inside-the-page
+ */
+
+function toggle_debug_mode(){
+	const dice = document.querySelector('.dice.large');
+	let clicks = 0;
+	let bool = false;
+
+	dice.addEventListener('click', function(){
+
+		if (clicks >= 10){
+			bool = true;
+			clicks = 0;
+			debug_mode(bool);
+		}
+
+		clicks++;
+
+	});
+}
+
+function debug_mode(activate){
+	if (activate === true){
+		document.querySelector('.debug-mode-display').classList.add('show');
+		console_errors_log();
+
+		let checklet = 'hey!';
+		let message;
+
+		if (typeof(checklet) !== 'undefined'){
+			message = "JS is ES6 and above";
+		} else{
+			message = "JS is below ES6";
+		}
+
+		console.log('//Debug Mode');
+		console.log('<br />' +
+		'Name: ' + platform.name + '<br />' + // 'IE'
+		'Version: ' + platform.version + '<br />' +  // '10.0'
+		'Layout: ' + platform.layout + '<br />' +// 'Trident'
+		'OS: ' + platform.os + '<br />' + // 'Windows Server 2008 R2 / 7 x64'
+		'Description: ' + platform.description+ '<br />' +// 'IE 10.0 x86 (platform preview; running in IE 7 mode) on Windows Server 2008 R2 / 7 x64'
+		'Product: ' + platform.product + '<br />' +
+		'Manufacturer: ' + platform.manufacturer + '<br />' + '*****');
+		
+		width_checker();
+	}
+
+	return activate;
+}
+
+function console_errors_log(){
+
+	const logger = document.querySelector('.console-log');
+	logger.classList.add('show');
+
+	if (typeof console  != "undefined") 
+    if (typeof console.log != 'undefined')
+        console.olog = console.log;
+    else
+        console.olog = function() {};
+
+	console.log = function(message) {
+	    console.olog(message);
+	    logger.innerHTML += message + '<br />';
+	};
+	console.error = console.debug = console.info = console.log;
+}
+
+function width_checker(){
+	const widthCheck = document.querySelector('.width-checker');
+	let windowHeight = window.innerHeight;
+	let windowWidth = window.innerWidth;
+
+	widthCheck.classList.add('show');
+	widthCheck.innerHTML = 'width: ' + windowWidth + ' x Height: ' + windowHeight;
+
+	window.onresize = widthChecker;
+	window.onload = widthChecker;
+
+	window.addEventListener('resize', widthChecker);
+	window.addEventListener('load', widthChecker);
+}
+
+/* 
+ * Browser update notice, for phones that may not render the website properly
+ * Suggests to either update their browser or switch to Chrome
+ * Display notice update on Chrome Browsers version 82 and below - tested as of 06/10/2021
+ * Used ua-parser-js source: https://faisalman.github.io/ua-parser-js/
+ * and Platform JS source: https://github.com/bestiejs/platform.js/
+ */
+
+function detect_manufacturer(){
+	let checklet = 'hey!';
+	let message;
+
+	if (typeof(checklet) !== 'undefined'){
+		message = "JS is ES6 and above";
+	} else{
+		message = "JS is below ES6";
+	}
+
+	alert(
+		message + '\n\n' +
+		'Platform JS' + '\n' +
+		'Name: ' + platform.name + '\n' + // 'IE'
+		'Version: ' + platform.version + '\n' +  // '10.0'
+		'Layout: ' + platform.layout + '\n' +// 'Trident'
+		'OS: ' + platform.os + '\n' + // 'Windows Server 2008 R2 / 7 x64'
+		'Description: ' + platform.description+ '\n' +// 'IE 10.0 x86 (platform preview; running in IE 7 mode) on Windows Server 2008 R2 / 7 x64'
+		'Product: ' + platform.product + '\n' +
+		'Manufacturer: ' + platform.manufacturer
+		);
+
+}
+
 function okay_device_notice(){
 	document.querySelector('.device-notice').classList.remove('show');
 }
 
 function device_notice(){
+
+	/* 
+	 * A note on the variables:
+	 *
+	 * desc = platform.description describes the whole bnowser platform
+	 * when tested on huawei devices among others returns something on the lines of
+	 * 'Chrome 91.0.4472.77 on Windows 10 64-bit' or 'Android Browser 4.0 (Like Chrome 
+	 * Mobile 91.0.4472.77 on Android)', which made it logical to be the common denominator
+	 * amongst everyone.
+	 *
+	 * str removes the first instances up to the tenths of the version number.
+	 * str2 is the whole string where we remove the remaining texts we got from str.
+	 *
+	 */
 
 	let str, str2, chromeVersion, browser;
 	let desc = platform.description;
