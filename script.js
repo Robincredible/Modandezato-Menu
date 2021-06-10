@@ -349,6 +349,8 @@ function modal_open(name, image, info, price, scrollAmount){
 	modal.classList.add('active');
 	modalBG.classList.add('active');
 
+	console.log('--Modal Opened ' + name);
+
 }
 
 function modal_close(){
@@ -436,6 +438,8 @@ function copy_order_form(){
 	    }, 500);
 	    
     }
+    console.log(order.replace('\n', '<br />'));
+    console.log('--Copied Order Form');
 }
 
 function tap_here_add(){
@@ -769,6 +773,7 @@ function toggle_debug_mode(){
 
 		if (clicks >= 10){
 			bool = true;
+			clicks = 0;
 			debug_mode(bool);
 		}
 
@@ -779,14 +784,68 @@ function toggle_debug_mode(){
 
 function debug_mode(activate){
 	if (activate === true){
-		detectManufacturer();
-		widthChecker();
 		document.querySelector('.debug-mode-display').classList.add('show');
-		console.log('--- Debug Mode ---');
+		console_errors_log();
+
+		let checklet = 'hey!';
+		var message;
+
+		if (typeof(checklet) !== 'undefined'){
+			message = "JS is ES6 and above";
+		} else{
+			message = "JS is below ES6";
+		}
+
+		console.log('//Debug Mode');
+		console.log('<br />' +
+		'Name: ' + platform.name + '<br />' + // 'IE'
+		'Version: ' + platform.version + '<br />' +  // '10.0'
+		'Layout: ' + platform.layout + '<br />' +// 'Trident'
+		'OS: ' + platform.os + '<br />' + // 'Windows Server 2008 R2 / 7 x64'
+		'Description: ' + platform.description+ '<br />' +// 'IE 10.0 x86 (platform preview; running in IE 7 mode) on Windows Server 2008 R2 / 7 x64'
+		'Product: ' + platform.product + '<br />' +
+		'Manufacturer: ' + platform.manufacturer + '<br />' + '*****');
+		//detect_manufacturer();
+		//console_log();
+		widthChecker();
 	}
+
+	return activate;
 }
 
-function detectManufacturer(){
+function console_errors_log(){
+
+	const logger = document.querySelector('.console-log');
+	logger.classList.add('show');
+
+	if (typeof console  != "undefined") 
+    if (typeof console.log != 'undefined')
+        console.olog = console.log;
+    else
+        console.olog = function() {};
+
+	console.log = function(message) {
+	    console.olog(message);
+	    let sanitizedMessage = message;
+	    logger.innerHTML += sanitizedMessage + '<br />';
+	};
+	console.error = console.debug = console.info = console.log;
+}
+
+function console_log(){
+	let old = console.log;
+    const logger = document.querySelector('.console-log');
+    logger.classList.add('show');
+    console.log = function (message) {
+        if (typeof message == 'object') {
+            logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + '<br />';
+        } else {
+            logger.innerHTML += message + '<br />';
+        }
+    }
+}
+
+function detect_manufacturer(){
 	var parser = new UAParser();
 	var result = parser.getResult();
 	let checklet = 'hey!';
@@ -829,7 +888,7 @@ function device_notice(){
 		str2 = desc.substring(desc.indexOf("Chrome") + 0).replace(str, "").replace("Mobile", "");
 		chromeVersion = str2.slice(-2);
 		browser = str2.slice(0).replace(chromeVersion, "").trim();
-		console.log('With mobile: ' + browser + ': ' + chromeVersion);
+		console.log('Mmobile: ' + browser + ': ' + chromeVersion);
 	}
 
 	else{
@@ -837,7 +896,7 @@ function device_notice(){
 		str2 = platform.description.substring(platform.description.indexOf("Chrome") + 0).replace(str, "");
 		chromeVersion = str2.slice(-2);
 		browser = str2.slice(0).replace(chromeVersion, "").trim();
-		console.log('No mobile: ' + browser + ': ' + chromeVersion);
+		console.log('Not mobile: ' + browser + ': ' + chromeVersion);
 	}
 
 	if (browser == "Chrome" && chromeVersion < 82){
