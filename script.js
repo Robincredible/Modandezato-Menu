@@ -216,14 +216,22 @@ function modalHeight(){
 
 function add_class_to_modal_heading(name){
 	const modalHeading = document.querySelector('.modal-heading');
-	let className = name.trim()
-											 .toLowerCase()
-											 .replaceAll(" ", "-")
-											 .replaceAll("'", "")
-											 .replaceAll("&", "")
-											 .replaceAll("--", "-");
+	let className;
+	let success = false;
 
-	modalHeading.classList.add( className );
+	if (name){
+		className = name.trim()
+							 .toLowerCase()
+							 .replaceAll(" ", "-")
+							 .replaceAll("'", "")
+							 .replaceAll("&", "")
+							 .replaceAll("--", "-");
+
+		modalHeading.classList.add( className );
+		success = true
+	}
+
+	return success;
 }
 
 function remove_classes_from_modal_heading(){
@@ -315,6 +323,8 @@ function modal_open(name, image, info, price, scrollAmount){
 
 	hide_overflow(scrollAmount);
 
+	console.error('--Attempting to Open Modal... ' + name + ' ' + image + ' ' + info + ' ' + price + ' ' + scrollAmount  );
+
 	let className = name.trim().toLowerCase()
 							 .replaceAll(" ", "-")
 							 .replaceAll("'", "")
@@ -329,7 +339,11 @@ function modal_open(name, image, info, price, scrollAmount){
 	const modalPrice = document.querySelector('.modal-price');
 	const addToCart = document.querySelector('.addToCartContainer');
 
-	add_class_to_modal_heading(name);
+	console.error('--Initializing Variables ' + className + ' modal bg: ' + modalBG + ' image: ' + imageModal + ' heading: ' + modalHeading + ' description: ' + modalDesc + ' price: ' +  modalPrice + ' cart: ' +  addToCart);
+
+	console.log( '--Added classes to modal heading: ' + add_class_to_modal_heading(name));
+
+	//className = burat;
 
 	if (className === 'cookie-cake' || className === 'bite-sized-cookies'){
 		modal.querySelector('.' + className).parentElement.querySelector('.addToCartContainer').classList.add('hide');
@@ -341,6 +355,8 @@ function modal_open(name, image, info, price, scrollAmount){
 		modal.querySelector('.' + className).parentElement.querySelector('.modal-price').classList.remove('hide');
 	}
 
+	console.error('--Replacing modal contents...');
+
 	imageModal.src = image;
 	imageModal.alt = name;
 	modalHeading.textContent = name;
@@ -348,6 +364,8 @@ function modal_open(name, image, info, price, scrollAmount){
 	modalPrice.textContent = price;
 	modal.classList.add('active');
 	modalBG.classList.add('active');
+
+	console.log('--Replaced modal contents');
 
 	console.log('--Modal Opened ' + name);
 
@@ -826,8 +844,7 @@ function console_errors_log(){
 
 	console.log = function(message) {
 	    console.olog(message);
-	    let sanitizedMessage = message;
-	    logger.innerHTML += sanitizedMessage + '<br />';
+	    logger.innerHTML += message + '<br />';
 	};
 	console.error = console.debug = console.info = console.log;
 }
