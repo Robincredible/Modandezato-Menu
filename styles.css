@@ -20,12 +20,6 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: Cocomat Ultralight;
-  src: local('Roboto'), local('sans-serif'), url(fonts/Cocomat-Ultralight-trial.ttf);
-  font-display: swap;
-}
-
 /* animations  */
 @keyframes wave {
   0% {
@@ -153,6 +147,8 @@
 html{
 	overflow-x: hidden;
 	-webkit-overflow-x: hidden;
+	-webkit-scroll-behavior: smooth;
+	scroll-behavior: smooth;
 }
 
 body{
@@ -229,7 +225,6 @@ img{
 
 /* modal */
 .modal-container{
-	/*background-color: rgba(255,255,255,0.0);*/
 	position: fixed;
 	display: flex;
 	height: 100%;
@@ -268,7 +263,6 @@ img{
 }
 
 .modal-container.active{
-/*	background-color: rgba(255,255,255,0.95);*/
 	top: 0%;
 	left: 0;
 	opacity: 1;
@@ -404,7 +398,6 @@ img{
 .modal-heading.deluxe-sampler{
 	animation:  3s infinite deluxefun forwards;
 }
-
 
 .close-modal{
 	position: absolute;

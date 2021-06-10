@@ -710,72 +710,11 @@ function remove_from_cart(name){
 	}
 }
 
-//function for testing purposes
-
-function store_prices(price, quantity){
-	let absoluteElement = document.querySelector('.price-store');
-	let multipliedPrice = parseInt(price) * quantity;
-	let para = document.createElement('p');
-	absoluteElement.appendChild(para).textContent += multipliedPrice;
-}
-
 function display_total_price(price){
 	const totalPrice = document.querySelector('.total-price-display');
 	const totalPriceContainer = document.querySelector('.total-price-container');
 	totalPriceContainer.classList.add('show');
 	totalPrice.textContent = price;
-}
-
-/* 
- * Google Map link Paste and Sanitization Functions 
- * For the previously used google maps link, detects ctrl+v and right click -> paste whether on mobile or desktop
- * to put spaces/clean the string to be pasted on the textarea thus making readability easier for both the vendor
- * and the customers.
- */
-
-//detect paste, https://stackoverflow.com/questions/3211505/detect-pasted-text-with-ctrlv-or-right-click-paste
-
-function getTextAreaSelection(textarea) {
-    let start = textarea.selectionStart, end = textarea.selectionEnd;
-    return {
-        start: start,
-        end: end,
-        length: end - start,
-        text: textarea.value.slice(start, end)
-    };
-}
-
-function detectPaste(textarea, callback) {
-    textarea.onpaste = function() {
-        let sel = getTextAreaSelection(textarea);
-        let initialLength = textarea.value.length;
-        window.setTimeout(function() {
-            let val = textarea.value;
-            let pastedTextLength = val.length - (initialLength - sel.length);
-            let end = sel.start + pastedTextLength;
-            callback({
-                start: sel.start,
-                end: end,
-                length: pastedTextLength,
-                text: val.slice(sel.start, end)
-            });
-        }, 1);
-    };
-}
-
-function put_space_after_paste(){
-
-	let textarea = document.getElementById("order-address");
-	detectPaste(textarea, function(pasteInfo) {
-		let str = pasteInfo.text;
-		str = str.substring(str.indexOf("https") - 100);
-		str2 = str.substring(str.indexOf("https") + 0);
-
-		textarea.value = textarea.value.trim().replace(str, "") + '\n' + str2;
-	    // pasteInfo also has properties for the start and end character
-	    // index and length of the pasted text
-	});
-
 }
 
 /*
@@ -808,7 +747,7 @@ function debug_mode(activate){
 		console_errors_log();
 
 		let checklet = 'hey!';
-		var message;
+		let message;
 
 		if (typeof(checklet) !== 'undefined'){
 			message = "JS is ES6 and above";
@@ -850,19 +789,6 @@ function console_errors_log(){
 	console.error = console.debug = console.info = console.log;
 }
 
-function console_log(){
-	let old = console.log;
-    const logger = document.querySelector('.console-log');
-    logger.classList.add('show');
-    console.log = function (message) {
-        if (typeof message == 'object') {
-            logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + '<br />';
-        } else {
-            logger.innerHTML += message + '<br />';
-        }
-    }
-}
-
 function width_checker(){
 	const widthCheck = document.querySelector('.width-checker');
 	let windowHeight = window.innerHeight;
@@ -887,8 +813,6 @@ function width_checker(){
  */
 
 function detect_manufacturer(){
-	var parser = new UAParser();
-	var result = parser.getResult();
 	let checklet = 'hey!';
 	let message;
 
@@ -900,9 +824,6 @@ function detect_manufacturer(){
 
 	alert(
 		message + '\n\n' +
-		'ua-parser-js' + '\n' +
-		'Device Vendor: ' + result.device.vendor + '\n\n' +
-
 		'Platform JS' + '\n' +
 		'Name: ' + platform.name + '\n' + // 'IE'
 		'Version: ' + platform.version + '\n' +  // '10.0'
