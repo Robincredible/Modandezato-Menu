@@ -595,7 +595,7 @@ function device_notice(){
 		//console.log('Not mobile: ' + browser + ': ' + chromeVersion);
 	}
 
-	if (browser == "Chrome" && chromeVersion < 90){
+	if (browser == "Chrome" && chromeVersion < 87){
 		document.querySelector('.device-notice').classList.add('show');
 	}
 }
