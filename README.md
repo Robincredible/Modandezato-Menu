@@ -10,7 +10,7 @@ instead of typing it all(including the labels) and browsing our Facebook/Instagr
 
 ### The Order Process
 1. They can add products by tapping/clicking on the product images, and then pressing `Add to Order Button`
-2. Remove an item by pressing the `X Button`(*or rather the + rotated in 45 degrees*) from the `Product and Quantity Field` 
+2. Remove an item by pressing the `X Button`(*or rather the '+' rotated in 45 degrees*) from the `Product and Quantity Field` 
 in the form at will with an automated calculator of the current price total. 
 3. After filling the form, and then pressing the `Copy Order Form Button`, the texts of the order form populated with the customer's desired content will be copied into 
 the clipboard and then they can just paste it in a direct message to one of our social media channels!
