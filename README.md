@@ -26,6 +26,6 @@ Thank you for reading!
 
 Follow us on social media!
 
-<img height=16px width=16px src="https://raw.githubusercontent.com/Modandezato/Modandezato-Menu/main/images/Instagram-Icon.png"> **[Instagram](https://www.instagram.com/modandezato/)**
+**[Instagram](https://www.instagram.com/modandezato/)**
 
-<img height=16px width=16px src="https://raw.githubusercontent.com/Modandezato/Modandezato-Menu/main/images/Facebook-Icon.png"> **[Facebook](https://www.facebook.com/modandezato)**
+**[Facebook](https://www.facebook.com/modandezato)**
