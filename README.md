@@ -20,6 +20,8 @@ In order to process an order, we need a screenshot of the bank transaction first
 cash on delivery. Submitting a form, and sending the contents through to a sheet or an email, and then checking it again through direct messages may just be redundant 
 in the current process that is working for us.
 
+---__*The form is still having problems rendering the modal on Huawei Browsers, Microsoft Edge Mobile and Chrome Versions < 90(tested as of 06/10/2021). We've put out a notice(if the browser currently does not meet the criteria, using [Platform JS](https://github.com/bestiejs/platform.js/))to switch into the latest version of Chrome or update their browsers. We're currently looking into this. For now, the form has been tested to be woking on Google Chrome > 90, and the latest versions of Firefox, Firefox Nightly, Firefox Focus, Firefox Lite, Opera, Opera Touch, Samsung Browsers and Duckduck Go*__---
+
 Thank you for reading!
 
 ### *Have a form-filling experience!* ###
