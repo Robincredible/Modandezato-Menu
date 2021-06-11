@@ -578,24 +578,35 @@ function okay_device_notice(){
 function device_notice(){
 	let str, str2, chromeVersion, browser;
 	let desc = platform.description;
+	//let desc = "Microsoft Edge 46.04.4";
+
+	console.log(desc);
 
 	if ( desc.includes('Mobile') ){
 		str = desc.substring(desc.indexOf("Chrome") + 16);
 		str2 = desc.substring(desc.indexOf("Chrome") + 0).replace(str, "").replace("Mobile", "");
 		chromeVersion = str2.slice(-2);
 		browser = str2.slice(0).replace(chromeVersion, "").trim();
-		//console.log('Mobile: ' + browser + ': ' + chromeVersion);
+	}
+
+	else if ( desc.includes('Edge') ){
+		str = desc.substring(desc.indexOf("Edge") + 7);
+		str2 = desc.substring(desc.indexOf("Edge") + 0).replace(str, "");
+		chromeVersion = str2.slice(-2);
+		browser = str2.slice(0).replace(chromeVersion, "").trim();
 	}
 
 	else{
-		str = platform.description.substring(platform.description.indexOf("Chrome") + 9);
-		str2 = platform.description.substring(platform.description.indexOf("Chrome") + 0).replace(str, "");
+		str = desc.substring(desc.indexOf("Chrome") + 9);
+		str2 = desc.substring(desc.indexOf("Chrome") + 0).replace(str, "");
 		chromeVersion = str2.slice(-2);
 		browser = str2.slice(0).replace(chromeVersion, "").trim();
 		//console.log('Not mobile: ' + browser + ': ' + chromeVersion);
 	}
 
-	if (browser == "Chrome" && chromeVersion < 87){
+	console.log(chromeVersion + ', ' + browser);
+
+	if ((browser == "Chrome" || "Edge") && chromeVersion < 87){
 		document.querySelector('.device-notice').classList.add('show');
 	}
 }
