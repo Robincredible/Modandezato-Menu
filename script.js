@@ -9,7 +9,6 @@
 
 function startup(){
 	add_event_listeners();
-	modal();
 }
 
 document.addEventListener("DOMContentLoaded", startup);
@@ -63,6 +62,10 @@ function add_event_listeners(){
 		let thisProductQuantity = this.parentElement.parentElement.querySelector('.quantityCart input').value;
 
 		add_to_cart(thisProductQuantity, thisProduct, thisProductPrice);
+
+		addToCartButton.style.pointerEvents = "none";
+
+		setTimeout( () => { addToCartButton.style.pointerEvents = "all"}, 1500 );
 	});
 
 	document.addEventListener('click', function(e){
@@ -73,6 +76,8 @@ function add_event_listeners(){
 		remove_from_cart(thisProduct);
 		}
 	});
+
+	modal();
 
 }
 
@@ -179,7 +184,6 @@ function modal(){
 	const closeModal = document.querySelector('.close-modal');
 	const imageCount = document.querySelectorAll('.image').length;
 	let openModal, currentSelectPrice, clickedObject, scrollAmount;
-	let scrollFinal = 0;
 
 	for (let j = 0; j < imageCount; j++){
 		openModal = document.querySelectorAll('.image')[j];
@@ -251,6 +255,7 @@ function modal_close(){
 	const modal = document.querySelector('.modal-container');
 	const added = document.querySelector('.added');
 	const productQuantity = document.querySelector('.quantityCart input');
+
 	productQuantity.value = 1;
 	added.classList.remove('shown');
 	modal.classList.remove('active');
@@ -280,7 +285,6 @@ function copy_order_form(){
 
     let order_products = products.querySelectorAll('.cart-item');
     let products_final = "";
-    let address_sanitized = "";
 
     for (let i = 0; i < order_products.length; i++){
     	let product_order_name = order_products[i].querySelector('.product').textContent;
@@ -301,8 +305,6 @@ function copy_order_form(){
     } else{
     	totalCopy = "";
     }
-
-    console.log(get_total_price());
 
     let order = label_name + " " + name.value + '\n';
 		order += label_number + " " + number.value + '\n';
@@ -511,10 +513,6 @@ function add_to_cart(quantity, name, price){
 		addButton.textContent = "Added!";
 	}
 
-	else if ( windowWidth <= 600 ){
-		addButton.textContent = "Added to Orders!";
-	}
-
 	else{
 		addButton.textContent = "Added to Orders!";
 	}
@@ -580,8 +578,6 @@ function device_notice(){
 	let desc = platform.description;
 	//let desc = "Microsoft Edge 46.04.4";
 
-	console.log(desc);
-
 	if ( desc.includes('Mobile') ){
 		str = desc.substring(desc.indexOf("Chrome") + 16);
 		str2 = desc.substring(desc.indexOf("Chrome") + 0).replace(str, "").replace("Mobile", "");
@@ -601,10 +597,7 @@ function device_notice(){
 		str2 = desc.substring(desc.indexOf("Chrome") + 0).replace(str, "");
 		chromeVersion = str2.slice(-2);
 		browser = str2.slice(0).replace(chromeVersion, "").trim();
-		//console.log('Not mobile: ' + browser + ': ' + chromeVersion);
 	}
-
-	console.log(chromeVersion + ', ' + browser);
 
 	if ((browser == "Chrome" || "Edge") && chromeVersion < 87){
 		document.querySelector('.device-notice').classList.add('show');

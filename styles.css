@@ -361,11 +361,11 @@ img{
 	height: 100%;
 	width: 100%;
 	z-index: 0;
-	top: 100%;
-	left: 0;
-	opacity: 1;
+	top: 0%;
+	left: 0%;
+	opacity: 0;
 	pointer-events: none;
-	transition: background-color 0.6s, top 0.6s, opacity 0.6s;
+	transition: opacity 0.6s;
 }
 
 .modal-bg{
@@ -380,7 +380,7 @@ img{
 	top: 0;
 	left: 0;
 	pointer-events: none;
-	transition: opacity 1s, transform 1s;
+	transition: opacity 0.6s, transform 0.6s;
 }
 
 .modal-bg.active{
@@ -399,11 +399,11 @@ img{
 	opacity: 1;
 	pointer-events: all;
 	z-index: 99;
-	transition: opacity 0.6s, top 0.6s, background-color 0.6s;
+	transition: opacity 0.6s;
 }
 
 .modal-container *{
-	transition: 0.3s;
+	/* transition: 0.3s; */
 }
 
 .modal-content-container{
@@ -1446,7 +1446,7 @@ input[type=number]::-webkit-inner-spin-button {
 	text-align: center;
 	letter-spacing: 2px;
 	display: flex;
-	transition: 1s;
+	transition: 0.3s;
 	justify-content: center;
 	z-index: 99;
 }
@@ -1463,7 +1463,7 @@ input[type=number]::-webkit-inner-spin-button {
 
 .added.shown{
 	opacity: 1;
-	transition: 1s;
+	transition: 0.3s;
 }
 
 .remove-item{
@@ -1861,10 +1861,6 @@ input[type=number]::-webkit-inner-spin-button {
 
 @media all and (max-width: 1550px){
 
-	.container{
-		overflow: hidden;
-	}
-
 	.circles-container{
 		min-height: 180px;
 	}
@@ -1952,6 +1948,10 @@ input[type=number]::-webkit-inner-spin-button {
 
 	.modal-image-container{
 		max-height: 600px;
+	}
+
+	.container{
+		overflow: hidden;
 	}
 	
 }
