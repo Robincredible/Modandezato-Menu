@@ -381,10 +381,10 @@
 						<!-- end experimental -->
 						<div class="schedule-of-delivery">
 							<label for="order-schedule">Schedule of Delivery:</label>
-							<input id="order-schedule" name="order-schedule" type="date" />
+							<input id="order-schedule" name="order-schedule" type="date" required pattern="\d{4}-\d{2}-\d{2}"/>
 						</div>
 						<div class="mode-of-payment">
-							<p>Mode of Payment (BPI/BDO/GCash):</p>
+							<p>Mode of Payment(BPI/BDO/GCash):</p>
 							<div class="mode-of-payment-selection">
 								<input id="order-bpi" name="order-mode-of-payment" type="radio" value="BPI" />
 								<label for="order-bpi">BPI</label>

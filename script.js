@@ -17,9 +17,6 @@ function add_event_listeners(){
 
 	device_notice();
 
-	const deviceNoticeOkay = document.querySelector('.device-notice .okay');
-	deviceNoticeOkay.addEventListener('click', okay_device_notice);
-
 	setTimeout(()=>{ tap_here_add() }, 4000);
 	setTimeout(()=>{ tap_here_remove() }, 10000);
 
@@ -29,13 +26,11 @@ function add_event_listeners(){
 	const noProducts = document.querySelector('.add-a-product');
 	noProducts.addEventListener('click', no_items_add_a_product);
 
-	const circlesCount = document.querySelectorAll('.circle').length;
-	let circle;
+	const circlesCount = [...document.querySelectorAll('.circle')];
 
-	for (let i = 0; i < circlesCount; i++){
-		circle = document.querySelectorAll('.circle')[i];
-		circle.addEventListener("click", float_circles);
-	}
+	circlesCount.map(circle => {
+		circle.addEventListener('click', float_circles);
+	});
 
 	const copyButton = document.querySelector('.copy-button p');
 	copyButton.addEventListener("click", copy_order_form);
@@ -49,31 +44,26 @@ function add_event_listeners(){
 		collections_change( filter_text_from_string("Categories:", text) );
 	});
 
-	window.onresize = modalHeight;
-	window.addEventListener('resize', modalHeight);
-
 	const addToCartButton = document.querySelector('#addToCart');
-	const textArea = document.querySelector('#order-product-quantity');
 	
 	addToCartButton.addEventListener('click', function(){
-		const quantityField = document.querySelector('.quantityCart input');
-		let thisProduct = this.parentElement.parentElement.querySelector('.modal-heading').textContent;
-		let thisProductPrice = this.parentElement.parentElement.querySelector('.modal-price').textContent;
-		let thisProductQuantity = this.parentElement.parentElement.querySelector('.quantityCart input').value;
+		const thisProduct = this.parentElement.parentElement.querySelector('.modal-heading').textContent;
+		const thisProductPrice = this.parentElement.parentElement.querySelector('.modal-price').textContent;
+		const thisProductQuantity = this.parentElement.parentElement.querySelector('.quantityCart input').value;
 
 		add_to_cart(thisProductQuantity, thisProduct, thisProductPrice);
 
-		addToCartButton.style.pointerEvents = "none";
+		addToCartButton.classList.add('no-pointer-events');
 
-		setTimeout( () => { addToCartButton.style.pointerEvents = "all"}, 1500 );
+		setTimeout( () => { addToCartButton.classList.remove('no-pointer-events') }, 800 );
 	});
 
 	document.addEventListener('click', function(e){
 	
-	if (e.target && e.target.id == 'remove-item'){
-		let thisProduct = e.target.parentElement.querySelector('.product').textContent;
+		if (e.target && e.target.id == 'remove-item'){
+			let thisProduct = e.target.parentElement.querySelector('.product').textContent;
 
-		remove_from_cart(thisProduct);
+			remove_from_cart(thisProduct);
 		}
 	});
 
@@ -83,39 +73,32 @@ function add_event_listeners(){
 
 function collections_change(text){
 	let collectionID = text.replace(/\s/g, "").replace("Collection", "-Collection").toLowerCase();
-	let newID;
-	const collection = document.querySelectorAll(".collection");
+	let newID = collectionID;
+	const collection = [...document.querySelectorAll(".collection")];
 	let bool = false;
 
-	for (let i=0; i < collection.length; i++){
-		if(collectionID.indexOf("-collection") < 1){
-			newID = collectionID + '-collection';
-		} else{
-			newID = collectionID;
-		}
-		
-		if ( collection[i].classList.contains('active') ){
-			collection[i].classList.remove('active');
-		}
-		document.querySelector('.' + newID).classList.add('active');
-		bool = true;
-	}
+	collection.map( 
+		x => {
+			if (collectionID.indexOf('-collection') < 1){
+				newID = collectionID + '-collection';
+			}
+
+			if(x.classList.contains('active') ){
+				x.classList.remove('active');
+			}
+
+			document.querySelector('.' + newID).classList.add('active');
+			bool = true;
+	});
 
 	lazy_loading(bool, newID);
 }
 
 function lazy_loading(bool, collection){
-	console.log(bool + ', ' + collection);
-	const lazy_images_parent = document.querySelectorAll('.' + collection + '.active' + ' .item-container');
+	const lazy_images_parent = [...document.querySelectorAll('.' + collection + '.active' + ' .item-container')]
 
 	if (bool == true){
-		console.log(lazy_images_parent.length);
-		for (let i = 0; i < lazy_images_parent.length; i++){
-			let image = lazy_images_parent[i].querySelector('.image img');
-			
-			image.src = image.dataset.src;
-		}
-
+		let image = lazy_images_parent.map( x => x.querySelector('.image img').src = x.querySelector('.image img').dataset.src  );
 	}
 
 }
@@ -182,37 +165,43 @@ function findPos(obj) {
 
 function modal(){
 	const closeModal = document.querySelector('.close-modal');
-	const imageCount = document.querySelectorAll('.image').length;
+	const imageAll = [...document.querySelectorAll('.image')];
 	let openModal, currentSelectPrice, clickedObject, scrollAmount;
 
-	for (let j = 0; j < imageCount; j++){
-		openModal = document.querySelectorAll('.image')[j];
-		openModal.addEventListener('click', function(e){
-		openModal.onclick = modalHeight;
+	window.onresize = modalHeight;
+	window.addEventListener('resize', modalHeight);
+
+	imageAll.map(x => {
+
+		openModal = x;
+		openModal.click = modalHeight;
 		openModal.addEventListener('click', modalHeight);
 
-		const thisItem = this;
-		const thisItemName = this.parentElement.parentElement.querySelector('.product-name');
-		const targetName = e.target.parentElement.parentElement.parentElement.querySelector('.product-name');
+		openModal.addEventListener('click', function(e){
+			const thisItem = x;
+			const thisItemName = x.parentElement.parentElement.querySelector('.product-name');
+			const targetName = e.target.parentElement.parentElement.parentElement.querySelector('.product-name');
 
-		if (thisItemName.textContent === targetName.textContent){
-			let sanitizedName = sanitize_text(targetName.textContent);
+			if (thisItemName.textContent === targetName.textContent){
+				let sanitizedName = sanitize_text(targetName.textContent);
+	
+				clickedObject = document.querySelector('.' + sanitizedName + '-image');
+				scrollAmount = findPos(clickedObject)[1];
+			}
 
-			clickedObject = document.querySelector('.' + sanitizedName + '-image');
-			scrollAmount = findPos(clickedObject)[1];
-		}
+			let currentSelect = thisItem.parentElement.parentElement.querySelector('.product-name').textContent;
+			let currentSelectDesc = thisItem.parentElement.parentElement.querySelector('.product-desc').innerHTML;
+			let currentSelectImage = thisItem.parentElement.parentElement.querySelector('.image img').src;
+			if (thisItem.parentElement.parentElement.querySelector('.box-price') != null){
+				currentSelectPrice = thisItem.parentElement.parentElement.querySelector('.box-price').textContent;
+			}
 
-		let currentSelect = thisItem.parentElement.parentElement.querySelector('.product-name').textContent;
-		let currentSelectDesc = thisItem.parentElement.parentElement.querySelector('.product-desc').innerHTML;
-		let currentSelectImage = thisItem.parentElement.parentElement.querySelector('.image img').src;
-		if (thisItem.parentElement.parentElement.querySelector('.box-price') != null){
-			currentSelectPrice = thisItem.parentElement.parentElement.querySelector('.box-price').textContent;
-		}
-
-		modal_open(currentSelect, currentSelectImage, currentSelectDesc, currentSelectPrice, scrollAmount);
+			modal_open(currentSelect, currentSelectImage, currentSelectDesc, currentSelectPrice, scrollAmount);
 
 		});
-	} 
+
+	});
+
 	closeModal.addEventListener("click", () => { modal_close() });
 }
 
@@ -283,20 +272,21 @@ function copy_order_form(){
     const label_schedule = schedule.previousElementSibling.textContent;
     const label_modeOfPayment = modeOfPayment.parentElement.previousElementSibling.textContent;
 
-    let order_products = products.querySelectorAll('.cart-item');
+    let order_products = [...products.querySelectorAll('.cart-item')];
     let products_final = "";
 
-    for (let i = 0; i < order_products.length; i++){
-    	let product_order_name = order_products[i].querySelector('.product').textContent;
-    	let product_order_quantity = order_products[i].querySelector('.quantity').textContent;
-    	let product_order_price = order_products[i].querySelector('.total-price').textContent;
+	order_products.map(x => {
+		let product_order_name = x.querySelector('.product').textContent;
+    	let product_order_quantity = x.querySelector('.quantity').textContent;
+    	let product_order_price = x.querySelector('.total-price').textContent;
     	let product_boxes = ' Box of 6';
 
     	if (product_order_name == 'Assorted'){
     		product_boxes = ' Box of 8';
     	}
+
     	products_final += product_order_quantity + 'x ' + product_order_name + ' ' + product_boxes + ' ' + product_order_price + ' PHP' + '\n';
-    }
+	});
 
     let totalCopy;
 
@@ -311,7 +301,7 @@ function copy_order_form(){
 		order += label_address + " \n" + address.value + '\n\n';
 		order += label_products + " \n" + products_final + '\n';
 		order += totalCopy + '\n\n';
-		order += label_schedule + " " + schedule.value + '\n';
+		order += label_schedule + '(Year/Month/Day)' + '\n' + schedule.value + '\n\n';
 		order += label_modeOfPayment + " " + modeOfPaymentChecked.value;
 
     let input = document.createElement("textarea");
@@ -319,8 +309,9 @@ function copy_order_form(){
     if(order){
     	input.value = strip_whitespaces(order);
 	    document.body.appendChild(input);
-	    input.value = input.value.replace("(i.e. 1 - Assorted Box of 6, etc..)", "");
-	    input.value = input.value.replace("(Please attach a google map link)", "");
+	    input.value = input.value.replace("(i.e. 1 - Assorted Box of 6, etc..)", "")
+								 .replace("(Please attach a google map link)", "")
+								 .replace("(BPI/BDO/GCash)", "").trim();
 	    input.select();
 	    document.execCommand("Copy");
 	    input.remove();
@@ -447,14 +438,15 @@ function store_to_cart(quantity, name, price){
 		if (sameName != name){
 			productQuantityElement.appendChild(productQuantityStore).classList.add('order-' + sanitizedName, 'cart-item');
 			productQuantityStore.appendChild(quantityStorage).classList.add('quantity');
-			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .quantity').textContent = quantity;
 			productQuantityStore.appendChild(productStorage).classList.add('product');
-			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .product').textContent = name;
 			productQuantityStore.appendChild(priceStorage).classList.add('price');
-			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .price').textContent = filter_price_from_string(price);
 			productQuantityStore.appendChild(totalPriceStorage).classList.add('total-price');
-			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .total-price').textContent = (parseInt(filter_price_from_string(price)) * parseInt(quantity));
 			productQuantityStore.appendChild(removeItem).classList.add('remove-item');
+
+			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .quantity').textContent = quantity;
+			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .product').textContent = name;
+			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .price').textContent = filter_price_from_string(price);
+			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .total-price').textContent = (parseInt(filter_price_from_string(price)) * parseInt(quantity));
 			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .remove-item').id = 'remove-item';
 			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .remove-item').textContent = '+';
 
@@ -468,40 +460,37 @@ function store_to_cart(quantity, name, price){
 }
 
 function already_added_to_cart(name){
-	let productCount = document.querySelectorAll('.order-product-quantity > div').length;
+	let productCount = [...document.querySelectorAll('.order-product-quantity > div')];
 	let added = false;
-	let sanitizedName = sanitize_text(name);
 	let product, productName;
 
-	for(let i=0; i < productCount; i++){
-		product = document.querySelectorAll('.order-product-quantity > div')[i];
-		
-		if (product.querySelector('.product') ){
-			productName = product.querySelector('.product').textContent;
-		}
-		else{
+	productCount.map(x => {
+		let product = x.querySelector('.product');
+
+		if ( product ) {
+			productName = product.textContent;
+		} else{
 			console.error('No product yet');
 		}
-		
+
 		let countProduct = 0;
 
 		if (productName == name){
 			countProduct += 1;
-			
+
 			if (countProduct > 0){
 				added = true;
-			}
-
-			else{
+			} else{
 				added = false;
 			}
 		}
-	}
+
+	});
+
 	return added;
 }
 
 function add_to_cart(quantity, name, price){
-
 	const productQuantity = document.querySelector('.order-product-quantity');
 	const noProducts = document.querySelector('.no-products-yet');
 	const added = document.querySelector('.added');
@@ -511,9 +500,9 @@ function add_to_cart(quantity, name, price){
 
 	if (windowWidth <= 768 && windowWidth > 600 ){
 		addButton.textContent = "Added!";
-	}
-
-	else{
+	} 	else if ( windowWidth <= 600 && windowWidth > 574 ){
+		addButton.textContent = "Added!";
+	} else{
 		addButton.textContent = "Added to Orders!";
 	}
 
@@ -527,19 +516,20 @@ function add_to_cart(quantity, name, price){
 	setTimeout( () => {
 		added.classList.remove('shown');
 		addButton.textContent = "Add to Order";
-	}, 1500);
+	}, 800);
 
 }
 
 function get_total_price(){
-	const priceStore = document.querySelectorAll('.order-product-quantity > div');
+	const priceStore = [...document.querySelectorAll('.order-product-quantity > div')];
 	let prices;
 	let sum = 0;
 
-	for (let i = 0; i < priceStore.length; i++){
-		prices = priceStore[i].querySelector('.total-price').textContent;
+	priceStore.map(x => {
+		prices = x.querySelector('.total-price').textContent;
 		sum += parseInt(prices);
-	}
+	})
+
 	return sum;
 }
 
@@ -576,7 +566,7 @@ function okay_device_notice(){
 function device_notice(){
 	let str, str2, chromeVersion, browser;
 	let desc = platform.description;
-	//let desc = "Microsoft Edge 46.04.4";
+	//desc = "Microsoft Edge 46.04.4";
 
 	if ( desc.includes('Mobile') ){
 		str = desc.substring(desc.indexOf("Chrome") + 16);
@@ -602,4 +592,7 @@ function device_notice(){
 	if ((browser == "Chrome" || "Edge") && chromeVersion < 87){
 		document.querySelector('.device-notice').classList.add('show');
 	}
+
+	const deviceNoticeOkay = document.querySelector('.device-notice .okay');
+	deviceNoticeOkay.addEventListener('click', okay_device_notice);
 }
