@@ -11,7 +11,7 @@ const cacheName = 'cache-v1';
 // 'https://res.cloudinary.com/robin-optimizations/image/upload/c_scale,q_80,w_672/v1623134569/BITE-SIZED_ue9ouf.webp',
 // 'https://res.cloudinary.com/robin-optimizations/image/upload/c_scale,q_80,w_672/v1623134568/COOKIE_CAKE_fitois.webp'];
 
-const precacheResources = ['index.html'];
+const precacheResources = ['/','index.html'];
 
 // When the service worker is installing, open the cache and add the precache resources to it
 self.addEventListener('install', (event) => {
