@@ -29,8 +29,8 @@ function import_service_worker(){
 }
 
 function startup(){
-	import_service_worker();
 	add_event_listeners();
+	import_service_worker();
 }
 
 document.addEventListener("DOMContentLoaded", startup);
