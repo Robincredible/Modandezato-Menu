@@ -340,7 +340,7 @@ img{
 }
 
 .modal-image-container img.deluxe-sampler-image:hover{
-	transform: scale(1.4) translateX(13%);
+	transform: scale(1.4);
 }
 
 .modal-image-container img.fudgy-brownie-cookies-image{
