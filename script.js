@@ -468,10 +468,12 @@ function store_to_cart(quantity, name, price){
 
 		if (sameName === name){
 			let newQuantity = parseInt(quantity) + sameNameQuantity;
-			let newPrice = parseFloat(filter_price_from_string(price)) + parseFloat(sameNamePrice * sameNameQuantity);
+			let newPrice = parseFloat(filter_price_from_string(price) * quantity) + parseFloat(sameNamePrice * sameNameQuantity);
+
+			console.log('sameNamePrice: ' + sameNamePrice + ' newPrice: ' + newPrice);
 
 			productQuantityElement.querySelector('.order-' + sanitizedName + ' .quantity').textContent = newQuantity;
-			productQuantityElement.querySelector('.order-' + sanitizedName + ' .total-price').textContent = newPrice + sameNamePrice;
+			productQuantityElement.querySelector('.order-' + sanitizedName + ' .total-price').textContent = newPrice;
 		}
 	}
 
