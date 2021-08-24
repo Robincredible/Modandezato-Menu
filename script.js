@@ -307,6 +307,10 @@ function copy_order_form(){
     		product_boxes = ' Box of 8';
     	}
 
+    	if (product_order_name.includes('Banana')){
+    		product_boxes = '8 x 4 Loaf';
+    	}
+
     	products_final += product_order_quantity + 'x ' + product_order_name + ' ' + product_boxes + ' ' + product_order_price + ' PHP' + '\n';
 	});
 
@@ -428,7 +432,22 @@ function float_circles(){
 	this.addEventListener("animationend", float_circles);
 }
 
+function product_size(name){
+	let boxSize;
+
+	if (name.includes('Assorted') || name.includes('assorted')){
+		boxSize = 'Box of 8';
+	} else if( name.includes('Banana') || name.includes('banana')){
+		boxSize = '8 x 4 Loaf';
+	} else {
+		boxSize = 'Box of 6';
+	}
+
+	return boxSize;
+}
+
 function store_to_cart(quantity, name, price){
+
 	const productQuantityElement = document.querySelector('.order-product-quantity');
 	const productQuantityStore = document.createElement('div');
 	const productStorage = document.createElement('div');
@@ -436,6 +455,7 @@ function store_to_cart(quantity, name, price){
 	const priceStorage = document.createElement('div');
 	const totalPriceStorage = document.createElement('div');
 	const removeItem = document.createElement('div');
+	const productSize = document.createElement('div');
 
 	let sameName, sameNameQuantity, sameNamePrice;
 	let added_already_bool = already_added_to_cart(name);
@@ -445,13 +465,13 @@ function store_to_cart(quantity, name, price){
 		sameName = productQuantityElement.querySelector('.order-' + sanitizedName + ' .product').textContent;
 		sameNameQuantity = parseFloat(productQuantityElement.querySelector('.order-' + sanitizedName + ' .quantity').textContent);
 		sameNamePrice = parseFloat(productQuantityElement.querySelector('.order-' + sanitizedName + ' .price').textContent);
-		
-		if (sameName == name){
+
+		if (sameName === name){
 			let newQuantity = parseInt(quantity) + sameNameQuantity;
 			let newPrice = parseFloat(filter_price_from_string(price)) + parseFloat(sameNamePrice * sameNameQuantity);
 
 			productQuantityElement.querySelector('.order-' + sanitizedName + ' .quantity').textContent = newQuantity;
-			productQuantityElement.querySelector('.order-' + sanitizedName + ' .total-price').textContent = newPrice;
+			productQuantityElement.querySelector('.order-' + sanitizedName + ' .total-price').textContent = newPrice + sameNamePrice;
 		}
 	}
 
@@ -461,12 +481,14 @@ function store_to_cart(quantity, name, price){
 			productQuantityElement.appendChild(productQuantityStore).classList.add('order-' + sanitizedName, 'cart-item');
 			productQuantityStore.appendChild(quantityStorage).classList.add('quantity');
 			productQuantityStore.appendChild(productStorage).classList.add('product');
+			productQuantityStore.appendChild(productSize).classList.add('product-size');
 			productQuantityStore.appendChild(priceStorage).classList.add('price');
 			productQuantityStore.appendChild(totalPriceStorage).classList.add('total-price');
 			productQuantityStore.appendChild(removeItem).classList.add('remove-item');
 
 			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .quantity').textContent = quantity;
 			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .product').textContent = name;
+			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .product-size').textContent = product_size(name);
 			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .price').textContent = filter_price_from_string(price);
 			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .total-price').textContent = (parseInt(filter_price_from_string(price)) * parseInt(quantity));
 			document.querySelector('.order-product-quantity .order-' + sanitizedName + ' .remove-item').id = 'remove-item';

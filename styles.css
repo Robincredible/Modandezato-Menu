@@ -1404,17 +1404,17 @@ input[type=number]::-webkit-inner-spin-button {
 	content: " PHP";
 }
 
-.cart-item:not(.order-assorted) .product:after{
+/*.cart-item:not(.order-assorted) .product:after{
 	content: "- Box of 6";
 	margin-left: 5px;
 	display: inline-block;
-}
+}*/
 
-.cart-item.order-assorted .product:after{
+/*.cart-item.order-assorted .product:after{
 	content: "- Box of 8";
 	margin-left: 5px;
 	display: inline-block;
-}
+}*/
 
 .cart-item > div{
 	margin: 0px 5px;
