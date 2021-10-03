@@ -46,6 +46,13 @@
 	
 	<div class="container">
 
+		<a href="#product-quantity">
+			<div class="cart-indicator">
+				<div class="quantity-indicator">0</div>
+				<img class="cart-indicator-image" src="images/cart-icon.png"/>
+			</div>
+		</a>
+
 		<div class="circles-container">
 			<div class="circle pink">
 				<div class="circle-inner"></div>
@@ -398,7 +405,7 @@
 							<label for="order-address">Address:</label>
 							<textarea id="order-address" name="order-address" type="text"></textarea>
 						</div>
-						<div class="product-quantity">
+						<div class="product-quantity" id="product-quantity">
 							<label class="with-numbers">Product and Quantity:</label>
 							<!-- <textarea readonly resize="none" id="order-product-quantity" name="order-product-quantity" row="1"></textarea> -->
 							<div id="order-product-quantity" name="order-product-quantity" class="order-product-quantity">

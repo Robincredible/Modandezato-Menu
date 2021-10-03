@@ -45,6 +45,9 @@ function add_event_listeners(){
 	document.addEventListener('scroll', tap_here_remove);
 	document.addEventListener('click', tap_here_remove);
 
+	const cartIndicator = document.querySelector('.cart-indicator');
+	cartIndicator.addEventListener('click', modal_close);
+
 	const noProducts = document.querySelector('.add-a-product');
 	noProducts.addEventListener('click', no_items_add_a_product);
 
@@ -536,6 +539,18 @@ function already_added_to_cart(name){
 	return added;
 }
 
+function cart_indicator(bool){
+	const cartIndicator = document.querySelector('.cart-indicator');
+
+	if (bool == true){
+		cartIndicator.classList.add('active');
+	}
+
+	else{
+		cartIndicator.classList.remove('active');
+	}
+}
+
 function add_to_cart(quantity, name, price){
 	const productQuantity = document.querySelector('.order-product-quantity');
 	const noProducts = document.querySelector('.no-products-yet');
@@ -558,12 +573,80 @@ function add_to_cart(quantity, name, price){
 	noProducts.classList.add('hide');
 
 	display_total_price(get_total_price());
+	display_total_quantity(get_total_quantity());
 
 	setTimeout( () => {
 		added.classList.remove('shown');
 		addButton.textContent = "Add to Order";
 	}, 800);
 
+	cart_indicator(true);
+
+}
+
+function remove_from_cart(name){
+	const product = document.querySelector('.order-product-quantity');
+	const quantityIndicator = document.querySelector('.quantity-indicator');
+
+	let sanitizedName = sanitize_text(name);
+	let priceToBeSubtracted = parseFloat(product.querySelector('.order-' + sanitizedName + ' .total-price').textContent);
+	let quantityToBeSubtracted = parseFloat(product.querySelector('.order-' + sanitizedName + ' .quantity').textContent);
+
+	product.querySelector('.order-' + sanitizedName).remove();
+
+	//let quantity = parseFloat(document.querySelector('.quantity').textContent);
+	let quantityIndicatorTotal = quantityIndicator.textContent;
+	let newQuantityTotal = quantityIndicatorTotal - quantityToBeSubtracted;
+
+	display_total_quantity(parseFloat(newQuantityTotal));
+
+	document.querySelector('.quantity-indicator').textContent = newQuantityTotal;
+
+	let totalPrice = parseFloat(document.querySelector('.total-price-display').textContent);
+	let newTotalPrice = totalPrice - priceToBeSubtracted;
+
+	document.querySelector('.total-price-display').textContent = newTotalPrice;
+
+	if (newTotalPrice == 0){
+		document.querySelector('.no-products-yet').classList.remove('hide');
+		document.querySelector('.total-price-container').classList.remove('show');
+		document.querySelector('.quantity-indicator').textContent = 0;
+		cart_indicator(false);
+	}
+}
+
+function display_total_quantity(quantity){
+	const quantityIndicatorElement = document.querySelector('.quantity-indicator');
+
+	if (quantity >= 10 && quantity <= 99){
+		quantityIndicatorElement.classList.add('double-digits');
+		quantityIndicatorElement.textContent = quantity;
+	}
+
+	else if(quantity >= 100){
+		quantityIndicatorElement.classList.remove('double-digits');
+		quantityIndicatorElement.classList.add('triple-digits');
+		quantityIndicatorElement.textContent = parseFloat(99) + '+';
+	}
+
+	else{
+		quantityIndicatorElement.classList.remove('double-digits');
+		quantityIndicatorElement.classList.remove('triple-digits');
+		quantityIndicatorElement.textContent = quantity;
+	}
+}
+
+function get_total_quantity(){
+	const quantityStore = [...document.querySelectorAll('.order-product-quantity > div')];
+	let quantities;
+	let sum = 0;
+
+	quantityStore.map(x => {
+		quantities = x.querySelector('.quantity').textContent;
+		sum += parseInt(quantities);
+	})
+
+	return sum;
 }
 
 function get_total_price(){
@@ -577,24 +660,6 @@ function get_total_price(){
 	})
 
 	return sum;
-}
-
-function remove_from_cart(name){
-	const product = document.querySelector('.order-product-quantity');
-	let sanitizedName = sanitize_text(name);
-	let priceToBeSubtracted = parseFloat(product.querySelector('.order-' + sanitizedName + ' .total-price').textContent);
-
-	product.querySelector('.order-' + sanitizedName).remove();
-
-	let totalPrice = parseFloat(document.querySelector('.total-price-display').textContent);
-	let newTotalPrice = totalPrice - priceToBeSubtracted;
-
-	document.querySelector('.total-price-display').textContent = newTotalPrice;
-
-	if (newTotalPrice == 0){
-		document.querySelector('.no-products-yet').classList.remove('hide');
-		document.querySelector('.total-price-container').classList.remove('show');
-	}
 }
 
 function display_total_price(price){
