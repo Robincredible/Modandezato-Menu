@@ -586,7 +586,7 @@ function add_to_cart(quantity, name, price){
 
 function remove_from_cart(name){
 	const product = document.querySelector('.order-product-quantity');
-	const quantityIndicator = document.querySelector('.quantity-indicator');
+	const actualQuantity = document.querySelector('.actual-quantity');
 
 	let sanitizedName = sanitize_text(name);
 	let priceToBeSubtracted = parseFloat(product.querySelector('.order-' + sanitizedName + ' .total-price').textContent);
@@ -595,12 +595,13 @@ function remove_from_cart(name){
 	product.querySelector('.order-' + sanitizedName).remove();
 
 	//let quantity = parseFloat(document.querySelector('.quantity').textContent);
-	let quantityIndicatorTotal = quantityIndicator.textContent;
-	let newQuantityTotal = quantityIndicatorTotal - quantityToBeSubtracted;
+	let actualQuantityTotal = actualQuantity.textContent;
+	let newQuantityTotal = actualQuantityTotal - quantityToBeSubtracted;
 
 	display_total_quantity(parseFloat(newQuantityTotal));
 
-	document.querySelector('.quantity-indicator').textContent = newQuantityTotal;
+	// document.querySelector('.quantity-indicator').textContent = "";
+	// document.querySelector('.quantity-indicator').textContent = parseFloat(newQuantityTotal);
 
 	let totalPrice = parseFloat(document.querySelector('.total-price-display').textContent);
 	let newTotalPrice = totalPrice - priceToBeSubtracted;
@@ -616,22 +617,28 @@ function remove_from_cart(name){
 }
 
 function display_total_quantity(quantity){
+	console.log(quantity);
 	const quantityIndicatorElement = document.querySelector('.quantity-indicator');
+	const actualQuantity = document.querySelector('.actual-quantity');
 
 	if (quantity >= 10 && quantity <= 99){
+		quantityIndicatorElement.classList.remove('triple-digits');
 		quantityIndicatorElement.classList.add('double-digits');
+		actualQuantity.textContent = parseFloat(quantity);
 		quantityIndicatorElement.textContent = quantity;
 	}
 
 	else if(quantity >= 100){
 		quantityIndicatorElement.classList.remove('double-digits');
 		quantityIndicatorElement.classList.add('triple-digits');
-		quantityIndicatorElement.textContent = parseFloat(99) + '+';
+		actualQuantity.textContent = parseFloat(quantity);
+		quantityIndicatorElement.textContent = parseFloat(99);
 	}
 
 	else{
 		quantityIndicatorElement.classList.remove('double-digits');
 		quantityIndicatorElement.classList.remove('triple-digits');
+		actualQuantity.textContent = parseFloat(quantity);
 		quantityIndicatorElement.textContent = quantity;
 	}
 }
