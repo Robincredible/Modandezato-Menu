@@ -41,12 +41,12 @@
  	border-radius: 100%;
  	height: auto;
  	width: 5px;
- 	padding: 4px 12px 3px 9px;
+ 	padding: 4px 13px 3px 9px;
  	text-align: center;
  }
 
  .quantity-indicator.double-digits{
- 	padding: 5px 19px 3px 5px;
+ 	padding: 5px 19px 4px 5px;
   top: -22px;
  }
 
