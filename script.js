@@ -102,6 +102,7 @@ function add_event_listeners(){
 function on_hash_clear(){
 	const productQuantity = document.querySelector('#product-quantity');
 	window.scrollTo(0, findPos(productQuantity)[1]);
+	history.pushState("", document.title, window.location.pathname + window.location.search);
 }
 
 function remove_anchor(){
