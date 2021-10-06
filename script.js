@@ -101,13 +101,12 @@ function add_event_listeners(){
 
 function on_hash_clear(){
 	const productQuantity = document.querySelector('#product-quantity');
-	console.log(findPos(productQuantity)[1]);
 	window.scrollTo(0, findPos(productQuantity)[1]);
 }
 
 function remove_anchor(){
-	let hash = location.hash.replace('#', '')
 	setTimeout( function(){
+		location.hash.replace('#', '');
 		location.hash = "";
 		window.addEventListener('hashchange', on_hash_clear);
 	}, 1);
