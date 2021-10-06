@@ -46,7 +46,10 @@ function add_event_listeners(){
 	document.addEventListener('click', tap_here_remove);
 
 	const cartIndicator = document.querySelector('.cart-indicator');
-	cartIndicator.addEventListener('click', modal_close);
+	cartIndicator.addEventListener('click', () => {
+		modal_close();
+		remove_anchor();
+	});
 
 	const noProducts = document.querySelector('.add-a-product');
 	noProducts.addEventListener('click', no_items_add_a_product);
@@ -94,6 +97,20 @@ function add_event_listeners(){
 
 	modal();
 
+}
+
+function on_hash_clear(){
+	const productQuantity = document.querySelector('#product-quantity');
+	console.log(findPos(productQuantity)[1]);
+	window.scrollTo(0, findPos(productQuantity)[1]);
+}
+
+function remove_anchor(){
+	let hash = location.hash.replace('#', '')
+	setTimeout( function(){
+		location.hash = "";
+		window.addEventListener('hashchange', on_hash_clear);
+	}, 1);
 }
 
 function collections_change(text){
