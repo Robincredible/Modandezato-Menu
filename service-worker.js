@@ -13,6 +13,8 @@ const precacheResources = [ './', './index', './styles.css', './script.js',
 
 //const precacheResources = ['/','index.html'];
 
+skipWaiting();
+
 // When the service worker is installing, open the cache and add the precache resources to it
 self.addEventListener('install', (event) => {
   //console.log('Service worker install event!');
@@ -26,10 +28,6 @@ self.addEventListener('activate', (event) => {
 // When there's an incoming fetch request, try and respond with a precached resource, otherwise fall back to the network
 self.addEventListener('fetch', (event) => {
   //console.log('Fetch intercepted for:', event.request.url);
-  let message = JSON.parse(event.data);
-  let lastETag = localStorage.currentETag;
-  console.log(lastETag, message, message.eTag, event.request);
-
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
