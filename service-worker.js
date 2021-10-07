@@ -25,27 +25,36 @@ self.addEventListener('activate', (event) => {
 
 //When there's an incoming fetch request, try and respond with a precached resource, otherwise fall back to the network
 self.addEventListener('fetch', (event) => {
-   event.respondWith((async () => {
-    if (event.request.mode === "navigate" &&
-      event.request.method === "GET" &&
-      registration.waiting &&
-      (await clients.matchAll()).length < 2
-    ) {
-      registration.waiting.postMessage('skipWaiting');
-      return new Response("", {headers: {"Refresh": "0"}});
-    }
-    return await caches.match(event.request) ||
-      fetch(event.request);
-  })());
+  //  event.respondWith((async () => {
+  //   if (event.request.mode === "navigate" &&
+  //     event.request.method === "GET" &&
+  //     registration.waiting &&
+  //     (await clients.matchAll()).length < 2
+  //   ) {
+  //     registration.waiting.postMessage('skipWaiting');
+  //     return new Response("", {headers: {"Refresh": "0"}});
+  //   }
+  //   return await caches.match(event.request) ||
+  //     fetch(event.request);
+  // })());
 
-  // event.respondWith(
-  //   caches.match(event.request).then((cachedResponse) => {
-  //     if (cachedResponse) {
-  //       return cachedResponse;
-  //     }
-  //     return fetch(event.request);
-  //   }),
-  // );
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      try{
+        return await fetch(event.request);
+      }
+
+      catch(err){
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+      }
+      // if (cachedResponse) {
+      //   return cachedResponse;
+      // }
+      // return fetch(event.request);
+    }),
+  );
 });
 
 // addEventListener('fetch', event => {
