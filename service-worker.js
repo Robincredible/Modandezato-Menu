@@ -43,7 +43,7 @@ self.addEventListener('fetch', (event) => {
         return new Response("", {headers: {"Refresh": "0"}} );
       }
       return await caches.match(event.request) || fetch(event.request);
-    })()
+    })
   );
 });
 
