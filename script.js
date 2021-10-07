@@ -21,9 +21,6 @@ function import_service_worker(){
 		try {
 		const reg = await navigator.serviceWorker.register(swURL);
 		//console.log('Service worker registered!', reg);
-		} catch (err) {
-		console.log('Service worker registration failed: ', err);
-		}
 
 		//method 3
 		addEventListener('message', messageEvent => {
@@ -59,6 +56,10 @@ function import_service_worker(){
 		  }
 		}
 		listenForWaitingServiceWorker(reg, promptUserToRefresh);
+		
+		} catch (err) {
+		console.log('Service worker registration failed: ', err);
+		}
 	});
 	}
 
