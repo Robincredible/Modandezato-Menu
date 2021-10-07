@@ -15,6 +15,42 @@ function import_service_worker(){
 	// Register the service worker
 	if ('serviceWorker' in navigator) {
 	// Wait for the 'load' event to not block other work
+
+	//method 3
+	addEventListener('message', messageEvent => {
+	  if (messageEvent.data === 'skipWaiting') return skipWaiting();
+	});
+
+	function listenForWaitingServiceWorker(reg, callback) {
+	  function awaitStateChange() {
+	    reg.installing.addEventListener('statechange', function() {
+	      if (this.state === 'installed') callback(reg);
+	    });
+	  }
+	  if (!reg) return;
+	  if (reg.waiting) return callback(reg);
+	  if (reg.installing) awaitStateChange();
+	  reg.addEventListener('updatefound', awaitStateChange);
+	}
+
+	// reload once when the new Service Worker starts activating
+	var refreshing;
+	navigator.serviceWorker.addEventListener('controllerchange',
+	  function() {
+	    if (refreshing) return;
+	    refreshing = true;
+	    window.location.reload();
+	  }
+	);
+	function promptUserToRefresh(reg) {
+	  // this is just an example
+	  // don't use window.confirm in real life; it's terrible
+	  if (window.confirm("New version available! OK to refresh?")) {
+	    reg.waiting.postMessage('skipWaiting');
+	  }
+	}
+	listenForWaitingServiceWorker(reg, promptUserToRefresh);
+
 	window.addEventListener('load', async () => {
 		// Try to register the service worker.
 		try {
