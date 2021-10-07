@@ -56,7 +56,22 @@ function import_service_worker(){
 		  }
 		}
 		listenForWaitingServiceWorker(reg, promptUserToRefresh);
-		
+
+		addEventListener('fetch', event => {
+		  event.respondWith((async () => {
+		    if (event.request.mode === "navigate" &&
+		      event.request.method === "GET" &&
+		      registration.waiting &&
+		      (await clients.matchAll()).length < 2
+		    ) {
+		      registration.waiting.postMessage('skipWaiting');
+		      return new Response("", {headers: {"Refresh": "0"}});
+		    }
+		    return await caches.match(event.request) ||
+		      fetch(event.request);
+		  })());
+		});
+
 		} catch (err) {
 		console.log('Service worker registration failed: ', err);
 		}
