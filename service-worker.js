@@ -24,6 +24,15 @@ self.addEventListener('activate', (event) => {
   //console.log('Service worker activate event!');
 });
 
+let refreshing;
+navigator.serviceWorker.addEventListener('controllerchange',
+  function() {
+    if (refreshing) return;
+    refreshing = true;
+    window.location.reload();
+  }
+);
+
 // When there's an incoming fetch request, try and respond with a precached resource, otherwise fall back to the network
 self.addEventListener('fetch', (event) => {
   event.respondWith(
