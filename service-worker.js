@@ -1,5 +1,5 @@
 // Choose a cache name
-const cacheName = 'cache-v3';
+const cacheName = 'cache-v4';
 // List the files to precache
 const precacheResources = [ './', './index', './styles.css', './script.js',
 'https://res.cloudinary.com/robin-optimizations/image/upload/c_fill,h_896,w_672/v1623309591/REESES_x14qbz.webp',
