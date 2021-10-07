@@ -23,6 +23,30 @@ self.addEventListener('activate', (event) => {
   //console.log('Service worker activate event!');
 });
 
+// When there's an incoming fetch request, try and respond with a precached resource, otherwise fall back to the network
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    // caches.match(event.request).then((cachedResponse) => {
+    //   if (cachedResponse) {
+    //     return cachedResponse;
+    //   }
+    //   return fetch(event.request);
+    // }),
+
+    //method 4
+    (async () => {
+      if (event.request.mode === 'navigate' 
+      && event.request.method === 'GET' 
+      && registration.waiting 
+      && (await clients.matchAll()).length < 2){
+        registration.waiting.postMessage('skipWaiting');
+        return new Response("", {headers: {"Refresh": "0"}} );
+      }
+      return await caches.match(event.request) || fetch(event.request);
+    })()
+  );
+});
+
 //method 3
 addEventListener('message', messageEvent => {
   if (messageEvent.data === 'skipWaiting') return skipWaiting();
@@ -57,27 +81,3 @@ function promptUserToRefresh(reg) {
   }
 }
 listenForWaitingServiceWorker(reg, promptUserToRefresh);
-
-// When there's an incoming fetch request, try and respond with a precached resource, otherwise fall back to the network
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    // caches.match(event.request).then((cachedResponse) => {
-    //   if (cachedResponse) {
-    //     return cachedResponse;
-    //   }
-    //   return fetch(event.request);
-    // }),
-    
-    //method 4
-    (async () => {
-      if (event.request.mode === 'navigate' 
-      && event.request.method === 'GET' 
-      && registration.waiting 
-      && (await clients.matchAll()).length < 2){
-        registration.waiting.postMessage('skipWaiting');
-        return new Response("", {headers: {"Refresh": "0"}} );
-      }
-      return await caches.match(event.request) || fetch(event.request);
-    }) ()
-  );
-});
