@@ -33,19 +33,22 @@ self.addEventListener('fetch', (event) => {
       }
       return fetch(event.request);
     }),
-
-    //method 4
-    // (async () => {
-    //   if (event.request.mode === 'navigate' 
-    //   && event.request.method === 'GET' 
-    //   && registration.waiting 
-    //   && (await clients.matchAll()).length < 2){
-    //     registration.waiting.postMessage('skipWaiting');
-    //     return new Response("", {headers: {"Refresh": "0"}} );
-    //   }
-    //   return await caches.match(event.request) || fetch(event.request);
-    // })
   );
+});
+
+addEventListener('fetch', event => {
+  event.respondWith((async () => {
+    if (event.request.mode === "navigate" &&
+      event.request.method === "GET" &&
+      registration.waiting &&
+      (await clients.matchAll()).length < 2
+    ) {
+      registration.waiting.postMessage('skipWaiting');
+      return new Response("", {headers: {"Refresh": "0"}});
+    }
+    return await caches.match(event.request) ||
+      fetch(event.request);
+  })());
 });
 
 //method 3
