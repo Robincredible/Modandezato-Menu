@@ -27,6 +27,7 @@ self.addEventListener('activate', (event) => {
 // When there's an incoming fetch request, try and respond with a precached resource, otherwise fall back to the network
 self.addEventListener('fetch', (event) => {
   //console.log('Fetch intercepted for:', event.request.url);
+  self.skipWaiting();
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
