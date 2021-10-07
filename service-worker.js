@@ -23,7 +23,7 @@ self.addEventListener('activate', (event) => {
   //console.log('Service worker activate event!');
 });
 
-When there's an incoming fetch request, try and respond with a precached resource, otherwise fall back to the network
+//When there's an incoming fetch request, try and respond with a precached resource, otherwise fall back to the network
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
