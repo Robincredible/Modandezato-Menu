@@ -227,7 +227,7 @@ function visible_overflow(){
 	const html = document.body.parentElement;
 
 	html.style.overflowY = 'visible';
-	body.style.overflowY = 'visible';
+	body.style.overflowY = 'hidden';
 }
 
 function findPos(obj) {
