@@ -1,5 +1,7 @@
 <img height=80px width=80px src="https://raw.githubusercontent.com/Modandezato/Modandezato-Menu/main/images/logo.png" />
 
+Check out the live site hosted in our main account! [Modandezato Menu](https://modandezato.github.io/Modandezato-Menu/)
+
 # Modandezato Menu
 A backend-less interactive mini site, showcasing our products! A fun way to look at this site, quoting from the [Chromium Web Development Style Guide](https://chromium.googlesource.com/chromium/src/+/ec3092c8d21e20e39698f5272c8a7f71c3ee88a2/styleguide/web/web.md), is to
 see the `HTML as the Model`, `CSS as the View`, and `Javascript as the Control`, which is how we did the *Add to Order form* functionality.
